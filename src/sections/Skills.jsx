@@ -1,21 +1,24 @@
-import React from 'react'
-import Button from '../components/Button'
+import React from "react";
+import { skills } from "../constants";
 
 const Skills = () => {
   return (
-    <section className='max-conteiner flex justify-center items-center max-lg:flex-col gap-10' id='contact-us'>
-      <h3 className='text-4xl leading-[68px] lg:max-w-md font-palanquin font-bold'>Sign Up For
-      <span className='text-coral-red'> Updates </span> & Newletter
-      </h3>
-      <div className='lg:max-w-[40%] w-full flex items-center max-sm:flex-col gap-5 p-2.5 sm:border sm:border-slate-gray rounded-full'>
-        <input type="text" placeholder='Subscribe@Nike.com' className='input' />
-        <div className='flex max-sm: justify-end items-center max-sm:w-full'>
-          <Button label="Sign Up" fullWidth  />
-          </div>
+    <section
+      className="max-container flex justify-center items-center max-lg:flex-col gap-10"
+      id="skills"
+      aria-label="Skills section"
+    >
+      <div className="relative overflow-hidden whitespace-nowrap">
+        <div className="flex animate-scroll">
+          {[...skills, ...skills].map((skill, i) => (
+            <span key={`${skill}-${i}`} className="info-text inline-block mx-4">
+              {skill}
+            </span>
+          ))}
+        </div>
       </div>
-
     </section>
-  )
-}
+  );
+};
 
-export default Skills
+export default Skills;

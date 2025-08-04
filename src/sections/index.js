@@ -1,31 +1,22 @@
-import PopularProducts from "./PopularProducts";
-import SuperQuality from "./SuperQuality";
-import Hero from "./Hero";
+import Projects from "./Projects";
 import Services from "./Services";
-import SpecialOffer from "./SpecialOffer";
-import CustomerReviews from "./CustomerReviews";
-import Subscribe from "./Subscribe";
+import Testimonials from "./Testimonials";
 import Footer from "./Footer";
-import Aboutme from "./Aboutme";
+import AboutMe from "./AboutMe";
 import CV from "./CV";
-import Education from "./Education";
+import EducExper from "./EducExper";
 import Skills from "./Skills";
-import Experience from "./Experience";
 
 
 
 export {
-    PopularProducts,
-    SuperQuality,
+    AboutMe,
+    Projects,
+    EducExper,
     Services,
-    Hero,
-    SpecialOffer,
-    CustomerReviews,
-    Subscribe,
+    Testimonials,
     Footer,
-    Aboutme,
     CV,
-    Education,
     Skills,
-    Experience
+    
 }

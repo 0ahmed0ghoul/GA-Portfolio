@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { shoe1 } from "../assets/images";
 
-const PopularProducts = () => {
+const Projects = () => {
   const [bigShoeImg, setBigShoeImg] = useState(shoe1);
   const [bigProjectInfo, setbigProjectInfo] = useState([
     shoes[0].name,
@@ -14,7 +14,7 @@ const PopularProducts = () => {
   ]);
 
   return (
-    <section id="products" className="max-container max-sm:mt-12">
+    <section id="projects" className="max-container max-sm:mt-12">
       <div className="flex flex-col items-center justify-center gap-5">
         <div>
           <h2 className="text-4xl font-palanquin font-bold text-center ">
@@ -98,4 +98,4 @@ const PopularProducts = () => {
   );
 };
 
-export default PopularProducts;
+export default Projects;

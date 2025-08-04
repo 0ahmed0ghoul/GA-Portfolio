@@ -26,6 +26,8 @@ import samir from './samirHallaci.jfif'
 import rayane from './rayaneMerchichi.jfif'
 import guelma from './logo-univ-guelma.png'
 import sonatrach from './sonatrach.jfif'
+import cv from './cv.jpg';
+
 
 export {
     bigShoe1,
@@ -52,5 +54,6 @@ export {
     samir,
     rayane,
     guelma,
-    sonatrach
+    sonatrach,
+    cv
 }

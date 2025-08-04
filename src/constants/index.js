@@ -2,10 +2,11 @@ import { facebook, github, instagram, linkedin, shieldTick, support, tech, truck
 import {customer1, customer2, shoe4, shoe5, shoe6, shoe7, shoe1, shoe2, shoe3, samir, rayane, guelma, sonatrach } from "../assets/images";
 
 export const navLinks = [
-    { href: "#home", label: "About Me" },
+    { href: "#about_me", label: "About Me" },
     { href: "#projects", label: "Projects" },
+    { href: "#services", label: "Services" },
     { href: "#education&experience", label: "Education & Experience" },
-    { href: "#skills&languages", label: "Skills & Languages" },
+    { href: "#testimonials", label: "Testimonials" },
     { href: "#cv", label: "CV" },
     { href: "#contactme", label: "Contact Me" },
 
@@ -95,6 +96,7 @@ export const languages =[
         score : 10
     }
 ]
+export const skills =['Self-Motivation','Problem-Solving','Analytical Thinking','Clear communicator','Creativity','User-centered','Lifelong learner','Organized']
 
 export const reviews = [
     {
@@ -109,7 +111,7 @@ export const reviews = [
         imgURL: rayane,
         personName: 'Mr. Merchichi Rayane',
         personPrefession: 'Software research and development engineer at Sonatrach',
-        feedback: "",
+        feedback: "I had the pleasure of teaching Ahmed Ghoul in the Data Structures and Algorithms course, and later supervising him during his internship. From the classroom to the professional setting, Ahmed has consistently shown remarkable dedication, a strong grasp of core computer science principles, and a genuine passion for learning. He approaches challenges with persistence and maturity, and his growth throughout the internship was impressive. I'm proud of his progress and confident he has a promising future ahead.",
         linkedin: 'https://www.linkedin.com/in/rayan-mohamed-merchichi-724426168/',
         logo:sonatrach
 

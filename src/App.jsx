@@ -1,13 +1,14 @@
 import { Nav } from "./components";
 import {
-  CustomerReviews,
-  Footer,
-  Hero,
-  PopularProducts,
+  AboutMe,
+  Projects,
   Services,
-  SpecialOffer,
-  Subscribe,
-  SuperQuality,
+  EducExper,
+  Testimonials,
+  Skills,
+  Footer,
+  CV,
+
 } from "./sections";
 
 const App = () => {
@@ -15,22 +16,25 @@ const App = () => {
     <main className='relative'>
       <Nav />
       <section className='xl:padding-l wide:padding-r padding-b'>
-        <Hero />
+        <AboutMe />
       </section>
-      <section className='padding'>
-        <PopularProducts />
+      <section className=''>
+        <Projects />
       </section>
       <section className='padding-x py-10'>
         <Services />
       </section>
       <section className='padding'>
-        <SpecialOffer />
+        <EducExper />
       </section>
-      <section className='bg-pale-blue padding'>
-        <CustomerReviews />
+      <section className='bg-pale-blue '>
+        <Testimonials />
       </section>
-      <section className='padding-x sm:py-32 py-16 w-full'>
-        <Subscribe />
+      <section className='padding-x py-3'>
+        <Skills />
+      </section>
+      <section className=''>
+        <CV />
       </section>
       <section className=' bg-black padding-x padding-t pb-8'>
         <Footer />

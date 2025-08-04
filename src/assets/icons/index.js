@@ -36,6 +36,6 @@ export {
     github,
     education,
     experience,
-    down
+    down,
 
 }

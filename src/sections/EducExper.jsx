@@ -1,11 +1,10 @@
 import { arrowRight, education, experience } from "../assets/icons";
-import { offer } from "../assets/images";
 import { Button } from "../components";
 
-const SpecialOffer = () => {
+const EducExper = () => {
   return (
-    <section className="">
-       <h2 className='font-palanquin capitalize text-4xl  font-bold mb-10'>
+    <section id="education&experience">
+       <h2 className='font-palanquin capitalize text-4xl  font-bold mb-10 pt-16'>
           
           <span className='text-coral-red'> Education </span>&
           <span className='text-coral-red'> Experience </span>
@@ -75,4 +74,4 @@ const SpecialOffer = () => {
   );
 };
 
-export default SpecialOffer;
+export default EducExper;

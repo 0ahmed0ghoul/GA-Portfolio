@@ -3,8 +3,8 @@ import { ServiceCard } from "../components";
 
 const Services = () => {
   return (
-    <section className='max-container'>
-      <h2 className='font-palanquin capitalize text-4xl lg:max-w-lg font-bold mb-10'>
+    <section className='max-container ' id="services">
+      <h2 className='font-palanquin capitalize text-4xl lg:max-w-lg font-bold mb-10 pt-16'>
           I Provide You
           <span className='text-coral-red'> Super </span>
           <span className='text-coral-red'>Quality </span> services
