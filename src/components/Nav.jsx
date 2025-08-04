@@ -24,8 +24,8 @@ const Nav = () => {
             alt="logo"
             width={29}
             height={29}
-            className="mx-10 w-[49px] h-[49px]"
-          />
+            className="mx-10 w-[49px] h-[49px] bg-black rounded-full border-2 border-black animate-spin "
+            />
         </a>
 
         <div className="hidden max-lg:block">

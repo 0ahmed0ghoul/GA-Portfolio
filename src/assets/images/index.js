@@ -26,6 +26,12 @@ import samir from './samirHallaci.jfif'
 import rayane from './rayaneMerchichi.jfif'
 import guelma from './logo-univ-guelma.png'
 import sonatrach from './sonatrach.jfif'
+import conference from './conference.JPG'
+import classroom from './classroom.JPG'
+import algc from './algc.JPG'
+import LANmonitoring from './LANmonitoring.JPG'
+import nike from './nike.JPG'
+import face from './face.JPG'
 import cv from './cv.jpg';
 
 
@@ -55,5 +61,11 @@ export {
     rayane,
     guelma,
     sonatrach,
-    cv
+    cv,
+    conference,
+    classroom,
+    LANmonitoring,
+    algc,
+    nike,
+    face
 }

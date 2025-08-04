@@ -1,32 +1,109 @@
-const ShoeCard = ({ imgURL, changeBigShoeImage, changeBigProjectInfo,bigShoeImg,bigProjectInfo}) => {
+import { motion } from "framer-motion";
+
+const ShoeCard = ({
+  project,
+  changeBigProjectImage,
+  changeBigProjectInfo,
+  bigShoeImg,
+  bigProjectInfo,
+  i,
+}) => {
   const handleClick = () => {
-    if (bigShoeImg !== imgURL.imgURL) {
-      changeBigShoeImage(imgURL.imgURL);
+    if (bigShoeImg !== project.imgURL) {
+      changeBigProjectImage(project.imgURL);
     }
-    if (bigProjectInfo[0] !== imgURL.name || bigProjectInfo[1] !== imgURL.Date) {
-      console.log(imgURL.link);
-      changeBigProjectInfo([imgURL.name , imgURL.Date,imgURL.techs, imgURL.link]);
+
+    if (
+      bigProjectInfo[0] !== project.name ||
+      bigProjectInfo[1] !== project.Date
+    ) {
+      changeBigProjectInfo([
+        project.name,
+        project.Date,
+        project.techs,
+        project.link,
+        project.desc
+      ]);
     }
   };
 
+  const isActive = bigShoeImg === project.imgURL;
+
   return (
-    <div
-      className={`border-2 rounded-xl ${
-        bigShoeImg === imgURL.imgURL
-          ? "border-coral-red"
-          : "border-transparent"
-      } cursor-pointer max-sm:flex-1`}
+    <motion.div
+      className={`relative rounded-xl overflow-hidden ${
+        isActive ? "ring-4 ring-coral-red" : "ring-2 ring-transparent"
+      } cursor-pointer shadow-lg`}
       onClick={handleClick}
+      whileHover={{ 
+        y: -8,
+        scale: 1.03,
+        transition: { duration: 0.2 }
+      }}
+      whileTap={{ scale: 0.95 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ 
+        opacity: 1, 
+        y: 0,
+        transition: { delay: i * 0.1 }
+      }}
     >
-      
-      <div className='flex justify-center items-center  bg-center bg-cover sm:w-full sm:h-full rounded-xl max-sm:p-4'>
-        <img
-          src={imgURL.imgURL}
-          alt='shoe colletion'
-          className='w-full h-full '
+      {/* Image Container */}
+      <div className="relative w-full h-full aspect-square">
+        {/* Main Image */}
+        <motion.img
+          src={project.imgURL}
+          alt="project thumbnail"
+          className="w-full h-full object-cover"
+          initial={{ opacity: 0.9 }}
+          animate={{ 
+            opacity: isActive ? 1 : 0.7,
+            transition: { duration: 0.3 }
+          }}
         />
+
+        {/* Overlay */}
+        <motion.div 
+          className="absolute inset-0 flex items-center justify-center"
+          initial={{ backgroundColor: "rgba(0,0,0,0.7)" }}
+          animate={{
+            backgroundColor: isActive ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.7)",
+            transition: { duration: 0.3 }
+          }}
+        >
+          {/* Project Number */}
+          <motion.span 
+            className="text-white text-3xl font-bold"
+            animate={{
+              scale: isActive ? 1.2 : 1,
+              color: isActive ? "#FF6452" : "white",
+              transition: { 
+                type: "spring", 
+                stiffness: 500,
+                damping: 15
+              }
+            }}
+          >
+            {i + 1}
+          </motion.span>
+
+          {/* Project Name (appears on hover) */}
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-80"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{
+              opacity: isActive ? 1 : 0,
+              y: isActive ? 0 : 20,
+              transition: { duration: 0.3 }
+            }}
+          >
+            <p className="text-white text-sm font-medium truncate text-center">
+              {project.name}
+            </p>
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,9 +1,8 @@
-import { useState } from "react";
 
-import { languages, shoes, statistics } from "../constants";
-import { Button, ShoeCard } from "../components";
-import { bigShoe1, me } from "../assets/images";
-import { arrowRight, down } from "../assets/icons";
+import { statistics } from "../constants";
+import { Button } from "../components";
+import {me } from "../assets/images";
+import {down } from "../assets/icons";
 
 const AboutMe = () => {
   return (
