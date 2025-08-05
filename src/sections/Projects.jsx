@@ -1,6 +1,6 @@
 import { containerVariants, imageVariants, infoVariants, itemVariants, projects, } from "../constants";
-import { Button, ShoeCard } from "../components";
-import { useState, useEffect } from "react";
+import { Button ,ProjectCard} from "../components";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { classroom } from "../assets/images";
 
@@ -47,13 +47,13 @@ const Projects = () => {
         {/* Project section */}
         <div className="flex flex-col lg:flex-row items-center justify-center gap-16 px-3 w-full">
           {/* Image */}
-          <div className="w-full max-w-[500px] h-[350px] sm:h-[400px] md:h-[500px] flex justify-center items-center border-2 rounded-xl overflow-hidden  bg-white" style={{boxShadow:'0 10px 15px -3px #ff6452'}}>
+          <div className="w-full max-w-[500px] h-[350px] sm:h-[400px] md:h-[500px]  border-2 rounded-xl overflow-hidden bg-cover bg-center bg-white " style={{boxShadow:'0 10px 15px -3px #ff6452'}}>
             <AnimatePresence mode="wait" custom={direction}>
               <motion.img
                 key={bigProjectImg}
                 src={bigProjectImg}
                 alt="project showcase"
-                className="w-full h-full object-contain p-4"
+                className="w-full h-full  "
                 custom={direction}
                 variants={imageVariants}
                 initial="enter"
@@ -124,7 +124,7 @@ const Projects = () => {
               variants={itemVariants}
               whileHover={{ y: -5 }}
             >
-              <ShoeCard
+              <ProjectCard
                 index={index}
                 project={project}
                 changeBigProjectImage={(shoe) => setbigProjectImg(shoe)}

@@ -48,6 +48,8 @@ const CV = () => {
             <Button 
               label="Download Full CV" 
               className="bg-coral-red text-white hover:bg-red-600 w-full" 
+              hover={'hover:text-black hover:bg-white transition duration-300 select-none'}
+
             />
           </a>
           {/* Decorative divider - shown between sections for small screens */}

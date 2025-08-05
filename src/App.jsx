@@ -1,4 +1,5 @@
 import { Nav } from "./components";
+import UpButton from "./components/UpButton";
 import {
   AboutMe,
   Projects,
@@ -13,18 +14,20 @@ import {
 
 const App = () => {
   return (
-    <main className='relative'>
+    <main className='relative '>
       <Nav />
-      <section className='xl:padding-l wide:padding-r padding-b'>
+      <br />
+      <br />
+      <section className='xl:padding-l wide:padding-r padding-b py-24'>
         <AboutMe />
       </section>
       <section className=''>
         <Projects />
       </section>
-      <section className='padding-x py-10'>
+      <section className='padding-x py-24 '>
         <Services />
       </section>
-      <section className='padding'>
+      <section className='padding-x'>
         <EducExper />
       </section>
       <section className='bg-pale-blue '>
@@ -39,6 +42,7 @@ const App = () => {
       <section className=' bg-black padding-x padding-t pb-8'>
         <Footer />
       </section>
+      <UpButton/>
     </main>
   );
 };

@@ -1,10 +1,20 @@
 import { hamburger } from "../assets/icons";
 import { headerLogo } from "../assets/images";
 import { navLinks } from "../constants";
+import { useState, useEffect } from "react";
+
 
 const Nav = () => {
+      const [darkMode, setDarkMode] = useState(false);
+      useEffect(() => {
+          if (darkMode) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        }, [darkMode]);
   return (
-    <header className="padding-x py-8 absolute z-10 w-full">
+    <header className="padding-x py-8 absolute z-10 w-full dark:bg-cyan-blue">
       <nav className="flex justify-between items-center max-container">
         <ul className="flex-1 flex justify-center items-center gap-16 max-lg:hidden">
           {navLinks.map((item) => (
@@ -18,6 +28,9 @@ const Nav = () => {
             </li>
           ))}
         </ul>
+        
+
+        
         <a href="/">
           <img
             src={headerLogo}

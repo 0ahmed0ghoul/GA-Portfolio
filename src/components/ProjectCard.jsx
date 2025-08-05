@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const ShoeCard = ({
+const ProjectCard = ({
   project,
   changeBigProjectImage,
   changeBigProjectInfo,
@@ -107,4 +107,4 @@ const ShoeCard = ({
   );
 };
 
-export default ShoeCard;
+export default ProjectCard;

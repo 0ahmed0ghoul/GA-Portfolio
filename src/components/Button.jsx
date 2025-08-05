@@ -5,7 +5,7 @@ const Button = ({
   textColor,
   borderColor,
   fullWidth,
-  hover, // example: "hover:bg-black hover:text-white"
+  hover, 
   onClick,
 }) => {
   return (

@@ -2,7 +2,7 @@ import { facebook, github, instagram, linkedin, shieldTick, support, truckFast }
 import {samir, rayane, guelma, sonatrach, conference, LANmonitoring, algc, classroom, nike, face } from "../assets/images";
 
 export const navLinks = [
-    { href: "#about_me", label: "About Me" },
+    { href: "#aboutme", label: "About Me" },
     { href: "#projects", label: "Projects" },
     { href: "#services", label: "Services" },
     { href: "#education&experience", label: "Education & Experience" },
@@ -71,19 +71,34 @@ export const statistics = [
 export const services = [
     {
         imgURL: truckFast,
-        label: "Easy Use Systems",
-        subtext: "Experience seamless integration and user-friendly interfaces with my systems."
+        label: "Responsive Web Design & Development",
+        subtext: "Build fully responsive websites that look great on desktop, tablet, and mobile.",
+        techs: ['HTML', 'CSS',' Tailwind CSS', 'Flexbox', 'Grid',' Media Queries']
     },
     {
         imgURL: shieldTick,
-        label: "trending Technologies",
-        subtext: "Stay ahead with our cutting-edge technologies and innovative solutions."
+        label: "Modern Front-End App Development with React",
+        subtext: "Develop scalable and maintainable front-end applications using component-based architecture.",
+        techs: ['React.js', 'Hooks', 'JSX', 'Component Reusability', 'State Management (useState, useEffect)']
     },
     {
         imgURL: support,
-        label: "Custom Support",
-        subtext: "Get assistance anytime with my 24/7 customer support service."
+        label: "UI/UX Implementation from Design Files",
+        subtext: "Convert design prototypes (Figma, XD, Sketch) into pixel-perfect, production-ready websites.",
+        techs: ['HTML', 'CSS', 'Tailwind', 'JavaScript', 'Figma-to-code skills']
     },
+    {
+      imgURL: support,
+      label: "Version Control & Team Collaboration",
+      subtext:"Use Git and GitHub to collaborate with teams, manage branches, resolve merge conflicts, and track changes.",
+      techs: ['Git', 'GitHub', 'Git Flow', 'Pull Requests']
+  },
+  {
+    imgURL: support,
+    label: "REST API Integration & Dynamic Data Handling",
+    subtext: "Connect front-end apps to back-end APIs to display real-time or user-generated content.",
+    techs: ['JavaScript(Fetch,Axios)' ,'React(useEffect,useState)', 'JSON ','HTTP','methods']
+},
 ];
 
 export const languages =[

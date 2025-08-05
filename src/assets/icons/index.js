@@ -16,6 +16,7 @@ import github from './github.png'
 import experience from './experience.png'
 import education from './education.png'
 import down from './down.png';
+import tag from './tag.png';
 
 
 export {
@@ -37,5 +38,6 @@ export {
     education,
     experience,
     down,
+    tag
 
 }
