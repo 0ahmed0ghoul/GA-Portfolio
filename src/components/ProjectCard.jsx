@@ -1,40 +1,20 @@
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 
 const ProjectCard = ({
   project,
-  changeBigProjectImage,
-  changeBigProjectInfo,
-  bigShoeImg,
-  bigProjectInfo,
-  i,
+  isActive,
+  onClick,
+  index,
 }) => {
-  const handleClick = () => {
-    if (bigShoeImg !== project.imgURL) {
-      changeBigProjectImage(project.imgURL);
-    }
-
-    if (
-      bigProjectInfo[0] !== project.name ||
-      bigProjectInfo[1] !== project.Date
-    ) {
-      changeBigProjectInfo([
-        project.name,
-        project.Date,
-        project.techs,
-        project.link,
-        project.desc
-      ]);
-    }
-  };
-
-  const isActive = bigShoeImg === project.imgURL;
+  const { t } = useTranslation();
 
   return (
     <motion.div
       className={`relative rounded-xl overflow-hidden ${
         isActive ? "ring-4 ring-coral-red" : "ring-2 ring-transparent"
       } cursor-pointer shadow-lg`}
-      onClick={handleClick}
+      onClick={onClick}
       whileHover={{ 
         y: -8,
         scale: 1.03,
@@ -45,15 +25,13 @@ const ProjectCard = ({
       animate={{ 
         opacity: 1, 
         y: 0,
-        transition: { delay: i * 0.1 }
+        transition: { delay: index * 0.1 }
       }}
     >
-      {/* Image Container */}
       <div className="relative w-full h-full aspect-square">
-        {/* Main Image */}
         <motion.img
           src={project.imgURL}
-          alt="project thumbnail"
+          alt={t('projects.project_thumbnail_alt', { name: project.name })}          
           className="w-full h-full object-cover"
           initial={{ opacity: 0.9 }}
           animate={{ 
@@ -62,7 +40,6 @@ const ProjectCard = ({
           }}
         />
 
-        {/* Overlay */}
         <motion.div 
           className="absolute inset-0 flex items-center justify-center"
           initial={{ backgroundColor: "rgba(0,0,0,0.7)" }}
@@ -71,7 +48,6 @@ const ProjectCard = ({
             transition: { duration: 0.3 }
           }}
         >
-          {/* Project Number */}
           <motion.span 
             className="text-white text-3xl font-bold"
             animate={{
@@ -84,10 +60,9 @@ const ProjectCard = ({
               }
             }}
           >
-            {i + 1}
+            {index + 1}
           </motion.span>
 
-          {/* Project Name (appears on hover) */}
           <motion.div
             className="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-80"
             initial={{ opacity: 0, y: 20 }}

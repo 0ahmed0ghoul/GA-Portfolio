@@ -1,26 +1,32 @@
-import { containerVariants, imageVariants, infoVariants, itemVariants, projects, } from "../constants";
-import { Button ,ProjectCard} from "../components";
+import { useTranslation } from 'react-i18next';
+import { containerVariants, imageVariants, infoVariants, itemVariants, projects } from "../constants";
+import { Button, ProjectCard } from "../components";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { classroom } from "../assets/images";
 
-const Projects = () => {
-  const [bigProjectImg, setbigProjectImg] = useState(classroom);
-  const [bigProjectInfo, setbigProjectInfo] = useState([
-    projects[0].name,
-    projects[0].Date,
-    projects[0].techs,
-    projects[0].link,
-    projects[0].desc
-  ]);
-  const [direction, setDirection] = useState(0); // For slide direction
-  const [prevIndex, setPrevIndex] = useState(0); // Track previous index for animation
+// Translation key constants for better maintainability
+const PROJECT_KEYS = {
+  TITLE_PART1: 'projects.title_part1',
+  TITLE_PART2: 'projects.title_part2',
+  SUBTITLE: 'projects.subtitle',
+  VIEW_BUTTON: 'projects.view_project_button',
+  SHOWCASE_ALT: 'projects.project_showcase_alt',
+  THUMBNAIL_ALT: 'projects.project_thumbnail_alt',
+};
 
-  const handleProjectChange = (shoe, proj, index) => {
+const Projects = () => {
+  const { t } = useTranslation();
+  
+  // State for the currently selected project
+  const [selectedProject, setSelectedProject] = useState(projects[0]);
+  const [direction, setDirection] = useState(0);
+  const [prevIndex, setPrevIndex] = useState(0);
+
+  const handleProjectChange = (project, index) => {
     setDirection(index > prevIndex ? 1 : -1);
     setPrevIndex(index);
-    setbigProjectImg(shoe);
-    setbigProjectInfo(proj);
+    setSelectedProject(project);
   };
 
   return (
@@ -33,60 +39,59 @@ const Projects = () => {
       >
         <motion.div variants={itemVariants}>
           <h2 className="text-4xl font-palanquin font-bold text-center">
-            Few of my <span className="text-coral-red"> Projects </span>
+            {t(PROJECT_KEYS.TITLE_PART1)} <span className="text-coral-red">{t(PROJECT_KEYS.TITLE_PART2)}</span>
           </h2>
           <p className="lg:max-w-lg font-montserrat text-slate-gray text-center my-2">
-            Here are some of the projects I have worked on recently. Each
-            project showcases my skills in various technologies and my ability
-            to deliver high-quality solutions.
+            {t(PROJECT_KEYS.SUBTITLE)}
           </p>
         </motion.div>
       </motion.div>
 
       <div className="relative flex flex-col xl:min-h-[620px] bg-primary bg-hero bg-cover bg-center py-5">
-        {/* Project section */}
         <div className="flex flex-col lg:flex-row items-center justify-center gap-16 px-3 w-full">
-          {/* Image */}
-          <div className="w-full max-w-[500px] h-[350px] sm:h-[400px] md:h-[500px]  border-2 rounded-xl overflow-hidden bg-cover bg-center bg-white " style={{boxShadow:'0 10px 15px -3px #ff6452'}}>
+          {/* Main Project Image */}
+          <div className="w-full max-w-[500px] h-[350px] sm:h-[400px] md:h-[500px] border-2 rounded-xl overflow-hidden bg-cover bg-center bg-white" style={{boxShadow:'0 10px 15px -3px #ff6452'}}>
             <AnimatePresence mode="wait" custom={direction}>
               <motion.img
-                key={bigProjectImg}
-                src={bigProjectImg}
-                alt="project showcase"
-                className="w-full h-full  "
+                key={selectedProject.imgURL}
+                src={selectedProject.imgURL}
+                alt={t(PROJECT_KEYS.SHOWCASE_ALT)}
+                className="w-full h-full object-cover"
                 custom={direction}
                 variants={imageVariants}
                 initial="enter"
                 animate="center"
                 exit="exit"
+                transition={{ duration: 0.3 }}
               />
             </AnimatePresence>
           </div>
 
-          {/* Info Box */}
+          {/* Project Info */}
           <div className="flex-1 rounded-xl p-4 w-full max-w-[500px] min-h-[350px] sm:min-h-[400px] md:min-h-[500px] flex flex-col justify-between gap-4">
             <AnimatePresence mode="wait">
               <motion.div
-                key={bigProjectInfo[0]}
+                key={selectedProject.nameKey}
                 variants={infoVariants}
                 initial="enter"
                 animate="center"
                 exit="exit"
                 className="flex flex-col h-full"
+                transition={{ duration: 0.3 }}
               >
                 <div>
                   <p className="font-palanquin font-bold text-3xl">
-                    {bigProjectInfo[0]}
+                    {t(`projects.${selectedProject.nameKey}`)}
                   </p>
-                  <p className="text-slate-gray">{bigProjectInfo[1]}</p>
+                  <p className="text-slate-gray">{selectedProject.Date}</p>
                   <p className="info-text my-4 sm:my-6 md:my-10">
-                    {bigProjectInfo[4]}
+                    {t(`projects.${selectedProject.descKey}`)}
                   </p>
                 </div>
 
                 <div className="flex flex-col justify-between gap-5 mt-auto">
                   <div className="flex flex-wrap gap-2">
-                    {bigProjectInfo[2].split(" ").map((tech, index) => (
+                    {selectedProject.techs.split(" ").map((tech, index) => (
                       <motion.span
                         key={index}
                         className="bg-coral-red text-white-400 px-3 py-1 rounded-3xl border-2 border-white-400 text-md hover:text-black hover:bg-white transition duration-300 select-none"
@@ -99,12 +104,12 @@ const Projects = () => {
                   </div>
                   <div>
                     <Button
-                      label="View project"
+                      label={t(PROJECT_KEYS.VIEW_BUTTON)}
                       backgroundColor="bg-transparent"
                       borderColor="border-slate-gray"
                       textColor="text-slate-gray"
                       hover="hover:bg-black hover:text-white hover:border-black transition duration-200"
-                      onClick={() => window.open(bigProjectInfo[3], "_blank")}
+                      onClick={() => window.open(selectedProject.link, "_blank")}
                     />
                   </div>
                 </div>
@@ -113,25 +118,26 @@ const Projects = () => {
           </div>
         </div>
 
-        {/* Project list */}
+        {/* Project Thumbnails */}
         <motion.div 
           className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 w-full px-5"
           variants={containerVariants}
         >
           {projects.map((project, index) => (
             <motion.div
-              key={index}
+              key={project.nameKey}
               variants={itemVariants}
               whileHover={{ y: -5 }}
             >
               <ProjectCard
                 index={index}
-                project={project}
-                changeBigProjectImage={(shoe) => setbigProjectImg(shoe)}
-                changeBigProjectInfo={(proj) => handleProjectChange(project.imgURL, proj, index)}
-                bigProjectInfo={bigProjectInfo}
-                bigShoeImg={bigProjectImg}
-                i={index}
+                project={{
+                  ...project,
+                  name: t(`projects.${project.nameKey}`),
+                  desc: t(`projects.${project.descKey}`)
+                }}
+                isActive={selectedProject.imgURL === project.imgURL}
+                onClick={() => handleProjectChange(project, index)}
               />
             </motion.div>
           ))}

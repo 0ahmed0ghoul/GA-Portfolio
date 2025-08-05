@@ -1,20 +1,24 @@
 import { ReviewCard } from "../components";
 import { reviews } from "../constants";
+import { useTranslation } from 'react-i18next';
 
 const Testimonials = () => {
+  const { t } = useTranslation();
+  
   return (
     <section className='max-container' id="testimonials">
-      <h3 className='font-palanquin text-center px-2 py-5 text-4xl font-bold '>
-        Testimonials from  
-        <span className='text-coral-red'> People </span>
-        I've  
-        <span className='text-coral-red'> Learned </span> from and  
-        <span className='text-coral-red'> Worked </span> under their supervision
+      <h3 className='font-palanquin text-center px-2 py-5 text-4xl font-bold'>
+        {t('testimonials.title_part1')}  
+        <span className='text-coral-red'> {t('testimonials.title_part2')} </span>
+        {t('testimonials.title_part3')}  
+        <span className='text-coral-red'> {t('testimonials.title_part4')} </span> 
+        {t('testimonials.title_part5')}  
+        <span className='text-coral-red'> {t('testimonials.title_part6')} </span> 
+        {t('testimonials.title_part7')}
       </h3>
 
       <p className='m-auto mt-4 max-w-lg text-center info-text'>
-        Genuine feedback from individuals who have mentored me, collaborated with me, 
-        or supervised my work. Their words reflect our shared professional journey.
+        {t('testimonials.subtitle')}
       </p>
 
       <div className='mt-5 flex flex-1 justify-evenly items-center max-lg:flex-col gap-14 pb-5'>
@@ -22,9 +26,9 @@ const Testimonials = () => {
           <ReviewCard
             key={index}
             imgURL={review.imgURL}
-            customerName={review.personName}
-            profession={review.personPrefession}
-            feedback={review.feedback}
+            customerName={t(`testimonials.${review.nameKey}`)}
+            profession={t(`testimonials.${review.professionKey}`)}
+            feedback={t(`testimonials.${review.feedbackKey}`)}
             logo={review.logo}
             linkedinLink={review.linkedin}
           />
