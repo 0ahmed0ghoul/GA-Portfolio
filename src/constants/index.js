@@ -1,4 +1,4 @@
-import { facebook, github, instagram, linkedin, shieldTick, support, truckFast } from "../assets/icons";
+import { api, compo, facebook, git, github, instagram, linkedin, responsive,ui } from "../assets/icons";
 import {samir, rayane, guelma, sonatrach, conference, LANmonitoring, algc, classroom, nike, face } from "../assets/images";
 
 export const navLinks = [
@@ -62,57 +62,6 @@ export const projects = [
   },
 ];
 
-// export const projects = [
-//     {
-//         imgURL: classroom,
-//         link: 'https://github.com/0ahmed0ghoul/Classroom-management',
-//         name: "Classroom Managment System",
-//         desc:"This web application is designed for managing classroom data, focusing on administrative control, student and teacher attendance tracking, and attendance rate calculation. It allows educational institutions to efficiently monitor and update classroom-related information via a user-friendly and responsive interface.",
-//         techs: "html css react express mysql",
-//         Date: "2025-02-24",
-//     },
-//     {
-//         imgURL: LANmonitoring,
-//         link: 'https://github.com/0ahmed0ghoul/LAN-Monitoring-System',
-//         techs: "html css react express python",
-//         name: "LAN monitoring system",
-//         desc:'This web application is a real-time LAN monitoring and device inventory system, designed and implemented during an internship at DCRD – SONATRACH. It provides IT administrators with a centralized dashboard to monitor system and software configurations of devices connected within a Local Area Network (LAN).',
-//         Date: "2025-05-31",
-//     },
-//     {
-//         imgURL: algc,
-//         link: 'https://github.com/0ahmed0ghoul/ALGCourses',
-//         techs: "html css react express mysql",
-//         desc:"ALGCourses is an academic platform that connects teachers and students. It empowers instructors with course creation tools while giving learners an easy way to discover and join classes.",
-//         name: "courses and quizzes management",
-//         Date: "2025-01-24",
-//     },
-//     {
-//         imgURL: nike,
-//         name: "Nike Landing Page",
-//         techs: "html css js tailwindcss",
-//         link: "https://github.com/0ahmed0ghoul/Nike",
-//         desc:"This project is a fully responsive Nike landing page designed to demonstrate advanced Tailwind CSS techniques while delivering a sleek, modern e-commerce experience. Built with reusable components and optimized for performance, this page highlights Tailwind’s utility-first approach for rapid, scalable development.",
-//         Date: "2025-08-01",
-//     },
-//     {
-//         imgURL: conference,
-//         name: "Conference Management System",
-//         techs: "laravel html mysql",
-//         link: "https://github.com/0ahmed0ghoul/Conference-Paper-Management-System",
-//         desc:'This web application is designed to automate and simplify the entire lifecycle of conference paper management—from submission to final decision. Built with Laravel, it provides secure, role-based dashboards for authors, reviewers, and chairs, ensuring a seamless workflow for academic conferences.',
-//         Date: "2025-06-13",
-//     },
-//     {
-//         imgURL: face,
-//         name: "Face recognation",
-//         techs: "python pyqt5 opencv",
-//         link: "https://github.com/0ahmed0ghoul/face-recognation",
-//         desc:"FaceTrack is a Python-based desktop application built with PyQt5 that simplifies workforce management using AI-powered face recognition. Designed for small businesses and security needs, it offers an offline, lightweight solution to track employee attendance without complex setups.",
-//         Date: "2025-04-16",
-//     },
-// ];
-
 export const statistics = [
     { value: '+2 Years', label: 'of Experience' },
     { value: '30+', label: 'Projects' },
@@ -121,31 +70,31 @@ export const statistics = [
 
 export const services = [
   {
-      imgURL: truckFast,
+      imgURL: responsive,
       labelKey: "responsive_design",
       subtextKey: "responsive_design_desc",
       techsKey: "responsive_design_techs"
   },
   {
-      imgURL: shieldTick,
+      imgURL: compo,
       labelKey: "react_development",
       subtextKey: "react_development_desc",
       techsKey: "react_development_techs"
   },
   {
-      imgURL: support,
+      imgURL: ui,
       labelKey: "ui_ux_implementation",
       subtextKey: "ui_ux_implementation_desc",
       techsKey: "ui_ux_implementation_techs"
   },
   {
-      imgURL: support,
+      imgURL: git,
       labelKey: "version_control",
       subtextKey: "version_control_desc",
       techsKey: "version_control_techs"
   },
   {
-      imgURL: support,
+      imgURL: api,
       labelKey: "api_integration",
       subtextKey: "api_integration_desc",
       techsKey: "api_integration_techs"
@@ -174,8 +123,13 @@ export const skills = [
   'creativity',
   'user_centered',
   'lifelong_learner',
-  'organized'
+  'organized',
+  'Team_collaboration' ,
+  'Time_management' ,
+  'Agile_scrum_familiarity',
+  'Communication_with_clients',
 ];
+
 export const reviews = [
   {
       imgURL: samir,

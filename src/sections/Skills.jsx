@@ -4,17 +4,20 @@ import { useTranslation } from 'react-i18next';
 
 const Skills = () => {
   const { t } = useTranslation();
-  
+
   return (
     <section
-      className="max-container flex justify-center items-center max-lg:flex-col gap-10"
       id="skills"
       aria-label={t('skills.section_label')}
+      className="max-container w-full py-10 flex justify-center items-center"
     >
-      <div className="relative overflow-hidden whitespace-nowrap">
-        <div className="flex animate-scroll">
+      <div className="w-full overflow-hidden">
+        <div className="flex animate-scroll whitespace-nowrap">
           {[...skills, ...skills].map((skillKey, i) => (
-            <span key={`${skillKey}-${i}`} className="info-text inline-block mx-4">
+            <span
+              key={`${skillKey}-${i}`}
+              className="text-sm sm:text-base md:text-lg mx-4 whitespace-nowrap text-slate-700 dark:text-white"
+            >
               {t(`skills.${skillKey}`)}
             </span>
           ))}

@@ -1,23 +1,26 @@
-import { useTranslation } from 'react-i18next';
-import { containerVariants, imageVariants, infoVariants, itemVariants, projects } from "../constants";
+import { useTranslation } from "react-i18next";
+import {
+  containerVariants,
+  imageVariants,
+  infoVariants,
+  itemVariants,
+  projects,
+} from "../constants";
 import { Button, ProjectCard } from "../components";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { classroom } from "../assets/images";
-
-// Translation key constants for better maintainability
 const PROJECT_KEYS = {
-  TITLE_PART1: 'projects.title_part1',
-  TITLE_PART2: 'projects.title_part2',
-  SUBTITLE: 'projects.subtitle',
-  VIEW_BUTTON: 'projects.view_project_button',
-  SHOWCASE_ALT: 'projects.project_showcase_alt',
-  THUMBNAIL_ALT: 'projects.project_thumbnail_alt',
+  TITLE_PART1: "projects.title_part1",
+  TITLE_PART2: "projects.title_part2",
+  SUBTITLE: "projects.subtitle",
+  VIEW_BUTTON: "projects.view_project_button",
+  SHOWCASE_ALT: "projects.project_showcase_alt",
+  THUMBNAIL_ALT: "projects.project_thumbnail_alt",
 };
 
-const Projects = () => {
+const Projects = ({ darkMode }) => {
   const { t } = useTranslation();
-  
+
   // State for the currently selected project
   const [selectedProject, setSelectedProject] = useState(projects[0]);
   const [direction, setDirection] = useState(0);
@@ -31,26 +34,34 @@ const Projects = () => {
 
   return (
     <section id="projects" className="max-container max-sm:mt-12">
-      <motion.div 
+      <motion.div
         initial="hidden"
         animate="visible"
         variants={containerVariants}
         className="flex flex-col items-center justify-center gap-5"
       >
         <motion.div variants={itemVariants}>
-          <h2 className="text-4xl font-palanquin font-bold text-center">
-            {t(PROJECT_KEYS.TITLE_PART1)} <span className="text-coral-red">{t(PROJECT_KEYS.TITLE_PART2)}</span>
+          <h2 className="text-4xl font-palanquin font-bold text-center dark:text-white">
+            {t(PROJECT_KEYS.TITLE_PART1)}{" "}
+            <span className="text-coral-red">
+              {t(PROJECT_KEYS.TITLE_PART2)}
+            </span>
           </h2>
-          <p className="lg:max-w-lg font-montserrat text-slate-gray text-center my-2">
+          <p className="lg:max-w-lg font-montserrat text-slate-gray text-center my-2 dark:text-slate-300">
             {t(PROJECT_KEYS.SUBTITLE)}
           </p>
         </motion.div>
       </motion.div>
 
-      <div className="relative flex flex-col xl:min-h-[620px] bg-primary bg-hero bg-cover bg-center py-5">
+      <div
+        className="relative flex flex-col xl:min-h-[620px] dark:gb-slate-900 py-5"
+      >
         <div className="flex flex-col lg:flex-row items-center justify-center gap-16 px-3 w-full">
           {/* Main Project Image */}
-          <div className="w-full max-w-[500px] h-[350px] sm:h-[400px] md:h-[500px] border-2 rounded-xl overflow-hidden bg-cover bg-center bg-white" style={{boxShadow:'0 10px 15px -3px #ff6452'}}>
+          <div
+            className="w-full max-w-[500px] h-[350px] sm:h-[400px] md:h-[500px] border-2 rounded-xl overflow-hidden bg-cover bg-center bg-white"
+            style={{ boxShadow: "0 10px 15px -3px #ff6452" }}
+          >
             <AnimatePresence mode="wait" custom={direction}>
               <motion.img
                 key={selectedProject.imgURL}
@@ -80,11 +91,11 @@ const Projects = () => {
                 transition={{ duration: 0.3 }}
               >
                 <div>
-                  <p className="font-palanquin font-bold text-3xl">
+                  <p className="font-palanquin font-bold text-3xl dark:text-white">
                     {t(`projects.${selectedProject.nameKey}`)}
                   </p>
-                  <p className="text-slate-gray">{selectedProject.Date}</p>
-                  <p className="info-text my-4 sm:my-6 md:my-10">
+                  <p className="text-slate-gray dark:text-slate-300">{selectedProject.Date}</p>
+                  <p className="info-text my-4 sm:my-6 md:my-10 dark:text-slate-300">
                     {t(`projects.${selectedProject.descKey}`)}
                   </p>
                 </div>
@@ -108,8 +119,11 @@ const Projects = () => {
                       backgroundColor="bg-transparent"
                       borderColor="border-slate-gray"
                       textColor="text-slate-gray"
-                      hover="hover:bg-black hover:text-white hover:border-black transition duration-200"
-                      onClick={() => window.open(selectedProject.link, "_blank")}
+                      darkMode = 'dark:text-slate-300 border-slate-300'
+                      hover="hover:bg-black hover:text-white hover:border-black transition duration-200 "
+                      onClick={() =>
+                        window.open(selectedProject.link, "_blank")
+                      }
                     />
                   </div>
                 </div>
@@ -119,7 +133,7 @@ const Projects = () => {
         </div>
 
         {/* Project Thumbnails */}
-        <motion.div 
+        <motion.div
           className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 w-full px-5"
           variants={containerVariants}
         >
@@ -134,7 +148,7 @@ const Projects = () => {
                 project={{
                   ...project,
                   name: t(`projects.${project.nameKey}`),
-                  desc: t(`projects.${project.descKey}`)
+                  desc: t(`projects.${project.descKey}`),
                 }}
                 isActive={selectedProject.imgURL === project.imgURL}
                 onClick={() => handleProjectChange(project, index)}

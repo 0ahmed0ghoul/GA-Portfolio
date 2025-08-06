@@ -7,13 +7,15 @@ const Button = ({
   fullWidth,
   hover, 
   onClick,
+  darkMode
 }) => {
   return (
     <button
-      className={`flex justify-center items-center gap-2 px-7 py-4 border font-montserrat text-lg leading-none
+      className={`flex justify-center items-center gap-2 px-7 py-4 border font-montserrat text-lg leading-none font-bold
         ${backgroundColor || "bg-coral-red"}
-        ${textColor || "text-white"}
+        ${textColor || "text-white font-bold"}
         ${borderColor || "border-coral-red"}
+        ${darkMode || ""}
         ${hover || ""}
         rounded-full
         ${fullWidth ? "w-full" : ""}

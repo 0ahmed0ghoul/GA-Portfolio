@@ -6,8 +6,8 @@ const Testimonials = () => {
   const { t } = useTranslation();
   
   return (
-    <section className='max-container' id="testimonials">
-      <h3 className='font-palanquin text-center px-2 py-5 text-4xl font-bold'>
+    <section className='max-container dark:bg-slate-700' id="testimonials">
+      <h3 className='font-palanquin text-center px-2 py-5 text-4xl font-bold dark:text-white'>
         {t('testimonials.title_part1')}  
         <span className='text-coral-red'> {t('testimonials.title_part2')} </span>
         {t('testimonials.title_part3')}  
@@ -17,7 +17,7 @@ const Testimonials = () => {
         {t('testimonials.title_part7')}
       </h3>
 
-      <p className='m-auto mt-4 max-w-lg text-center info-text'>
+      <p className='m-auto mt-4 max-w-lg text-center info-text dark:text-slate-300'>
         {t('testimonials.subtitle')}
       </p>
 

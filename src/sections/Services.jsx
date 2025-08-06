@@ -7,7 +7,7 @@ const Services = () => {
   
   return (
     <section className='max-container' id="services">
-      <h2 className='font-palanquin capitalize text-4xl lg:max-w-lg font-bold mb-10 pt-2'>
+      <h2 className='font-palanquin capitalize text-4xl lg:max-w-lg font-bold mb-10 pt-2 dark:text-white'>
         {t('services.title_part1')}
         <span className='text-coral-red'> {t('services.title_part2')} </span>
         <span className='text-coral-red'>{t('services.title_part3')} </span>

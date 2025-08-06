@@ -6,26 +6,18 @@ import {
   whiteLangue,
   whiteMode,
 } from "../assets/icons";
-import { headerLogo } from "../assets/images";
 import { navLinks } from "../constants";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import LanguageSelector from "./LanguageSelector";
 import { useTranslation } from "react-i18next";
+ 
 
-const Nav = () => {
+const Nav = ({ darkMode, setDarkMode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const { t } = useTranslation();
 
 
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
 
   const scrollToSection = (e, href) => {
     e.preventDefault();
@@ -40,12 +32,13 @@ const Nav = () => {
       setTimeout(() => {
         window.history.replaceState(null, null, ' ');
       }, 1000);
+      setIsSidebarOpen(false)
     }
   };
   
   return (
-    <header className="px-6 py-8 absolute z-10 w-full dark:bg-cyan-blue">
-      <nav className="flex justify-between items-center max-container dark:bg-slate-900">
+    <header className="px-6 py-8 absolute z-10 w-full dark:bg-cyan-blue dark:bg-slate-900">
+      <nav className="flex justify-between items-center max-container ">
         <ul className="flex-1 flex justify-center items-center gap-16 max-lg:hidden">
           {navLinks.map((item) => (
             <li key={item.key}>
@@ -131,11 +124,11 @@ const Nav = () => {
                     href={item.href}
                     onClick={(e) => {
                       scrollToSection(e, item.href);
-                      handleMenuItemClick();
+                      
                     }}
                     className="block px-4 py-3 rounded-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                   >
-                    {t(`nav.${item.label.toLowerCase().replace(" ", "_")}`)}
+                    {t(`nav.${item.key}`)}
                   </a>
                 </li>
               ))}

@@ -1,4 +1,4 @@
-import { linkedin, star } from "../assets/icons";
+import { linkedin } from "../assets/icons";
 
 const ReviewCard = ({ imgURL, customerName, profession, feedback, logo, linkedinLink }) => {
   return (
@@ -9,14 +9,14 @@ const ReviewCard = ({ imgURL, customerName, profession, feedback, logo, linkedin
         className='rounded-full object-cover w-[120px] h-[120px]'
       />
 
-      <div className='mt-3 flex justify-center items-center gap-2.5'>
+      <div className='mt-3 flex justify-center items-center gap-2.5 '>
         <div
           className='rounded-full'
           onClick={() => window.open(linkedinLink, "_blank")}
         >
-          <img src={linkedin} alt='linkedin' width={30} height={30} />
+          <img src={linkedin} alt='linkedin' width={30} height={30} className="dark:bg-slate-300 rounded-md "/>
         </div>
-        <h3 className='font-palanquin text-3xl text-center font-bold'>
+        <h3 className='font-palanquin text-3xl text-center font-bold dark:text-white'>
           {customerName}
         </h3>
         <img
@@ -27,8 +27,8 @@ const ReviewCard = ({ imgURL, customerName, profession, feedback, logo, linkedin
           className='object-contain m-0 rounded-full'
         />
       </div>
-      <p className='text-xl font-montserrat text-slate-gray'>{profession}</p>
-      <p className='mt-6 max-w-sm text-center info-text'>{feedback}</p>
+      <p className='text-xl text-center font-montserrat text-slate-gray dark:text-slate-300'>{profession}</p>
+      <p className='mt-6 max-w-sm text-center info-text dark:text-slate-300'>`{feedback}`</p>
     </div>
   );
 };

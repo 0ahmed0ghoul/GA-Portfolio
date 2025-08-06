@@ -12,7 +12,7 @@ const resources = {
         last_name: "Ghoul",
         from: "From",
         location: "Tebessa, Algeria",
-        description: "A frontend Developer with +2 years experience in html, css and react js.",
+        description: "A passionate Frontend Developer with over 2 years of experience crafting responsive and accessible websites using HTML, CSS, JavaScript, and React.js. Focused on performance, user experience, and clean code.",
         language_proficiency: "Language Proficiency",
         english: "English",
         english_level: "60%",
@@ -27,9 +27,9 @@ const resources = {
         see_projects: "See My Projects"
       },
       stats: {
-        projects_completed: "Projects Completed",
-        happy_clients: "Happy Clients",
-        customer_reviews: "Customer Reviews"
+        "of_experience": "of Experience",
+        "projects": "Projects",
+        "techs": "Techs"
       },
       nav: {
         about_me: "About Me",
@@ -57,22 +57,22 @@ const resources = {
         
         // Project names and descriptions
         classroom_management: "Classroom Management System",
-        classroom_management_desc: "This web application is designed for managing classroom data...",
+        classroom_management_desc: "This web application is designed for managing classroom data, focusing on administrative control, student and teacher attendance tracking, and attendance rate calculation. It allows educational institutions to efficiently monitor and update classroom-related information via a user-friendly and responsive interface.",
         
         lan_monitoring: "LAN Monitoring System",
-        lan_monitoring_desc: "This web application is a real-time LAN monitoring and device inventory system...",
+        lan_monitoring_desc: "This web application is a real-time LAN monitoring and device inventory system, designed and implemented during an internship at DCRD – SONATRACH. It provides IT administrators with a centralized dashboard to monitor system and software configurations of devices connected within a Local Area Network (LAN).",
         
         alg_courses: "Courses and Quizzes Management",
-        alg_courses_desc: "ALGCourses is an academic platform that connects teachers and students...",
+        alg_courses_desc: "ALGCourses is an academic platform that connects teachers and students. It empowers instructors with course creation tools while giving learners an easy way to discover and join classes.",
         
         nike_landing: "Nike Landing Page",
-        nike_landing_desc: "This project is a fully responsive Nike landing page...",
+        nike_landing_desc: "This project is a fully responsive Nike landing page designed to demonstrate advanced Tailwind CSS techniques while delivering a sleek, modern e-commerce experience. Built with reusable components and optimized for performance, this page highlights Tailwind’s utility-first approach for rapid, scalable development.",
         
         conference_system: "Conference Management System",
-        conference_system_desc: "This web application is designed to automate and simplify...",
+        conference_system_desc: "This web application is designed to automate and simplify the entire lifecycle of conference paper management—from submission to final decision. Built with Laravel, it provides secure, role-based dashboards for authors, reviewers, and chairs, ensuring a seamless workflow for academic conferences.",
         
         face_recognition: "Face Recognition",
-        face_recognition_desc: "FaceTrack is a Python-based desktop application..."
+        face_recognition_desc: "FaceTrack is a Python-based desktop application built with PyQt5 that simplifies workforce management using AI-powered face recognition. Designed for small businesses and security needs, it offers an offline, lightweight solution to track employee attendance without complex setups."
       },
       services: {
         title_part1: "I Provide You",
@@ -103,16 +103,21 @@ const resources = {
       education_experience: {
         education: "Education",
         experience: "Experience",
+        Achievements : "Achievements",
         academic_journey: "Academic Journey",
         bachelors_degree: "Bachelor's Degree in Computer Science with honors (GPA: 3.7/4.0)",
         undergraduate_studies: "Undergraduate studies at University of 8 May 1945, Guelma (Ranked top 3 in class)",
-        view_certificates: "View Certificates",
         professional_experience: "Professional Experience",
         agriculture_institution: "Agriculture Institution",
         agriculture_description: "Developed a Python-based student management system that improved efficiency by 60%",
         sonatrach: "Sonatrach",
         sonatrach_description: "Engineered a LAN monitoring solution for the Technology & Development division that optimized software resource usage",
-        see_projects: "See Projects"
+        hakathon_desc:"Participated in a large-scale hackathon organized by the Computer Science Club at my university, collaborating with peers to solve real-world problems under time pressure.",
+        hakathon:"Participating in Hakathon",
+        leetcode :"Progress in Leetcode",
+        flex_box_grid:"CSS Flexbox and Grid Mastery",
+        leetcode_desc:"Solved over 150 algorithmic problems on LeetCode using Python, building strong foundations in problem-solving and data structures.",
+        flex_box_grid_desc:"Completed several interactive games and challenges focused on mastering CSS Flexbox and Grid, improving layout and responsive design skills."
       },
       testimonials: {
         title_part1: "Testimonials from",
@@ -142,7 +147,12 @@ const resources = {
         creativity: "Creativity",
         user_centered: "User-Centered",
         lifelong_learner: "Lifelong Learner",
-        organized: "Organized"
+        organized: "Organized",
+        Team_collaboration :'Team collaboration',
+        Time_management :'Time management',
+        Agile_scrum_familiarity:'Agile/scrum familiarity',
+        Communication_with_clients:'Communication with clients',
+    
       },
       cv: {
         title_part1: "Take A Look At My",
@@ -208,7 +218,7 @@ const resources = {
         last_name: "Ghoul",
         from: "Aus",
         location: "Tebessa, Algerien",
-        description: "Ein Frontend-Entwickler mit mehr als 2 Jahren Erfahrung in HTML, CSS und React JS.",
+        description: "Ein leidenschaftlicher Frontend-Entwickler mit über 2 Jahren Erfahrung in der Erstellung responsiver und barrierefreier Websites mit HTML, CSS, JavaScript und React.js. Fokus auf Leistung, Benutzererfahrung und sauberem Code.",
         language_proficiency: "Sprachkenntnisse",
         english: "Englisch",
         english_level: "60%",
@@ -223,9 +233,9 @@ const resources = {
         see_projects: "Meine Projekte ansehen"
       },
       stats: {
-        projects_completed: "Projekte abgeschlossen",
-        happy_clients: "Zufriedene Kunden",
-        customer_reviews: "Kundenbewertungen"
+        "of_experience": "de Experiencia",
+        "projects": "Proyectos",
+        "techs": "Tecnologías"
       },
       nav: {
         about_me: "Über Mich",
@@ -250,22 +260,22 @@ const resources = {
         project_thumbnail_alt: "Miniaturansicht für Projekt: {{name}}",
         
         classroom_management: "Klassenraum-Management-System",
-        classroom_management_desc: "Diese Webanwendung ist für die Verwaltung von Klassenzimmerdaten konzipiert...",
+        classroom_management_desc: "Diese Webanwendung wurde zur Verwaltung von Klassendaten entwickelt und konzentriert sich auf die administrative Kontrolle, die Verfolgung der Anwesenheit von Schülern und Lehrern sowie die Berechnung der Anwesenheitsrate. Sie ermöglicht Bildungseinrichtungen eine effiziente Überwachung und Aktualisierung klassenzugehöriger Informationen über eine benutzerfreundliche und reaktionsschnelle Oberfläche.",
         
         lan_monitoring: "LAN-Überwachungssystem",
-        lan_monitoring_desc: "Diese Webanwendung ist ein Echtzeit-LAN-Überwachungs- und Geräteinventarsystem...",
+        lan_monitoring_desc: "Diese Webanwendung ist ein Echtzeit-Überwachungssystem für LANs sowie eine Inventarverwaltung für Geräte. Sie wurde während eines Praktikums bei DCRD – SONATRACH entwickelt. IT-Administratoren erhalten ein zentrales Dashboard zur Überwachung von System- und Softwarekonfigurationen aller im lokalen Netzwerk (LAN) verbundenen Geräte.",
         
         alg_courses: "Kurs- und Quizverwaltung",
-        alg_courses_desc: "ALGCourses ist eine akademische Plattform, die Lehrer und Schüler verbindet...",
+        alg_courses_desc: "ALGCourses ist eine akademische Plattform, die Lehrkräfte und Studierende miteinander verbindet. Sie bietet Dozenten Werkzeuge zur Kurserstellung und ermöglicht Lernenden einen einfachen Zugang zu Kursen und deren Teilnahme.",
         
         nike_landing: "Nike Landing Page",
-        nike_landing_desc: "Dieses Projekt ist eine vollständig responsive Nike-Landingpage...",
+        nike_landing_desc: "Dieses Projekt ist eine vollständig responsive Nike-Landingpage, die fortgeschrittene Techniken von Tailwind CSS demonstriert und gleichzeitig ein modernes E-Commerce-Erlebnis bietet. Mit wiederverwendbaren Komponenten und Performance-Optimierung zeigt es den utility-first-Ansatz von Tailwind für schnelle und skalierbare Entwicklung.",
         
         conference_system: "Konferenzverwaltungssystem",
-        conference_system_desc: "Diese Webanwendung dient zur Automatisierung und Vereinfachung...",
+        conference_system_desc: "Diese Webanwendung automatisiert und vereinfacht den gesamten Lebenszyklus der Verwaltung von Konferenzbeiträgen – von der Einreichung bis zur finalen Entscheidung. Entwickelt mit Laravel, bietet sie sichere, rollenbasierte Dashboards für Autoren, Gutachter und Vorsitzende und sorgt für einen reibungslosen Ablauf wissenschaftlicher Konferenzen.",
         
         face_recognition: "Gesichtserkennung",
-        face_recognition_desc: "FaceTrack ist eine Python-basierte Desktop-Anwendung..."
+        face_recognition_desc: "FaceTrack ist eine Python-basierte Desktop-Anwendung, die mit PyQt5 entwickelt wurde und das Personalmanagement durch KI-gestützte Gesichtserkennung vereinfacht. Sie wurde für kleine Unternehmen und Sicherheitsanforderungen konzipiert und bietet eine offlinefähige, leichtgewichtige Lösung zur Mitarbeiteranwesenheitserfassung ohne komplexe Einrichtung."
       },
       services: {
         title_part1: "Ich biete Ihnen",
@@ -296,16 +306,21 @@ const resources = {
       education_experience: {
         education: "Bildung",
         experience: "Erfahrung",
+        Achievements : "Erfolge",
         academic_journey: "Akademische Reise",
         bachelors_degree: "Bachelor-Abschluss in Informatik mit Auszeichnung (GPA: 3.7/4.0)",
         undergraduate_studies: "Grundstudium an der Universität 8. Mai 1945, Guelma (Platz 3 in der Klasse)",
-        view_certificates: "Zertifikate anzeigen",
         professional_experience: "Berufserfahrung",
         agriculture_institution: "Landwirtschaftliche Einrichtung",
         agriculture_description: "Entwicklung eines Python-basierten Studentenverwaltungssystems, das die Effizienz um 60% steigerte",
         sonatrach: "Sonatrach",
         sonatrach_description: "Entwicklung einer LAN-Überwachungslösung für die Abteilung Technologie & Entwicklung, die die Software-Ressourcennutzung optimierte",
-        see_projects: "Projekte ansehen"
+        hakathon:"Teilnahme an einem Hackathon",
+        leetcode :"Fortschritt auf LeetCode",
+        flex_box_grid:"Beherrschung von CSS Flexbox & Grid",
+        hakathon_desc:"Teilgenommen an einem groß angelegten Hackathon, organisiert vom Informatik-Club meiner Universität. Zusammenarbeit mit anderen Studierenden zur Lösung praxisnaher Probleme unter Zeitdruck.",
+        leetcode_desc:"Mehr als 150 algorithmische Aufgaben auf LeetCode mit Python gelöst. Aufbau starker Grundlagen in Problemlösung und Datenstrukturen.",
+        flex_box_grid_desc:"Mehrere interaktive Spiele und Herausforderungen zu CSS Flexbox und Grid abgeschlossen, um Layout- und Responsive-Design-Fähigkeiten zu verbessern."
       },
       testimonials: {
         title_part1: "Referenzen von",
@@ -333,7 +348,11 @@ const resources = {
         creativity: "Kreativität",
         user_centered: "Benutzerorientiert",
         lifelong_learner: "Lebenslanges Lernen",
-        organized: "Organisiert"
+        organized: "Organisiert",
+        Team_collaboration :'Teamarbeit',
+        Time_management :'Zeitmanagement',
+        Agile_scrum_familiarity:'Vertraut mit Agile/Scrum',
+        Communication_with_clients:'Kommunikation mit Kunden',
       },
       cv: {
         title_part1: "Schauen Sie sich meinen",
@@ -396,7 +415,7 @@ const resources = {
         last_name: "Ghoul",
         from: "De",
         location: "Tebessa, Argélia",
-        description: "Desenvolvedor Frontend com mais de 2 anos de experiência em HTML, CSS e React JS.",
+        description: "Desenvolvedor Frontend apaixonado com mais de 2 anos de experiência na criação de sites responsivos e acessíveis usando HTML, CSS, JavaScript e React.js. Focado em performance, experiência do usuário e código limpo.",
         language_proficiency: "Proficiência em Idiomas",
         english: "Inglês",
         english_level: "60%",
@@ -411,9 +430,9 @@ const resources = {
         see_projects: "Ver Meus Projetos"
       },
       stats: {
-        projects_completed: "Projetos Concluídos",
-        happy_clients: "Clientes Satisfeitos",
-        customer_reviews: "Avaliações de Clientes"
+        "of_experience": "d'Expérience",
+        "projects": "Projets",
+        "techs": "Technologies"
       },
       nav: {
         about_me: "Sobre Mim",
@@ -439,22 +458,22 @@ const resources = {
 
         
         classroom_management: "Sistema de Gestão de Sala de Aula",
-        classroom_management_desc: "Esta aplicação web foi projetada para gerenciar dados de sala de aula...",
+        classroom_management_desc: "Este aplicativo web foi desenvolvido para gerenciar dados de sala de aula, com foco no controle administrativo, rastreamento da presença de alunos e professores e cálculo da taxa de presença. Ele permite que instituições de ensino monitorem e atualizem informações relacionadas à sala de aula de forma eficiente através de uma interface amigável e responsiva.",
         
         lan_monitoring: "Sistema de Monitoramento LAN",
-        lan_monitoring_desc: "Esta aplicação web é um sistema de monitoramento em tempo real...",
+        lan_monitoring_desc: "Este aplicativo web é um sistema de monitoramento em tempo real de LAN e inventário de dispositivos, projetado e implementado durante um estágio na DCRD – SONATRACH. Ele oferece aos administradores de TI um painel centralizado para monitorar configurações de sistema e software dos dispositivos conectados a uma rede local (LAN).",
         
         alg_courses: "Gestão de Cursos e Questionários",
-        alg_courses_desc: "ALGCourses é uma plataforma acadêmica que conecta professores e alunos...",
+        alg_courses_desc: "ALGCourses é uma plataforma acadêmica que conecta professores e alunos. Ela fornece ferramentas para criação de cursos aos instrutores e facilita o processo de descoberta e participação em aulas para os alunos.",
         
         nike_landing: "Página de Destino Nike",
-        nike_landing_desc: "Este projeto é uma página de destino Nike totalmente responsiva...",
+        nike_landing_desc: "Este projeto é uma landing page responsiva da Nike, desenvolvida para demonstrar técnicas avançadas do Tailwind CSS, oferecendo uma experiência moderna de e-commerce. Construída com componentes reutilizáveis e otimizada para desempenho, destaca a abordagem utility-first do Tailwind para um desenvolvimento rápido e escalável.",
         
         conference_system: "Sistema de Gestão de Conferências",
-        conference_system_desc: "Esta aplicação web foi projetada para automatizar e simplificar...",
+        conference_system_desc: "Este aplicativo web foi desenvolvido para automatizar e simplificar todo o ciclo de gerenciamento de artigos de conferências — desde a submissão até a decisão final. Criado com Laravel, ele fornece painéis seguros baseados em funções para autores, revisores e coordenadores, garantindo um fluxo de trabalho eficiente para conferências acadêmicas.",
         
         face_recognition: "Reconhecimento Facial",
-        face_recognition_desc: "FaceTrack é um aplicativo desktop baseado em Python..."
+        face_recognition_desc: "FaceTrack é um aplicativo desktop baseado em Python, desenvolvido com PyQt5, que simplifica o gerenciamento de equipes usando reconhecimento facial com inteligência artificial. Projetado para pequenas empresas e necessidades de segurança, oferece uma solução offline e leve para rastrear a presença de funcionários sem configurações complexas."
         
       },
       services: {
@@ -486,16 +505,21 @@ const resources = {
       education_experience: {
         education: "Educação",
         experience: "Experiência",
+        Achievements : "Conquistas",
         academic_journey: "Jornada Acadêmica",
         bachelors_degree: "Bacharelado em Ciência da Computação com honras (GPA: 3.7/4.0)",
         undergraduate_studies: "Estudos de graduação na Universidade 8 de Maio de 1945, Guelma (Top 3 da turma)",
-        view_certificates: "Ver Certificados",
         professional_experience: "Experiência Profissional",
         agriculture_institution: "Instituição Agrícola",
         agriculture_description: "Desenvolvi um sistema de gerenciamento de alunos baseado em Python que melhorou a eficiência em 60%",
         sonatrach: "Sonatrach",
         sonatrach_description: "Desenvolvi uma solução de monitoramento de LAN para a divisão de Tecnologia & Desenvolvimento que otimizou o uso de recursos de software",
-        see_projects: "Ver Projetos"
+        hakathon:"Participação em Hackathon",
+        leetcode :"Progresso no LeetCode",
+        flex_box_grid:"Domínio de CSS Flexbox & Grid",
+        hakathon_desc:"Participei de um hackathon em larga escala organizado pelo Clube de Ciência da Computação da minha universidade, colaborando com colegas para resolver problemas do mundo real sob pressão de tempo.",
+        leetcode_desc:"Resolvi mais de 150 problemas algorítmicos no LeetCode usando Python, desenvolvendo uma base sólida em resolução de problemas e estruturas de dados.",
+        flex_box_grid_desc:"Completei diversos jogos e desafios interativos focados em CSS Flexbox e Grid, aprimorando minhas habilidades em layout e design responsivo."
       },
       testimonials: {
         title_part1: "Depoimentos de",
@@ -523,7 +547,11 @@ const resources = {
         creativity: "Criatividade",
         user_centered: "Orientado ao Usuário",
         lifelong_learner: "Aprendiz Contínuo",
-        organized: "Organizado"
+        organized: "Organizado",
+        Team_collaboration :'Colaboração em equipe',
+        Time_management :'Gestão de tempo',
+        Agile_scrum_familiarity:'Familiaridade com Agile/Scrum',
+        Communication_with_clients:'Comunicação com clientes',
       },
       cv: {
         title_part1: "Dê uma olhada no meu",
