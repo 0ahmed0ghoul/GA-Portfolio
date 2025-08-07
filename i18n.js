@@ -207,8 +207,6 @@ const resources = {
         facebook: "Facebook",
         instagram: "Instagram"
       }
-
-      
     }
   },
   de: {
