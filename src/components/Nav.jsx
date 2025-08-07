@@ -10,42 +10,40 @@ import { navLinks } from "../constants";
 import { useState } from "react";
 import LanguageSelector from "./LanguageSelector";
 import { useTranslation } from "react-i18next";
- 
 
 const Nav = ({ darkMode, setDarkMode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { t } = useTranslation();
 
-
-
-
   const scrollToSection = (e, href) => {
     e.preventDefault();
-  
-    const id = href.replace('#', '');
+
+    const id = href.replace("#", "");
     const element = document.getElementById(id);
-  
+
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-  
+      element.scrollIntoView({ behavior: "smooth" });
+
       // Optional: clean URL hash
       setTimeout(() => {
-        window.history.replaceState(null, null, ' ');
+        window.history.replaceState(null, null, " ");
       }, 1000);
-      setIsSidebarOpen(false)
+      setIsSidebarOpen(false);
     }
   };
-  
+
   return (
     <header className="px-6 py-8 absolute z-10 w-full dark:bg-cyan-blue dark:bg-slate-900">
-      <nav className="flex justify-between items-center max-container ">
+      <nav className="flex justify-between items-center max-container">
+        {/* Navigation Links */}
         <ul className="flex-1 flex justify-center items-center gap-16 max-lg:hidden">
           {navLinks.map((item) => (
             <li key={item.key}>
-              <a 
-              href={item.href}
-              onClick={(e)=>{scrollToSection(e,item.href)}}
-            
+              <a
+                href={item.href}
+                onClick={(e) => {
+                  scrollToSection(e, item.href);
+                }}
                 className="font-montserrat leading-normal text-lg text-slate-gray dark:text-gray-300 hover:text-coral-red dark:hover:text-blue-400 transition-colors"
               >
                 {t(`nav.${item.key}`)}
@@ -54,22 +52,24 @@ const Nav = ({ darkMode, setDarkMode }) => {
           ))}
         </ul>
 
-        <div className="flex justify-between gap-3 items-center">
-        {/* Dark Mode Toggle */}
-        <div
-          className="cursor-pointer p-2 transition-all duration-500 hover:scale-110 hover:rotate-12"
-          onClick={() => setDarkMode(!darkMode)}
-        >
-          <img
-            src={darkMode ? whiteMode : mode}
-            alt={darkMode ? t("nav.light_mode") : t("nav.dark_mode")}
-            width={25}
-            height={25}
-          />
+        {/* Desktop Dark Mode & Language - hidden on mobile */}
+        <div className="flex justify-between gap-3 items-center max-lg:hidden">
+          {/* Dark Mode Toggle */}
+          <div
+            className="cursor-pointer p-2 transition-all duration-500 hover:scale-110 hover:rotate-12"
+            onClick={() => setDarkMode(!darkMode)}
+          >
+            <img
+              src={darkMode ? whiteMode : mode}
+              alt={darkMode ? t("nav.light_mode") : t("nav.dark_mode")}
+              width={25}
+              height={25}
+            />
+          </div>
+          {/* Language Selector */}
+          <LanguageSelector darkMode={darkMode} />
         </div>
-        {/* Language Selector */}
-        <LanguageSelector darkMode={darkMode} />
-        </div>
+
         {/* Mobile Hamburger Menu */}
         <div
           className="hidden max-lg:block cursor-pointer p-2 transition-all duration-500 hover:scale-110 hover:rotate-12"
@@ -89,9 +89,9 @@ const Nav = ({ darkMode, setDarkMode }) => {
             isSidebarOpen ? "w-72" : "w-0 overflow-hidden"
           }`}
         >
-          <div className="p-6 h-full flex flex-col">
-            {/* Header with Close Button */}
-            <div className="flex justify-between items-center mb-8">
+          <div className="p-6 h-full flex flex-col z">
+            {/* Sidebar Header */}
+            <div className="flex justify-between items-center mb-8 ">
               <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
                 {t("nav.menu")}
               </h2>
@@ -116,7 +116,7 @@ const Nav = ({ darkMode, setDarkMode }) => {
               </button>
             </div>
 
-            {/* Menu Items */}
+            {/* Sidebar Links */}
             <ul className="space-y-3 flex-1">
               {navLinks.map((item) => (
                 <li key={item.label}>
@@ -124,7 +124,6 @@ const Nav = ({ darkMode, setDarkMode }) => {
                     href={item.href}
                     onClick={(e) => {
                       scrollToSection(e, item.href);
-                      
                     }}
                     className="block px-4 py-3 rounded-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
                   >
@@ -134,7 +133,25 @@ const Nav = ({ darkMode, setDarkMode }) => {
               ))}
             </ul>
 
-            {/* Footer */}
+            {/* Mobile-only Dark Mode & Language */}
+            <div className="flex justify-center gap-4 h-48 mt-10 lg:hidden ">
+              {/* Dark Mode Toggle */}
+              <div
+                className="cursor-pointer p-2 transition-all duration-500 hover:scale-110 hover:rotate-12"
+                onClick={() => setDarkMode(!darkMode)}
+              >
+                <img
+                  src={darkMode ? whiteMode : mode}
+                  alt={darkMode ? t("nav.light_mode") : t("nav.dark_mode")}
+                  width={25}
+                  height={25}
+                />
+              </div>
+              {/* Language Selector */}
+              <LanguageSelector darkMode={darkMode} />
+            </div>
+
+            {/* Sidebar Footer */}
             <div className="pt-4 border-t border-gray-200 dark:border-slate-700 mt-auto">
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 © {new Date().getFullYear()} {t("nav.footer")}

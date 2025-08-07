@@ -137,7 +137,7 @@ const resources = {
         // Review 2
         rayane_name: "Mr. Merchichi Rayane",
         rayane_profession: "Software research and development engineer at Sonatrach",
-        rayane_feedback: "I had the pleasure of teaching Ahmed Ghoul in the Data Structures and Algorithms course, and later supervising him during his internship. From the classroom to the professional setting, Ahmed has consistently shown remarkable dedication, a strong grasp of core computer science principles, and a genuine passion for learning. He approaches challenges with persistence and maturity, and his growth throughout the internship was impressive. I'm proud of his progress and confident he has a promising future ahead."
+        rayane_feedback: "During his internship at SONATRACH, Ahmed Ghoul built an impressive LAN monitoring system using React and Python. His frontend work stood out for its clarity, responsiveness, and user-friendly design. Ahmed's technical skills and professionalism were evident throughout, and he quickly became a valuable part of the team."
       },
       skills: {
         self_motivation: "Self-Motivation",
@@ -338,7 +338,7 @@ const resources = {
         
         rayane_name: "Herr Merchichi Rayane",
         rayane_profession: "Softwareentwickler und Forscher bei Sonatrach",
-        rayane_feedback: "Ich hatte das Vergnügen, Ahmed Ghoul im Kurs „Datenstrukturen und Algorithmen“ zu unterrichten und ihn später während seines Praktikums zu betreuen. Vom Klassenzimmer bis zum beruflichen Umfeld zeigte Ahmed stets bemerkenswerte Einsatzbereitschaft, ein solides Verständnis der grundlegenden Informatikprinzipien und eine echte Leidenschaft fürs Lernen. Er begegnet Herausforderungen mit Ausdauer und Reife, und seine Entwicklung während des Praktikums war beeindruckend. Ich bin stolz auf seine Fortschritte und zuversichtlich, dass ihm eine vielversprechende Zukunft bevorsteht."
+        rayane_feedback: "Während seines Praktikums bei SONATRACH entwickelte Ahmed Ghoul ein beeindruckendes LAN-Überwachungssystem mit React und Python. Seine Frontend-Arbeit überzeugte durch Klarheit, Reaktionsfähigkeit und benutzerfreundliches Design. Ahmeds technische Fähigkeiten und sein professionelles Auftreten waren durchgehend bemerkenswert."
       },
       skills: {
         self_motivation: "Selbstmotivation",
@@ -537,7 +537,7 @@ const resources = {
         
         rayane_name: "Sr. Merchichi Rayane",
         rayane_profession: "Engenheiro de pesquisa e desenvolvimento de software na Sonatrach",
-        rayane_feedback: "Tive o prazer de ensinar Ahmed Ghoul no curso de Estruturas de Dados e Algoritmos..."
+        rayane_feedback: "Durante o seu estágio na SONATRACH, Ahmed Ghoul desenvolveu um impressionante sistema de monitoramento de LAN usando React e Python. O seu trabalho no frontend destacou-se pela clareza, responsividade e design intuitivo. As suas competências técnicas e profissionalismo foram evidentes durante todo o estágio."
       },
       skills: {
         self_motivation: "Auto-Motivação",
