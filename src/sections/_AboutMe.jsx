@@ -4,7 +4,7 @@ import { Button } from "../components";
 import { me } from "../assets/images";
 import { down } from "../assets/icons";
 
-const AboutMe = () => {
+const _AboutMe = () => {
   const { t } = useTranslation();
 
   return (
@@ -145,4 +145,4 @@ const AboutMe = () => {
   );
 };
 
-export default AboutMe;
+export default _AboutMe;

@@ -1,7 +1,7 @@
 import { Nav } from "./components";
 import UpButton from "./components/UpButton";
 import {
-  AboutMe,
+  _AboutMe,
   Projects,
   Services,
   EducExper,
