@@ -2,33 +2,38 @@ import { useTranslation } from 'react-i18next';
 import { statistics } from "../constants";
 import { Button } from "../components";
 import { me } from "../assets/images";
+import { halfme } from "../assets/images";
 import { down } from "../assets/icons";
 
 const _AboutMe = () => {
   const { t } = useTranslation();
-
+  const professions = t("about.profession", { returnObjects: true });
   return (
     <section
       id="aboutme"
       className="w-full flex xl:flex-row flex-col justify-center gap-10 max-container dark:bg-slate-900 dark:text-slate-300"
     >
-      <div className="relative xl:w-2/5 h-[60%] flex flex-col justify-center items-start w-full max-xl:padding-x pt-28  rounded-lg dark:shadow-white shadow-xl">
-        <img
-          src={me}
-          alt={t('about.my_picture_alt')}
-          className=" h-full"
-        />
-      </div>
+<div className="relative xl:w-2/5 h-[60%] flex flex-col justify-center items-start w-full max-xl:padding-x pt-28 rounded-lg dark:shadow-white shadow-xl">
+    <img
+      src={me}
+      alt={t('about.my_picture_alt')}
+      className="h-full"
+    />
+</div>
+
 
       <div className="relative xl:w-2/5 flex flex-col justify-center items-center w-full max-xl:padding-x">
-        <h1 className=" font-palanquin text-8xl max-sm:text-[72px] max-sm:leading-[82px] font-bold text-center dark:text-slate-300">
+        <h1 className=" font-palanquin text-[90px] max-sm:text-[72px] max-sm:leading-[82px] font-bold text-center dark:text-slate-300">
           <span className="mt-10 bg xl:whitespace-nowrap relative  ">
             {t('about.greeting')}
           </span>
           <br />
-          <span className="text-coral-red inline-block">{t('about.my_name')}</span> {t('about.last_name')}
+           <span className="text-coral-red text-4xl">{t('about.profession1')}</span><br />{t('about.profession2')}
         </h1>
-        <h3>
+        <h2>
+          {t('about.greeting')} <span className="text-coral-red inline-block">{t('about.my_name')}</span> {t('about.last_name')}
+        </h2>
+        <h3 id='location'>
           {t('about.from')} <span className="text-coral-red">{t('about.location')}</span>
         </h3>
         <p className="font-montserrat text-slate-gray text-lg leading-8 mt-6 sm:max-w-sm text-center dark:text-slate-300">

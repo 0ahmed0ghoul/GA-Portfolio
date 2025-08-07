@@ -23,10 +23,10 @@ const App = () => {
 
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
-    const el = document.getElementById("aboutme");
+    const el = document.getElementById("location");
     if (el) {
       setTimeout(() => {
-        el.scrollIntoView({ behavior: "smooth" });
+        el.scrollIntoView({ behavior: "smooth" ,block: "end"});
       }, 100);
     }
   }, []);

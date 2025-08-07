@@ -1,6 +1,7 @@
 import headerLogo from './header-logo.png'
 import subscribe from './subscribe.jpg'
 import me from './me2.png'
+import halfme from './me2-half.png'
 import samir from './samirHallaci.jfif'
 import rayane from './rayaneMerchichi.jfif'
 import guelma from './logo-univ-guelma.png'
@@ -35,5 +36,6 @@ export {
     leetcode,
     flex,
     leet,
-    hc
+    hc,
+    halfme
 }
