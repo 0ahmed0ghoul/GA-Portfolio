@@ -28,7 +28,7 @@ const _AboutMe = () => {
             {t('about.greeting')}
           </span>
           <br />
-           <span className="text-coral-red text-4xl">{t('about.profession1')}</span><br />{t('about.profession2')}
+           <span className="text-coral-red text-4xl text-[60px]">{t('about.profession1')}</span><br />{t('about.profession2')}
         </h1>
         <h2>
           {t('about.greeting')} <span className="text-coral-red inline-block">{t('about.my_name')}</span> {t('about.last_name')}
