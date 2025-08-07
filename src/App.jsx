@@ -48,7 +48,7 @@ const App = () => {
         {/* Main content container with consistent max-width */}
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
           <section className='xl:padding-l wide:padding-r padding-b py-20'>
-            <AboutMe />
+            <_AboutMe />
           </section>
           <section>
             <Projects darkMode={darkMode}/>
