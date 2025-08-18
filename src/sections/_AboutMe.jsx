@@ -31,7 +31,7 @@ const _AboutMe = () => {
            <span className="text-coral-red text-4xl text-[60px]">{t('about.profession1')}</span><br />{t('about.profession2')}
         </h1>
         <h2>
-          {t('about.greeting')} <span className="text-coral-red inline-block">{t('about.my_name')}</span> {t('about.last_name')}
+          {t('about.greeting')} <span className="text-coral-red inline-block mt-8">{t('about.my_name')}</span> {t('about.last_name')}
         </h2>
         <h3 id='location'>
           {t('about.from')} <span className="text-coral-red">{t('about.location')}</span>
