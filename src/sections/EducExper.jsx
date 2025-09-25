@@ -202,7 +202,7 @@ const EducExper = () => {
                   variants={itemVariants}
                   className="text-2xl font-palanquin font-bold text-center text-white mb-8"
                 >
-                  {t('education_experience.Achievements')}
+                  {t('education_experience.achievements')}
                 </motion.h3>
                 
                 <motion.div variants={itemVariants} className="space-y-6">
