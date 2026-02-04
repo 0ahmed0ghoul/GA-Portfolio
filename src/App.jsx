@@ -36,8 +36,8 @@ const App = () => {
               <Nav />
               <br />
               <br />
-              <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-                <section className="wide:padding-r padding-b py-20">
+              <div className="max-w-screen-xl mx-auto px-4 sm:px-6 ">
+                <section className="wide:padding-r padding-b">
                   <_AboutMe />
                 </section>
                 <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-24 flex justify-center items-center">

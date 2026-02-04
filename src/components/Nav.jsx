@@ -25,7 +25,7 @@ const Nav = () => {
   };
 
   return (
-    <header className="px-6 py-12 absolute z-10 w-full bg-cyan-blue bg-slate-900">
+    <header className="px-6 py-8 absolute z-10 w-full bg-cyan-blue bg-slate-900">
       <nav className="flex justify-between items-center max-container">
         {/* Navigation Links */}
         <ul className="flex-1 flex justify-center items-center gap-16 max-lg:hidden">
