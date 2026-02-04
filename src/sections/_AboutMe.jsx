@@ -144,11 +144,11 @@ const _AboutMe = () => {
   }, [isInView, controls]);
 
   return (
-    <section
-      id="aboutme"
-      className="relative min-h-screen lg:h-screen overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800"
-      ref={ref}
-    >
+<section
+  id="aboutme"
+  className="relative z-0 min-h-screen lg:h-screen overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800"
+  ref={ref}
+> 
       {/* Minimal background animation */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -186,7 +186,7 @@ const _AboutMe = () => {
                 <img
                   src={me}
                   alt={t("about.my_picture_alt")}
-                  className={`w-full max-w-[280px] sm:max-w-xs lg:max-w-sm h-auto object-cover transition-all duration-300 ${
+                  className={`w-full z-1 max-w-[280px] sm:max-w-xs lg:max-w-sm h-auto object-cover transition-all duration-300 ${
                     imageLoaded ? "scale-100" : "scale-102"
                   }`}
                   onLoad={() => setImageLoaded(true)}
