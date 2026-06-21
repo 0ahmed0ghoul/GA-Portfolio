@@ -1,406 +1,316 @@
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useRef } from "react";
 import { statistics } from "../constants";
-import { Button } from "../components";
 import { me } from "../assets/images";
-import { motion, useInView, useAnimation } from "framer-motion";
-import { down, experience } from "../assets/icons";
+import {
+  motion,
+  useInView,
+  useAnimation,
+  useReducedMotion,
+} from "framer-motion";
+import { ArrowRight, MapPin } from "lucide-react";
+
+/**
+ * Type system
+ * — Headline (name) → "Space Grotesk"
+ * — Everything else (labels, code, data) → "JetBrains Mono"
+ * Make sure both are registered globally, e.g. in tailwind.config.js:
+ *   fontFamily: {
+ *     display: ["Space Grotesk", "sans-serif"],
+ *     mono: ["JetBrains Mono", "monospace"],
+ *   }
+ *
+ * Translation keys this file needs that may not exist yet:
+ *   about.french        →  "French" / "Français"
+ *   about.french_level  →  e.g. "A2"
+ * (Swapped out "portuguese" for "french" to match the real language set —
+ * English / German / French. Drop the old portuguese keys if unused elsewhere.)
+ *
+ * No longer imported: the `down` and `experience` icon assets, and `Button`
+ * from ../components — the CTA and badges now reuse the same icon family
+ * (lucide) for visual consistency. The asset files themselves are untouched.
+ */
+
+const INK = "#0d0c0a"; // background
+const SURFACE = "#161410"; // panel fill
+const BORDER = "#2c2820"; // hairline
+const PAPER = "#ece6d6"; // primary text
+const BODY = "#c8c2b1"; // paragraph text
+const ASH = "#948e7c"; // secondary / labels
+const AMBER = "#e0a045"; // single accent
+
+// Only this literal command string is typed character-by-character — it's
+// terminal syntax, not translated copy, so it's safe to animate regardless
+// of the active locale or text direction.
+const TypedPrompt = ({ text, active, speed = 40, onDone }) => {
+  const [shown, setShown] = useState("");
+
+  useEffect(() => {
+    if (!active) return undefined;
+    let i = 0;
+    const id = setInterval(() => {
+      i += 1;
+      setShown(text.slice(0, i));
+      if (i >= text.length) {
+        clearInterval(id);
+        onDone?.();
+      }
+    }, speed);
+    return () => clearInterval(id);
+  }, [active, text, speed]);
+
+  return <>{shown}</>;
+};
 
 const _AboutMe = () => {
   const { t } = useTranslation();
   const [hoveredStat, setHoveredStat] = useState(null);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [promptDone, setPromptDone] = useState(false);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
   const controls = useAnimation();
-
-  // Ultra-compact animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut",
-      },
-    },
-    hover: {
-      y: -2,
-      transition: { duration: 0.15 },
-    },
-  };
-
-  const progressBarVariants = {
-    hidden: { width: 0 },
-    visible: (width) => ({
-      width: `${width}%`,
-      transition: {
-        duration: 1,
-        ease: "circOut",
-        delay: 0.2,
-      },
-    }),
-  };
-
-  const titleVariants = {
-    hidden: { opacity: 0, x: -15 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.5,
-        ease: "backOut",
-      },
-    },
-  };
-
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-    hover: {
-      scale: 1.01,
-      transition: {
-        duration: 0.2,
-      },
-    },
-  };
-
-  const statCardVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: (i) => ({
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay: i * 0.03 + 0.4,
-        duration: 0.3,
-        ease: "backOut",
-      },
-    }),
-    hover: {
-      scale: 1.02,
-      y: -2,
-      transition: {
-        duration: 0.15,
-      },
-    },
-  };
-
-  // Animated counter for statistics
-  const Counter = ({ value, suffix = "+" }) => {
-    const [count, setCount] = useState(0);
-
-    useEffect(() => {
-      if (isInView) {
-        let start = 0;
-        const end = parseInt(value);
-        const duration = 1000;
-        const increment = end / (duration / 16);
-
-        const timer = setInterval(() => {
-          start += increment;
-          if (start >= end) {
-            setCount(end);
-            clearInterval(timer);
-          } else {
-            setCount(Math.floor(start));
-          }
-        }, 16);
-
-        return () => clearInterval(timer);
-      }
-    }, [isInView, value]);
-
-    return (
-      <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-coral-red to-purple-600 bg-clip-text text-transparent">
-        {count}
-        {suffix}
-      </span>
-    );
-  };
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    }
+    if (isInView) controls.start("visible");
   }, [isInView, controls]);
 
+  const container = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+  };
+
+  const fade = {
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
+  };
+
+  const languages = [
+    { key: "english", level: 88 },
+    { key: "german", level: 18 },
+    { key: "french", level: 35 },
+  ];
+
+  const Counter = ({ value }) => {
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+      if (!isInView) return undefined;
+      const end = parseInt(value, 10) || 0;
+      if (reduceMotion) {
+        setCount(end);
+        return undefined;
+      }
+      let start = 0;
+      const step = Math.max(end / (700 / 16), 1);
+      const id = setInterval(() => {
+        start += step;
+        if (start >= end) {
+          setCount(end);
+          clearInterval(id);
+        } else {
+          setCount(Math.floor(start));
+        }
+      }, 16);
+      return () => clearInterval(id);
+    }, [isInView, value]);
+    return <>{count}+</>;
+  };
+
   return (
-<section
-  id="aboutme"
-  className="relative z-0 min-h-screen lg:h-screen overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800"
-  ref={ref}
-> 
-      {/* Minimal background animation */}
-      <div className="absolute inset-0 overflow-hidden">
+    <section
+      id="aboutme"
+      ref={ref}
+      className="relative z-0 min-h-screen lg:h-screen overflow-hidden"
+      style={{ backgroundColor: INK }}
+    >
+      {/* faint paper grain — texture, not gloss */}
+      <svg
+        className="absolute inset-0 w-full h-full opacity-[0.05] pointer-events-none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <filter id="grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#grain)" />
+      </svg>
+
+      <div className="h-full max-w-6xl mx-auto px-5 sm:px-8 lg:px-10 relative z-10 flex items-center">
         <motion.div
-          className="absolute top-1/3 -right-16 w-32 h-32 sm:w-40 sm:h-40 bg-gradient-to-r from-purple-500/3 to-blue-500/3 rounded-full blur-xl"
-          animate={{
-            x: [0, 20, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
+          className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 py-16 lg:py-0"
+          variants={container}
+          initial="hidden"
+          animate={controls}
+        >
+          {/* ---------- Photo column ---------- */}
+          <motion.div variants={fade} className="lg:col-span-4 flex flex-col items-center lg:items-start">
+            <div className="relative w-full max-w-[280px] overflow-hidden" style={{ border: `1px solid ${BORDER}` }}>
+              <img
+                src={me}
+                alt={t("about.my_picture_alt")}
+                className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
+              />
+            </div>
 
-      {/* Top gradient border */}
-      <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 via-coral-red to-purple-600" />
+            <div className="mt-3 flex items-center gap-1.5 font-mono text-[11px]" style={{ color: ASH }}>
+              <MapPin className="w-3 h-3" style={{ color: AMBER }} />
+              {t("about.from")} <span style={{ color: PAPER }}>{t("about.location")}</span>
+            </div>
 
-      <div className="h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex items-center">
-        <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-6 sm:gap-8 lg:gap-12 py-8 sm:py-12 lg:py-16">
-          {/* Image Section - Responsive */}
-          <motion.div
-            className="relative w-full sm:w-auto lg:w-[38%] flex justify-center"
-            initial="hidden"
-            animate={controls}
-            variants={containerVariants}
-          >
-            <motion.div
-              className="relative rounded-xl overflow-hidden shadow-md"
-              variants={imageVariants}
-              whileHover="hover"
-              onHoverStart={() => setImageLoaded(true)}
-            >
-              <div className="relative overflow-hidden rounded-xl">
-                <img
-                  src={me}
-                  alt={t("about.my_picture_alt")}
-                  className={`w-full z-1 max-w-[280px] sm:max-w-xs lg:max-w-sm h-auto object-cover transition-all duration-300 ${
-                    imageLoaded ? "scale-100" : "scale-102"
-                  }`}
-                  onLoad={() => setImageLoaded(true)}
-                />
-              </div>
-
-              {/* Floating badge */}
-              <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-slate-800/80 px-2 py-1.5 rounded-lg shadow-sm flex items-center gap-1.5 border border-slate-700/50 backdrop-blur-sm">
-                <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-xs font-medium text-slate-200">
-                  {t("about.available")}
-                </span>
-              </div>
-            </motion.div>
-
-            {/* Experience badge */}
-            <motion.div
-              className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 bg-slate-800/80 p-2.5 sm:p-3 rounded-lg shadow-sm border border-slate-700/50 backdrop-blur-sm"
-              variants={itemVariants}
-            >
-              <div className="flex items-center gap-1.5">
-                <div className="text-lg sm:text-xl font-bold text-coral-red">2+</div>
-                <img
-                  src={experience}
-                  alt="Experience"
-                  className="w-4 h-4 sm:w-5 sm:h-5"
-                />
-              </div>
-              <div className="text-xs text-slate-300 mt-0.5 whitespace-nowrap">
-                {t("about.years_experience")}
-              </div>
-            </motion.div>
+            <div className="mt-1.5 flex items-center gap-2 font-mono text-[11px]" style={{ color: ASH }}>
+              <span className="inline-block w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: AMBER }} />
+              {t("about.available")}
+            </div>
           </motion.div>
 
-          {/* Content Section - Responsive */}
-          <div className="w-full lg:w-[62%] flex flex-col items-center lg:items-start">
-            <motion.div
-              className="w-full flex flex-col justify-between gap-4 sm:gap-6"
-              variants={containerVariants}
-              initial="hidden"
-              animate={controls}
-            >
-              {/* Introduction */}
-              <div className="text-center lg:text-left">
-                <motion.h4
-                  className="text-xs sm:text-sm font-semibold text-coral-red uppercase tracking-wide mb-2"
-                  variants={itemVariants}
-                >
-                  {t("about.welcome_note")}
-                </motion.h4>
+          {/* ---------- Content column ---------- */}
+          <div className="lg:col-span-8 flex flex-col gap-7">
+            {/* command-prompt eyebrow */}
+            <motion.div variants={fade} className="font-mono text-xs sm:text-sm" style={{ color: ASH }}>
+              <span style={{ color: AMBER }}>~/about</span>{" "}
+              $ <TypedPrompt text="whoami" active={isInView} onDone={() => setPromptDone(true)} />
+              <span
+                className={`inline-block w-[6px] h-[13px] ml-0.5 align-middle ${promptDone ? "animate-pulse" : ""}`}
+                style={{ backgroundColor: AMBER }}
+              />
+            </motion.div>
 
-                <motion.h1
-                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-palanquin font-bold mb-3 sm:mb-4"
-                  variants={titleVariants}
+            {/* name */}
+            <motion.h1 variants={fade} className="leading-[1.05]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+              <span className="block text-2xl sm:text-3xl font-normal" style={{ color: ASH }}>
+                {t("about.greeting")}
+              </span>
+              <span className="relative inline-block text-4xl sm:text-5xl lg:text-6xl font-semibold mt-1" style={{ color: PAPER }}>
+                {t("about.my_name")}
+                <motion.svg
+                  className="absolute left-0 -bottom-2 w-full h-4"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                  transition={{ duration: reduceMotion ? 0 : 0.9, delay: 0.5, ease: "easeInOut" }}
                 >
-                  <span className="text-slate-100">{t("about.greeting")} </span>
-                  <span className="bg-gradient-to-r from-coral-red to-purple-600 bg-clip-text text-transparent">
-                    {t("about.my_name")}
-                  </span>
-                </motion.h1>
-
-                <motion.div
-                  className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-3 sm:mb-4"
-                  variants={containerVariants}
-                >
-                  {["profession1", "profession2"].map((prof) => (
-                    <span
-                      key={prof}
-                      className="px-3 py-1.5 bg-slate-800/40 text-slate-200 rounded-full text-xs sm:text-sm font-medium"
-                    >
-                      {t(`about.${prof}`)}
-                    </span>
-                  ))}
-                </motion.div>
-
-                <motion.p
-                  className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-3 sm:mb-4"
-                  variants={itemVariants}
-                >
-                  {t("about.description")}
-                </motion.p>
-
-                <motion.div
-                  className="flex items-center justify-center lg:justify-start gap-2 text-slate-400"
-                  variants={itemVariants}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4"
+                  <path
+                    d="M2,7 Q20,2 35,6 T65,5 T98,7"
                     fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
-                  <span className="text-xs sm:text-sm">
-                    {t("about.from")}{" "}
-                    <span className="text-coral-red font-medium">
-                      {t("about.location")}
-                    </span>
-                  </span>
-                </motion.div>
+                    stroke={AMBER}
+                    strokeWidth="6"
+                    strokeLinecap="round"
+                    opacity="0.45"
+                  />
+                </motion.svg>
+              </span>
+            </motion.h1>
+
+            {/* role tags */}
+            <motion.div variants={fade} className="flex flex-wrap gap-2 font-mono text-xs sm:text-sm">
+              {["profession1", "profession2"].map((prof) => (
+                <span key={prof} className="px-3 py-1.5" style={{ color: PAPER, border: `1px solid ${BORDER}` }}>
+                  {t(`about.${prof}`)}
+                </span>
+              ))}
+            </motion.div>
+
+            {/* description */}
+            <motion.p variants={fade} className="max-w-xl text-sm sm:text-base leading-relaxed" style={{ color: BODY }}>
+              {t("about.description")}
+            </motion.p>
+
+            {/* code panel — structured summary */}
+            <motion.div variants={fade} className="w-full max-w-xl" style={{ border: `1px solid ${BORDER}`, backgroundColor: SURFACE }}>
+              <div className="flex items-center gap-2 px-4 py-2.5" style={{ borderBottom: `1px solid ${BORDER}` }}>
+                <span className="w-2 h-2 rounded-full" style={{ border: `1px solid ${ASH}` }} />
+                <span className="w-2 h-2 rounded-full" style={{ border: `1px solid ${ASH}` }} />
+                <span className="w-2 h-2 rounded-full" style={{ border: `1px solid ${ASH}` }} />
+                <span className="ml-2 font-mono text-[11px]" style={{ color: ASH }}>
+                  whoami.ts
+                </span>
               </div>
-
-              {/* Language Proficiency */}
-              <motion.div
-                className="w-full bg-slate-800/20 backdrop-blur-sm rounded-lg p-4 sm:p-5 border border-slate-700/20"
-                variants={containerVariants}
-              >
-                <motion.h2
-                  className="text-base sm:text-lg font-bold text-slate-100 mb-3 sm:mb-4 text-center lg:text-left"
-                  variants={titleVariants}
-                >
-                  {t("about.language_proficiency")}
-                </motion.h2>
-
-                <div className="space-y-3 sm:space-y-3.5">
-                  {[
-                    { key: "english", level: 60 },
-                    { key: "german", level: 20 },
-                    { key: "portuguese", level: 10 },
-                  ].map((lang) => (
-                    <div key={lang.key} className="flex items-center gap-2 sm:gap-3">
-                      <span className="text-xs sm:text-sm font-medium text-slate-300 w-20 sm:w-24">
-                        {t(`about.${lang.key}`)}
-                      </span>
-                      <div className="flex-1 h-1.5 sm:h-2 bg-slate-700 rounded-full overflow-hidden">
-                        <motion.div
-                          className="h-full bg-gradient-to-r from-coral-red to-purple-600 rounded-full"
-                          variants={progressBarVariants}
-                          custom={lang.level}
-                        />
-                      </div>
-                      <span className="text-xs sm:text-sm font-semibold text-coral-red w-12 sm:w-16 text-right">
-                        {t(`about.${lang.key}_level`)}
-                      </span>
-                    </div>
-                  ))}
+              <div className="px-4 py-4 font-mono text-xs sm:text-[13px] leading-7">
+                <div style={{ color: ASH }}>
+                  const <span style={{ color: PAPER }}>developer</span> = {"{"}
                 </div>
-              </motion.div>
-
-              {/* Statistics & Button */}
-              <div className="flex flex-col gap-4 sm:gap-5">
-                {/* Statistics Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
-                  {statistics.map((stat, index) => (
-                    <motion.div
-                      key={index}
-                      custom={index}
-                      variants={statCardVariants}
-                      initial="hidden"
-                      animate={controls}
-                      whileHover="hover"
-                      onMouseEnter={() => setHoveredStat(index)}
-                      onMouseLeave={() => setHoveredStat(null)}
-                      className="bg-slate-800/30 p-3 sm:p-4 rounded-lg shadow-sm border border-slate-700/20 group"
-                    >
-                      <div className="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-2 rounded-md bg-slate-700/40 flex items-center justify-center">
-                        <img
-                          src={stat.icon}
-                          alt={stat.label}
-                          className="w-4 h-4 sm:w-5 sm:h-5"
-                        />
-                      </div>
-                      <p className="text-center mb-1">
-                        <Counter value={stat.value} />
-                      </p>
-                      <p className="text-xs sm:text-sm text-center text-slate-300 truncate px-1">
-                        {t(`stats.${stat.label.toLowerCase().replace(" ", "_")}`)}
-                      </p>
-                    </motion.div>
-                  ))}
+                <div className="pl-4" style={{ color: ASH }}>
+                  name: <span style={{ color: AMBER }}>"{t("about.my_name")}"</span>,
                 </div>
-
-                {/* CTA Button */}
-                <motion.div
-                  className="flex items-center justify-center"
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <a href="#projects" className="w-full sm:w-auto">
-                    <Button
-                      label="Projects"
-                      iconURL={down}
-                      backgroundColor="bg-gradient-to-r from-coral-red to-purple-600 hover:from-purple-600 hover:to-coral-red"
-                      textColor="text-white"
-                      borderColor="border-transparent"
-                      className="text-sm sm:text-base py-3 sm:py-3.5 px-6 sm:px-8 w-full sm:w-auto flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300"
-                    />
-                  </a>
-                </motion.div>
+                <div className="pl-4" style={{ color: ASH }}>
+                  role: <span style={{ color: AMBER }}>"{t("about.profession1")} & {t("about.profession2")}"</span>,
+                </div>
+                <div className="pl-4" style={{ color: ASH }}>
+                  base: <span style={{ color: AMBER }}>"{t("about.location")}"</span>,
+                </div>
+                <div className="pl-4" style={{ color: ASH }}>
+                  experience: <span style={{ color: AMBER }}>"2+ years"</span>,
+                </div>
+                <div className="pl-4" style={{ color: ASH }}>
+                  available: <span style={{ color: AMBER }}>true</span>
+                </div>
+                <div style={{ color: ASH }}>{"}"}</div>
               </div>
             </motion.div>
-          </div>
-        </div>
-      </div>
 
-      {/* Scroll indicator - Hidden on mobile */}
-      <div className="hidden sm:block absolute bottom-4 lg:bottom-6 left-1/2 transform -translate-x-1/2">
-        <div className="w-5 h-8 rounded-full border border-slate-600/50 flex justify-center">
-          <div className="w-0.5 h-2 bg-gradient-to-b from-coral-red to-purple-600 rounded-full mt-1.5 animate-pulse" />
-        </div>
+            {/* languages */}
+            <motion.div variants={fade} className="w-full max-w-xl">
+              <p className="font-mono text-[11px] mb-3" style={{ color: ASH }}>
+                // {t("about.language_proficiency")}
+              </p>
+              <div className="flex flex-col gap-3">
+                {languages.map((lang) => (
+                  <div key={lang.key} className="flex items-center gap-3 font-mono text-xs">
+                    <span className="w-16 sm:w-20" style={{ color: PAPER }}>
+                      {t(`about.${lang.key}`)}
+                    </span>
+                    <div className="flex-1 h-[3px]" style={{ backgroundColor: BORDER }}>
+                      <motion.div
+                        className="h-full"
+                        style={{ backgroundColor: AMBER }}
+                        initial={{ width: 0 }}
+                        animate={isInView ? { width: `${lang.level}%` } : {}}
+                        transition={{ duration: reduceMotion ? 0 : 0.8, delay: 0.3, ease: "easeOut" }}
+                      />
+                    </div>
+                    <span className="w-20 text-right" style={{ color: ASH }}>
+                      {t(`about.${lang.key}_level`)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* stats + CTA */}
+            <motion.div variants={fade} className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10 pt-2">
+              <div className="flex gap-6 sm:gap-8">
+                {statistics.map((stat, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col gap-1"
+                    onMouseEnter={() => setHoveredStat(index)}
+                    onMouseLeave={() => setHoveredStat(null)}
+                  >
+                    <span
+                      className="font-mono text-xl sm:text-2xl font-semibold transition-colors duration-300"
+                      style={{ color: hoveredStat === index ? AMBER : PAPER }}
+                    >
+                      <Counter value={stat.value} />
+                    </span>
+                    <span className="font-mono text-[10px] uppercase tracking-wide" style={{ color: ASH }}>
+                      {t(`stats.${stat.label.toLowerCase().replace(" ", "_")}`)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <a
+                href="#projects"
+                className="group inline-flex items-center gap-2 font-mono text-sm px-4 py-2.5 self-start transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                style={{ border: `1px solid ${AMBER}`, color: AMBER, outlineColor: AMBER }}
+              >
+                <span style={{ color: ASH }}>./</span>
+                {t("projects")}
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

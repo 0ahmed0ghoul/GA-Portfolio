@@ -3,6 +3,15 @@ import { useEffect, useState, useRef } from "react";
 import { all_projects } from "../constants";
 import { useNavigate } from "react-router-dom";
 
+// Color palette from _AboutMe
+const INK = "#0d0c0a";
+const SURFACE = "#161410";
+const BORDER = "#2c2820";
+const PAPER = "#ece6d6";
+const BODY = "#c8c2b1";
+const ASH = "#948e7c";
+const AMBER = "#e0a045";
+
 const ShowProjects = () => {
   const [activeProject, setActiveProject] = useState(null);
   const [rotation, setRotation] = useState(0);
@@ -16,7 +25,7 @@ const ShowProjects = () => {
   const lastWheelTime = useRef(Date.now());
   const velocityDecay = 0.95;
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  // Helper function to convert techs string to array
+
   const getTechArray = (techsString) => {
     if (!techsString) return [];
     if (Array.isArray(techsString)) return techsString;
@@ -26,7 +35,7 @@ const ShowProjects = () => {
   useEffect(() => {
     setHoveredIndex(null);
   }, [rotation]);
-  // Get current center project based on rotation
+
   const getCurrentProjectIndex = () => {
     const totalProjects = all_projects.length;
     const anglePerProject = 360 / totalProjects;
@@ -37,22 +46,16 @@ const ShowProjects = () => {
   };
   const currentIndex = getCurrentProjectIndex();
 
-  // Handle mouse move for tilt effect
   const handleMouseMove = (e) => {
     if (!containerRef.current) return;
-
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
     const normalizedX = (x / rect.width) * 2 - 1;
     const normalizedY = (y / rect.height) * 2 - 1;
-
     setMousePosition({ x: normalizedX, y: normalizedY });
-
-    const maxTiltX = 25;
-    const maxTiltY = 15;
-
+    const maxTiltX = 20;
+    const maxTiltY = 12;
     setTiltX(-normalizedY * maxTiltX);
     setTiltY(normalizedX * maxTiltY);
   };
@@ -63,39 +66,29 @@ const ShowProjects = () => {
     setMousePosition({ x: 0, y: 0 });
   };
 
-  // Handle wheel scroll with momentum and speed-based rotation
   const handleWheel = (e) => {
     e.preventDefault();
-
     const now = Date.now();
     const timeDelta = now - lastWheelTime.current;
     lastWheelTime.current = now;
-
     const scrollIntensity = Math.abs(e.deltaY);
     const speedMultiplier = Math.min(scrollIntensity / 100, 3);
-
     const baseRotation = 0.5;
     const rotationAmount = baseRotation * speedMultiplier;
-
     const velocityChange = e.deltaY > 0 ? rotationAmount : -rotationAmount;
     setRotationVelocity((prev) => prev + velocityChange);
   };
 
-  // Animation loop for smooth rotation with momentum
   useEffect(() => {
     const animate = () => {
       setRotation((prev) => prev + rotationVelocity);
-
       setRotationVelocity((prev) => {
         const newVelocity = prev * velocityDecay;
         return Math.abs(newVelocity) < 0.001 ? 0 : newVelocity;
       });
-
       animationFrameRef.current = requestAnimationFrame(animate);
     };
-
     animationFrameRef.current = requestAnimationFrame(animate);
-
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
@@ -103,35 +96,22 @@ const ShowProjects = () => {
     };
   }, [rotationVelocity]);
 
-  // 3D Carousel calculations with continuous rotation - FIXED
   const getProjectStyle = (index) => {
     const totalProjects = all_projects.length;
     const anglePerProject = 360 / totalProjects;
     const projectAngle = index * anglePerProject;
     const currentAngle = projectAngle - rotation;
-
     const radius = 700;
-
-    // Calculate position in 3D space
     const x = Math.sin((currentAngle * Math.PI) / 180) * radius;
     const z = Math.cos((currentAngle * Math.PI) / 180) * radius;
-
-    // Calculate distance from center position with proper wrapping
     const normalizedAngle = ((currentAngle % 360) + 360) % 360;
     const distanceFromCenter = Math.min(normalizedAngle, 360 - normalizedAngle);
-
-    // Calculate opacity and scale based on distance from center
     const scale = Math.max(0.4, 1 - (distanceFromCenter / 180) * 0.6);
-    const baseOpacity = Math.max(0.3, 1 - (distanceFromCenter / 180) * 0.7);
-
-    // Determine if card is in front or back
+    const baseOpacity = Math.max(0.2, 1 - (distanceFromCenter / 180) * 0.8);
     const isFront = z > 0;
-    const opacity = isFront ? baseOpacity : baseOpacity * 0.5;
-
-    // FIXED: More lenient center detection to prevent flickering
-    const centerThreshold = anglePerProject * 0.6; // Increased from 0.5
+    const opacity = isFront ? baseOpacity : baseOpacity * 0.4;
+    const centerThreshold = anglePerProject * 0.6;
     const isCenter = distanceFromCenter < centerThreshold;
-
     return {
       x,
       z,
@@ -145,9 +125,7 @@ const ShowProjects = () => {
     };
   };
 
-  // Handle touch for mobile swipe
   const [touchStart, setTouchStart] = useState({ x: 0, time: 0 });
-
   const handleTouchStart = (e) => {
     setTouchStart({
       x: e.touches[0].clientX,
@@ -157,12 +135,9 @@ const ShowProjects = () => {
 
   const handleTouchMove = (e) => {
     if (!touchStart.x) return;
-
     const touchX = e.touches[0].clientX;
     const diff = touchX - touchStart.x;
-
     setRotation((prev) => prev - diff * 0.3);
-
     setTouchStart({
       x: touchX,
       time: Date.now(),
@@ -173,16 +148,13 @@ const ShowProjects = () => {
     const touchEnd = e.changedTouches[0].clientX;
     const diff = touchStart.x - touchEnd;
     const timeDiff = Date.now() - touchStart.time;
-
     if (timeDiff < 200 && Math.abs(diff) > 50) {
       const velocity = (diff / timeDiff) * 10;
       setRotationVelocity((prev) => prev + velocity);
     }
-
     setTouchStart({ x: 0, time: 0 });
   };
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "ArrowRight" || e.key === "ArrowDown") {
@@ -201,7 +173,6 @@ const ShowProjects = () => {
         setRotationVelocity(0);
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeProject, rotation]);
@@ -215,20 +186,16 @@ const ShowProjects = () => {
     }
   }, []);
 
-  const handlePrevious = () => {
-    setRotationVelocity((prev) => prev - 3);
-  };
+  const handlePrevious = () => setRotationVelocity((prev) => prev - 3);
+  const handleNext = () => setRotationVelocity((prev) => prev + 3);
 
-  const handleNext = () => {
-    setRotationVelocity((prev) => prev + 3);
-  };
-
-  // Render carousel items - FIXED
   const renderCarousel = () => {
     if (!all_projects || all_projects.length === 0) {
       return (
         <div className="flex items-center justify-center h-full">
-          <p className="text-white text-xl">No projects available</p>
+          <p className="text-xl" style={{ color: PAPER }}>
+            No projects available
+          </p>
         </div>
       );
     }
@@ -243,18 +210,10 @@ const ShowProjects = () => {
             perspective: "2000px",
             transformStyle: "preserve-3d",
           }}
-
-          transition={{
-            type: "spring",
-            stiffness: 150,
-            damping: 20,
-          }}
         >
           <div
             className="relative w-full h-full"
-            style={{
-              transformStyle: "preserve-3d",
-            }}
+            style={{ transformStyle: "preserve-3d" }}
           >
             {all_projects.map((project, index) => {
               const style = getProjectStyle(index);
@@ -268,10 +227,10 @@ const ShowProjects = () => {
                     transformStyle: "preserve-3d",
                     zIndex: style.zIndex,
                     transform: `
-                    translate(-50%, -50%)
-                    translate3d(${style.x}px, 0px, ${style.z}px)
-                    rotateY(${style.rotateY}deg)
-                  `,
+                      translate(-50%, -50%)
+                      translate3d(${style.x}px, 0px, ${style.z}px)
+                      rotateY(${style.rotateY}deg)
+                    `,
                     opacity: style.opacity,
                   }}
                   onClick={() => style.isCenter && setActiveProject(project)}
@@ -286,17 +245,19 @@ const ShowProjects = () => {
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 >
-                  {/* Project Card - FIXED: Consistent height */}
+                  {/* Project Card */}
                   <div
-                    className={`relative w-full h-[26rem] rounded-xl overflow-hidden shadow-2xl border transition-all duration-300 ${
+                    className={`relative w-full h-[26rem] rounded-xl overflow-hidden border transition-all duration-300 ${
                       style.isCenter
-                        ? "bg-white/20 border-white/40 cursor-pointer backdrop-blur-md"
-                        : "bg-white/10 border-white/20 cursor-default backdrop-blur-sm"
+                        ? "cursor-pointer backdrop-blur-md"
+                        : "cursor-default backdrop-blur-sm"
                     }`}
                     style={{
+                      backgroundColor: style.isCenter ? SURFACE : `${SURFACE}80`,
+                      borderColor: style.isCenter ? AMBER : BORDER,
                       boxShadow: style.isFront
-                        ? "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
-                        : "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
+                        ? `0 25px 50px -12px ${INK}80`
+                        : `0 10px 25px -5px ${INK}60`,
                     }}
                   >
                     {/* Project Image */}
@@ -309,7 +270,12 @@ const ShowProjects = () => {
                         }`}
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          background: `linear-gradient(to top, ${INK}DD, ${INK}44 60%, transparent)`,
+                        }}
+                      />
 
                       {/* Tech Stack Badges */}
                       {style.isFront && (
@@ -317,13 +283,25 @@ const ShowProjects = () => {
                           {techArray.slice(0, 2).map((technology, idx) => (
                             <span
                               key={idx}
-                              className="px-2.5 py-1 bg-gradient-to-r from-blue-600/90 to-purple-600/90 text-white text-xs rounded-full font-semibold backdrop-blur-sm shadow-lg"
+                              className="px-2.5 py-1 text-xs rounded-full font-mono backdrop-blur-sm border"
+                              style={{
+                                backgroundColor: `${AMBER}20`,
+                                color: PAPER,
+                                borderColor: AMBER,
+                              }}
                             >
                               {technology}
                             </span>
                           ))}
                           {techArray.length > 2 && (
-                            <span className="px-2.5 py-1 bg-gradient-to-r from-purple-600/90 to-pink-600/90 text-white text-xs rounded-full font-semibold backdrop-blur-sm">
+                            <span
+                              className="px-2.5 py-1 text-xs rounded-full font-mono backdrop-blur-sm border"
+                              style={{
+                                backgroundColor: `${AMBER}15`,
+                                color: ASH,
+                                borderColor: BORDER,
+                              }}
+                            >
                               +{techArray.length - 2}
                             </span>
                           )}
@@ -331,29 +309,40 @@ const ShowProjects = () => {
                       )}
                     </div>
 
-                    {/* Project Info - FIXED: Consistent layout */}
-                    <div className="p-5 bg-gradient-to-b from-slate-800/80 to-slate-900/90 h-[10.5rem] flex flex-col">
-                      <h3 className="font-bold text-white text-base mb-2 line-clamp-1">
+                    {/* Project Info */}
+                    <div
+                      className="p-5 h-[10.5rem] flex flex-col"
+                      style={{
+                        background: `linear-gradient(to bottom, ${SURFACE}CC, ${SURFACE})`,
+                      }}
+                    >
+                      <h3
+                        className="font-display font-semibold text-base mb-2 line-clamp-1"
+                        style={{ color: PAPER }}
+                      >
                         {project.title}
                       </h3>
-                      <p className="text-gray-300 text-sm line-clamp-2 mb-3 flex-shrink-0">
+                      <p
+                        className="text-sm line-clamp-2 mb-3 flex-shrink-0"
+                        style={{ color: BODY }}
+                      >
                         {project.desc}
                       </p>
 
-                      {/* FIXED: Always reserve space for button to prevent layout shift */}
-                      <div className="mt-auto pt-3 border-t border-white/20">
+                      <div className="mt-auto pt-3 border-t" style={{ borderColor: BORDER }}>
                         {style.isCenter ? (
                           <motion.button
-                            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-sm font-semibold py-2.5 rounded-lg transition-all shadow-lg hover:shadow-xl"
-                            initial={{ opacity: 0, y: 5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 5 }}
-                            transition={{ duration: 0.2 }}
+                            className="w-full text-sm font-mono py-2.5 rounded-lg transition-all duration-200"
+                            style={{
+                              backgroundColor: AMBER,
+                              color: INK,
+                            }}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                           >
                             View Details →
                           </motion.button>
                         ) : (
-                          // Invisible placeholder to maintain consistent height
                           <div className="w-full h-[42px]" />
                         )}
                       </div>
@@ -364,8 +353,7 @@ const ShowProjects = () => {
                       <motion.div
                         className="absolute inset-0 rounded-xl pointer-events-none"
                         style={{
-                          boxShadow:
-                            "0 0 40px rgba(59, 130, 246, 0.5), inset 0 0 40px rgba(59, 130, 246, 0.1)",
+                          boxShadow: `0 0 60px ${AMBER}40, inset 0 0 60px ${AMBER}10`,
                         }}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -380,31 +368,47 @@ const ShowProjects = () => {
           </div>
         </motion.div>
 
-
-
         {/* Navigation Indicators */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 z-30">
-          <motion.div className="relative w-48 h-1.5 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
+          <div
+            className="relative w-48 h-1.5 rounded-full overflow-hidden backdrop-blur-sm"
+            style={{ backgroundColor: `${BORDER}80` }}
+          >
             <motion.div
-              className="absolute top-0 h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full shadow-lg"
+              className="absolute top-0 h-full rounded-full"
               style={{
+                backgroundColor: AMBER,
                 left: `${(currentIndex / (all_projects.length - 1)) * 80}%`,
                 width: "20%",
               }}
             />
-          </motion.div>
+          </div>
 
-          <div className="flex items-center gap-2 text-white/90 text-sm font-bold bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/20">
-            <span className="text-base">{currentIndex + 1}</span>
-            <span className="text-white/60">/</span>
-            <span className="text-white/60">{all_projects.length}</span>
+          <div
+            className="flex items-center gap-2 text-sm font-mono px-3 py-1.5 rounded-full border backdrop-blur-md"
+            style={{
+              backgroundColor: `${SURFACE}CC`,
+              borderColor: BORDER,
+              color: ASH,
+            }}
+          >
+            <span style={{ color: PAPER }}>{currentIndex + 1}</span>
+            <span>/</span>
+            <span>{all_projects.length}</span>
           </div>
         </div>
 
         {/* Navigation Arrows */}
         <button
           onClick={handlePrevious}
-          className="absolute left-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-black/40 hover:bg-black/60 text-white rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-md border border-white/30 z-30 group shadow-xl hover:shadow-2xl hover:scale-110"
+          className="absolute left-8 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-md border z-30 group shadow-xl hover:shadow-2xl hover:scale-110"
+          style={{
+            backgroundColor: `${SURFACE}CC`,
+            borderColor: BORDER,
+            color: ASH,
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = AMBER)}
+          onMouseLeave={(e) => (e.currentTarget.style.color = ASH)}
           aria-label="Previous project"
         >
           <svg
@@ -424,7 +428,14 @@ const ShowProjects = () => {
 
         <button
           onClick={handleNext}
-          className="absolute right-8 top-1/2 -translate-y-1/2 w-14 h-14 bg-black/40 hover:bg-black/60 text-white rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-md border border-white/30 z-30 group shadow-xl hover:shadow-2xl hover:scale-110"
+          className="absolute right-8 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-md border z-30 group shadow-xl hover:shadow-2xl hover:scale-110"
+          style={{
+            backgroundColor: `${SURFACE}CC`,
+            borderColor: BORDER,
+            color: ASH,
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = AMBER)}
+          onMouseLeave={(e) => (e.currentTarget.style.color = ASH)}
           aria-label="Next project"
         >
           <svg
@@ -448,7 +459,8 @@ const ShowProjects = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-screen bg-slate-900 overflow-hidden"
+      className="relative w-full h-screen overflow-hidden"
+      style={{ backgroundColor: INK }}
       onWheel={handleWheel}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -456,33 +468,33 @@ const ShowProjects = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Animated Background */}
-      <div className="absolute inset-0 opacity-20">
-        <div
-          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-blue-600 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-pink-600 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "2s" }}
-        />
-      </div>
+      {/* Subtle grain texture */}
+      <svg
+        className="absolute inset-0 w-full h-full opacity-[0.04] pointer-events-none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <filter id="grain-projects">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#grain-projects)" />
+      </svg>
 
-      {/* Grid overlay */}
+      {/* Ambient glow */}
       <div
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
-          backgroundSize: "50px 50px",
-        }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 pointer-events-none"
+        style={{ backgroundColor: AMBER }}
       />
 
       {/* Return to Homepage Button */}
       <motion.button
         onClick={() => navigate("/")}
-        className="absolute top-6 left-6 z-40 flex items-center gap-2 px-5 py-2.5 bg-black/40 hover:bg-black/60 text-white rounded-full transition-all duration-300 backdrop-blur-md border border-white/30 hover:border-white/50 group shadow-xl"
-        whileHover={{ scale: 1.05 }}
+        className="absolute top-6 left-6 z-40 flex items-center gap-2 px-5 py-2.5 rounded-full transition-all duration-300 backdrop-blur-md border group shadow-xl"
+        style={{
+          backgroundColor: `${SURFACE}CC`,
+          borderColor: BORDER,
+          color: ASH,
+        }}
+        whileHover={{ scale: 1.05, color: PAPER, borderColor: AMBER }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -502,26 +514,29 @@ const ShowProjects = () => {
             d="M10 19l-7-7m0 0l7-7m-7 7h18"
           />
         </svg>
-        <span className="text-sm font-semibold">Back to Home</span>
+        <span className="text-sm font-mono font-medium">Back</span>
       </motion.button>
 
       {/* Main Content */}
-      <div className="relative z-10 w-full h-full">
-        <div className="relative w-full h-full">{renderCarousel()}</div>
-      </div>
+      <div className="relative z-10 w-full h-full">{renderCarousel()}</div>
 
       {/* Project Modal */}
       <AnimatePresence>
         {activeProject && (
           <motion.div
-            className="fixed inset-0 bg-black/90 backdrop-blur-xl z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ backgroundColor: `${INK}CC`, backdropFilter: "blur(12px)" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setActiveProject(null)}
           >
             <motion.div
-              className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto border border-white/20 shadow-2xl"
+              className="rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto border shadow-2xl"
+              style={{
+                backgroundColor: SURFACE,
+                borderColor: BORDER,
+              }}
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -534,10 +549,22 @@ const ShowProjects = () => {
                   alt={activeProject.title}
                   className="w-full h-72 md:h-96 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent" />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: `linear-gradient(to top, ${SURFACE}, ${SURFACE}44 50%, transparent)`,
+                  }}
+                />
                 <button
                   onClick={() => setActiveProject(null)}
-                  className="absolute top-4 right-4 w-12 h-12 bg-black/60 hover:bg-black/80 rounded-full flex items-center justify-center text-white text-2xl font-bold transition-all backdrop-blur-md hover:scale-110 border border-white/20"
+                  className="absolute top-4 right-4 w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold transition-all backdrop-blur-md hover:scale-110 border"
+                  style={{
+                    backgroundColor: `${SURFACE}CC`,
+                    borderColor: BORDER,
+                    color: ASH,
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = PAPER)}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = ASH)}
                   aria-label="Close modal"
                 >
                   ×
@@ -546,63 +573,80 @@ const ShowProjects = () => {
 
               <div className="p-8 md:p-10">
                 <div className="mb-8">
-                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  <h2
+                    className="text-4xl md:text-5xl font-display font-semibold mb-4"
+                    style={{ color: PAPER }}
+                  >
                     {activeProject.title}
                   </h2>
-                  <p className="text-gray-300 text-lg leading-relaxed">
+                  <p className="text-lg leading-relaxed" style={{ color: BODY }}>
                     {activeProject.desc}
                   </p>
                 </div>
 
                 {activeProject.techs && (
                   <div className="mb-8">
-                    <h3 className="text-white font-semibold text-2xl mb-4 flex items-center gap-2">
-                      <span className="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></span>
-                      Technologies Used
+                    <h3 className="font-display font-semibold text-2xl mb-4 flex items-center gap-2" style={{ color: PAPER }}>
+                      <span className="w-1 h-6 rounded-full" style={{ backgroundColor: AMBER }}></span>
+                      Technologies
                     </h3>
                     <div className="flex flex-wrap gap-3">
-                      {getTechArray(activeProject.techs).map(
-                        (technology, idx) => (
-                          <span
-                            key={idx}
-                            className="px-5 py-2.5 bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-blue-300 rounded-full text-sm border border-blue-500/30 font-semibold hover:bg-blue-600/30 hover:scale-105 transition-all cursor-default"
-                          >
-                            {technology}
-                          </span>
-                        )
-                      )}
+                      {getTechArray(activeProject.techs).map((technology, idx) => (
+                        <span
+                          key={idx}
+                          className="px-5 py-2.5 rounded-full text-sm font-mono border transition-all cursor-default"
+                          style={{
+                            color: ASH,
+                            borderColor: BORDER,
+                            backgroundColor: `${BORDER}40`,
+                          }}
+                        >
+                          {technology}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 )}
 
-                {activeProject.features &&
-                  activeProject.features.length > 0 && (
-                    <div className="mb-8">
-                      <h3 className="text-white font-semibold text-2xl mb-4 flex items-center gap-2">
-                        <span className="w-1 h-6 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full"></span>
-                        Key Features
-                      </h3>
-                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {activeProject.features.map((feature, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start text-gray-300 bg-white/5 p-3 rounded-lg border border-white/10"
-                          >
-                            <span className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mr-3 mt-2 flex-shrink-0"></span>
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                {activeProject.features && activeProject.features.length > 0 && (
+                  <div className="mb-8">
+                    <h3 className="font-display font-semibold text-2xl mb-4 flex items-center gap-2" style={{ color: PAPER }}>
+                      <span className="w-1 h-6 rounded-full" style={{ backgroundColor: AMBER }}></span>
+                      Key Features
+                    </h3>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {activeProject.features.map((feature, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-start p-3 rounded-lg border"
+                          style={{
+                            color: BODY,
+                            borderColor: BORDER,
+                            backgroundColor: `${BORDER}20`,
+                          }}
+                        >
+                          <span
+                            className="w-2 h-2 rounded-full mr-3 mt-2 flex-shrink-0"
+                            style={{ backgroundColor: AMBER }}
+                          />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
-                <div className="flex flex-col sm:flex-row gap-4 pt-8 border-t border-white/20">
+                <div className="flex flex-col sm:flex-row gap-4 pt-8 border-t" style={{ borderColor: BORDER }}>
                   {activeProject.demoURL && (
                     <a
                       href={activeProject.demoURL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-5 rounded-2xl text-center font-bold transition-all text-lg shadow-xl hover:shadow-2xl hover:shadow-purple-500/50 hover:scale-105"
+                      className="flex-1 py-5 rounded-2xl text-center font-bold transition-all text-lg shadow-xl hover:shadow-2xl hover:scale-105"
+                      style={{
+                        backgroundColor: AMBER,
+                        color: INK,
+                      }}
                     >
                       🚀 Live Demo
                     </a>
@@ -612,7 +656,20 @@ const ShowProjects = () => {
                       href={activeProject.githubURL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 bg-slate-700 hover:bg-slate-600 text-white py-5 rounded-2xl text-center font-bold transition-all text-lg border-2 border-white/20 hover:border-white/40 shadow-xl hover:scale-105"
+                      className="flex-1 py-5 rounded-2xl text-center font-bold transition-all text-lg border-2 shadow-xl hover:scale-105"
+                      style={{
+                        color: PAPER,
+                        borderColor: BORDER,
+                        backgroundColor: `${BORDER}40`,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = AMBER;
+                        e.currentTarget.style.color = AMBER;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = BORDER;
+                        e.currentTarget.style.color = PAPER;
+                      }}
                     >
                       💻 View Code
                     </a>

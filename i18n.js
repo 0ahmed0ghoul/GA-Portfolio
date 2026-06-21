@@ -64,14 +64,23 @@ const resources = {
         project_showcase_alt: "project showcase",
         project_thumbnail_alt: "Thumbnail for project: {{name}}",
 
-        
+        rag_document_analysis: "RAG Document Analysis",
+        rag_document_analysis_desc: "This project is a web application that utilizes the RAG (Red, Amber, Green) analysis method to evaluate and categorize documents based on their content. It provides users with a visual representation of document status, allowing for quick assessment and decision-making. The application is built with modern web technologies, ensuring a responsive and user-friendly experience.",
+
+        eco_dz : "EcoDZ - Eco Friendly Travels Platform",
+        eco_dz_desc : "EcoDZ is a web application designed to promote eco-friendly travel experiences in Algeria. It provides users with information on sustainable travel options, eco-friendly accommodations, and activities that minimize environmental impact. The platform aims to raise awareness about responsible tourism and encourage travelers to make environmentally conscious choices.",
+
+        lan_monitoring: "LAN Monitoring System",
+        lan_monitoring_desc: "This web application is a real-time LAN monitoring and device inventory system, designed and implemented during an internship at DCRD – SONATRACH. It provides IT administrators with a centralized dashboard to monitor system and software configurations of devices connected within a Local Area Network (LAN).",
+       
+        face_recognition: "Face Recognition",
+        face_recognition_desc: "FaceTrack is a Python-based desktop application built with PyQt5 that simplifies workforce management using AI-powered face recognition. Designed for small businesses and security needs, it offers an offline, lightweight solution to track employee attendance without complex setups.",
+
         // Project names and descriptions
         classroom_management: "Classroom Management System",
         classroom_management_desc: "This web application is designed for managing classroom data, focusing on administrative control, student and teacher attendance tracking, and attendance rate calculation. It allows educational institutions to efficiently monitor and update classroom-related information via a user-friendly and responsive interface.",
         
-        lan_monitoring: "LAN Monitoring System",
-        lan_monitoring_desc: "This web application is a real-time LAN monitoring and device inventory system, designed and implemented during an internship at DCRD – SONATRACH. It provides IT administrators with a centralized dashboard to monitor system and software configurations of devices connected within a Local Area Network (LAN).",
-        
+
         alg_courses: "Courses and Quizzes Management",
         alg_courses_desc: "ALGCourses is an academic platform that connects teachers and students. It empowers instructors with course creation tools while giving learners an easy way to discover and join classes.",
         
@@ -80,9 +89,7 @@ const resources = {
         
         conference_system: "Conference Management System",
         conference_system_desc: "This web application is designed to automate and simplify the entire lifecycle of conference paper management—from submission to final decision. Built with Laravel, it provides secure, role-based dashboards for authors, reviewers, and chairs, ensuring a seamless workflow for academic conferences.",
-        
-        face_recognition: "Face Recognition",
-        face_recognition_desc: "FaceTrack is a Python-based desktop application built with PyQt5 that simplifies workforce management using AI-powered face recognition. Designed for small businesses and security needs, it offers an offline, lightweight solution to track employee attendance without complex setups.",
+
          // Categories
         category_web: "Web Application",
         category_desktop: "Desktop Application",

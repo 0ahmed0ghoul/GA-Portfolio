@@ -16,6 +16,11 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from '../i18n'; 
 import { useEffect } from "react";
 
+// Color palette matching _AboutMe
+const INK = "#0d0c0a";
+const SURFACE = "#161410";
+const PAPER = "#ece6d6";
+
 const App = () => {
   useEffect(() => {
     const el = document.getElementById("aboutme");
@@ -32,24 +37,25 @@ const App = () => {
         <Routes>
           {/* Home page */}
           <Route path="/" element={
-            <main className="relative bg-slate-900">
-              <Nav />
-              <br />
-              <br />
-              <div className="max-w-screen-xl mx-auto px-4 sm:px-6 ">
+            <main 
+              className="relative min-h-screen" 
+              style={{ backgroundColor: INK, color: PAPER }}
+            >
+              <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
                 <section className="wide:padding-r padding-b">
                   <_AboutMe />
+                  <Nav />
                 </section>
                 <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-24 flex justify-center items-center">
                   <Projects />
                 </section>
-                <section id="services" className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-24 ">
+                <section id="services" className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-24">
                   <Services />
                 </section>
                 <section id="education_experience" className="max-w-screen-xl min-h-screen mx-auto px-4 sm:px-6 lg:px-8 lg:pt-24">
                   <EducExper />
                 </section>
-                <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-24 ">
+                <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-24">
                   <Testimonials />
                 </section>
                 <section>
@@ -59,7 +65,10 @@ const App = () => {
                   <CV />
                 </section>
               </div>
-              <section className="bg-black padding-x padding-t pb-8">
+              <section 
+                className="padding-x padding-t pb-8" 
+                style={{ backgroundColor: SURFACE }}
+              >
                 <Footer />
               </section>
               <UpButton />
@@ -67,7 +76,7 @@ const App = () => {
           } />
 
           {/* New Show Projects Page */}
-          <Route path="/show/projects" element={<ShowProjects/>} />
+          <Route path="/show/projects" element={<ShowProjects />} />
         </Routes>
       </Router>
     </I18nextProvider>
