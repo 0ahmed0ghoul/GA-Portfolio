@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useRef } from "react";
-import { statistics } from "../constants";
+import { socialMedia, statistics } from "../constants";
 import { me } from "../assets/images";
 import {
   motion,
@@ -82,7 +82,11 @@ const _AboutMe = () => {
 
   const fade = {
     hidden: { opacity: 0, y: reduceMotion ? 0 : 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: "easeOut" },
+    },
   };
 
   const languages = [
@@ -129,7 +133,12 @@ const _AboutMe = () => {
         xmlns="http://www.w3.org/2000/svg"
       >
         <filter id="grain">
-          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.85"
+            numOctaves="2"
+            stitchTiles="stitch"
+          />
         </filter>
         <rect width="100%" height="100%" filter="url(#grain)" />
       </svg>
@@ -142,8 +151,14 @@ const _AboutMe = () => {
           animate={controls}
         >
           {/* ---------- Photo column ---------- */}
-          <motion.div variants={fade} className="lg:col-span-4 flex flex-col items-center lg:items-start">
-            <div className="relative w-full max-w-[280px] overflow-hidden" style={{ border: `1px solid ${BORDER}` }}>
+          <motion.div
+            variants={fade}
+            className="lg:col-span-4 flex flex-col items-center lg:items-start"
+          >
+            <div
+              className="relative w-full max-w-[280px] overflow-hidden"
+              style={{ border: `1px solid ${BORDER}` }}
+            >
               <img
                 src={me}
                 alt={t("about.my_picture_alt")}
@@ -151,35 +166,81 @@ const _AboutMe = () => {
               />
             </div>
 
-            <div className="mt-3 flex items-center gap-1.5 font-mono text-[11px]" style={{ color: ASH }}>
+            <div
+              className="mt-3 flex items-center gap-1.5 font-mono text-[11px]"
+              style={{ color: ASH }}
+            >
               <MapPin className="w-3 h-3" style={{ color: AMBER }} />
-              {t("about.from")} <span style={{ color: PAPER }}>{t("about.location")}</span>
+              {t("about.from")}{" "}
+              <span style={{ color: PAPER }}>{t("about.location")}</span>
             </div>
 
-            <div className="mt-1.5 flex items-center gap-2 font-mono text-[11px]" style={{ color: ASH }}>
-              <span className="inline-block w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: AMBER }} />
+            <div
+              className="mt-1.5 flex items-center gap-2 font-mono text-[11px]"
+              style={{ color: ASH }}
+            >
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full animate-pulse"
+                style={{ backgroundColor: AMBER }}
+              />
               {t("about.available")}
+            </div>
+            <div className="flex items-center gap-5 mt-8">
+              {socialMedia.map((icon) => (
+                <div
+                  className="flex justify-center items-center w-12 h-12 bg-white rounded-full"
+                  key={icon.altKey}
+                  onClick={() => window.open(icon.link, "_blank")}
+                >
+                  <img
+                    src={icon.src}
+                    alt={t(`footer.${icon.altKey}`)}
+                    width={24}
+                    height={24}
+                  />
+                </div>
+              ))}
             </div>
           </motion.div>
 
           {/* ---------- Content column ---------- */}
           <div className="lg:col-span-8 flex flex-col gap-7">
             {/* command-prompt eyebrow */}
-            <motion.div variants={fade} className="font-mono text-xs sm:text-sm" style={{ color: ASH }}>
-              <span style={{ color: AMBER }}>~/about</span>{" "}
-              $ <TypedPrompt text="whoami" active={isInView} onDone={() => setPromptDone(true)} />
+            <motion.div
+              variants={fade}
+              className="font-mono text-xs sm:text-sm"
+              style={{ color: ASH }}
+            >
+              <span style={{ color: AMBER }}>~/about</span> ${" "}
+              <TypedPrompt
+                text="whoami"
+                active={isInView}
+                onDone={() => setPromptDone(true)}
+              />
               <span
-                className={`inline-block w-[6px] h-[13px] ml-0.5 align-middle ${promptDone ? "animate-pulse" : ""}`}
+                className={`inline-block w-[6px] h-[13px] ml-0.5 align-middle ${
+                  promptDone ? "animate-pulse" : ""
+                }`}
                 style={{ backgroundColor: AMBER }}
               />
             </motion.div>
 
             {/* name */}
-            <motion.h1 variants={fade} className="leading-[1.05]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-              <span className="block text-2xl sm:text-3xl font-normal" style={{ color: ASH }}>
+            <motion.h1
+              variants={fade}
+              className="leading-[1.05]"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              <span
+                className="block text-2xl sm:text-3xl font-normal"
+                style={{ color: ASH }}
+              >
                 {t("about.greeting")}
               </span>
-              <span className="relative inline-block text-4xl sm:text-5xl lg:text-6xl font-semibold mt-1" style={{ color: PAPER }}>
+              <span
+                className="relative inline-block text-4xl sm:text-5xl lg:text-6xl font-semibold mt-1"
+                style={{ color: PAPER }}
+              >
                 {t("about.my_name")}
                 <motion.svg
                   className="absolute left-0 -bottom-2 w-full h-4"
@@ -187,7 +248,11 @@ const _AboutMe = () => {
                   preserveAspectRatio="none"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
-                  transition={{ duration: reduceMotion ? 0 : 0.9, delay: 0.5, ease: "easeInOut" }}
+                  transition={{
+                    duration: reduceMotion ? 0 : 0.9,
+                    delay: 0.5,
+                    ease: "easeInOut",
+                  }}
                 >
                   <path
                     d="M2,7 Q20,2 35,6 T65,5 T98,7"
@@ -202,26 +267,59 @@ const _AboutMe = () => {
             </motion.h1>
 
             {/* role tags */}
-            <motion.div variants={fade} className="flex flex-wrap gap-2 font-mono text-xs sm:text-sm">
+            <motion.div
+              variants={fade}
+              className="flex flex-wrap gap-2 font-mono text-xs sm:text-sm"
+            >
               {["profession1", "profession2"].map((prof) => (
-                <span key={prof} className="px-3 py-1.5" style={{ color: PAPER, border: `1px solid ${BORDER}` }}>
+                <span
+                  key={prof}
+                  className="px-3 py-1.5"
+                  style={{ color: PAPER, border: `1px solid ${BORDER}` }}
+                >
                   {t(`about.${prof}`)}
                 </span>
               ))}
             </motion.div>
 
             {/* description */}
-            <motion.p variants={fade} className="max-w-xl text-sm sm:text-base leading-relaxed" style={{ color: BODY }}>
+            <motion.p
+              variants={fade}
+              className="max-w-xl text-sm sm:text-base leading-relaxed"
+              style={{ color: BODY }}
+            >
               {t("about.description")}
             </motion.p>
 
             {/* code panel — structured summary */}
-            <motion.div variants={fade} className="w-full max-w-xl" style={{ border: `1px solid ${BORDER}`, backgroundColor: SURFACE }}>
-              <div className="flex items-center gap-2 px-4 py-2.5" style={{ borderBottom: `1px solid ${BORDER}` }}>
-                <span className="w-2 h-2 rounded-full" style={{ border: `1px solid ${ASH}` }} />
-                <span className="w-2 h-2 rounded-full" style={{ border: `1px solid ${ASH}` }} />
-                <span className="w-2 h-2 rounded-full" style={{ border: `1px solid ${ASH}` }} />
-                <span className="ml-2 font-mono text-[11px]" style={{ color: ASH }}>
+            <motion.div
+              variants={fade}
+              className="w-full max-w-xl"
+              style={{
+                border: `1px solid ${BORDER}`,
+                backgroundColor: SURFACE,
+              }}
+            >
+              <div
+                className="flex items-center gap-2 px-4 py-2.5"
+                style={{ borderBottom: `1px solid ${BORDER}` }}
+              >
+                <span
+                  className="w-2 h-2 rounded-full"
+                  style={{ border: `1px solid ${ASH}` }}
+                />
+                <span
+                  className="w-2 h-2 rounded-full"
+                  style={{ border: `1px solid ${ASH}` }}
+                />
+                <span
+                  className="w-2 h-2 rounded-full"
+                  style={{ border: `1px solid ${ASH}` }}
+                />
+                <span
+                  className="ml-2 font-mono text-[11px]"
+                  style={{ color: ASH }}
+                >
                   whoami.ts
                 </span>
               </div>
@@ -230,13 +328,19 @@ const _AboutMe = () => {
                   const <span style={{ color: PAPER }}>developer</span> = {"{"}
                 </div>
                 <div className="pl-4" style={{ color: ASH }}>
-                  name: <span style={{ color: AMBER }}>"{t("about.my_name")}"</span>,
+                  name:{" "}
+                  <span style={{ color: AMBER }}>"{t("about.my_name")}"</span>,
                 </div>
                 <div className="pl-4" style={{ color: ASH }}>
-                  role: <span style={{ color: AMBER }}>"{t("about.profession1")} & {t("about.profession2")}"</span>,
+                  role:{" "}
+                  <span style={{ color: AMBER }}>
+                    "{t("about.profession1")} & {t("about.profession2")}"
+                  </span>
+                  ,
                 </div>
                 <div className="pl-4" style={{ color: ASH }}>
-                  base: <span style={{ color: AMBER }}>"{t("about.location")}"</span>,
+                  base:{" "}
+                  <span style={{ color: AMBER }}>"{t("about.location")}"</span>,
                 </div>
                 <div className="pl-4" style={{ color: ASH }}>
                   experience: <span style={{ color: AMBER }}>"2+ years"</span>,
@@ -255,17 +359,27 @@ const _AboutMe = () => {
               </p>
               <div className="flex flex-col gap-3">
                 {languages.map((lang) => (
-                  <div key={lang.key} className="flex items-center gap-3 font-mono text-xs">
+                  <div
+                    key={lang.key}
+                    className="flex items-center gap-3 font-mono text-xs"
+                  >
                     <span className="w-16 sm:w-20" style={{ color: PAPER }}>
                       {t(`about.${lang.key}`)}
                     </span>
-                    <div className="flex-1 h-[3px]" style={{ backgroundColor: BORDER }}>
+                    <div
+                      className="flex-1 h-[3px]"
+                      style={{ backgroundColor: BORDER }}
+                    >
                       <motion.div
                         className="h-full"
                         style={{ backgroundColor: AMBER }}
                         initial={{ width: 0 }}
                         animate={isInView ? { width: `${lang.level}%` } : {}}
-                        transition={{ duration: reduceMotion ? 0 : 0.8, delay: 0.3, ease: "easeOut" }}
+                        transition={{
+                          duration: reduceMotion ? 0 : 0.8,
+                          delay: 0.3,
+                          ease: "easeOut",
+                        }}
                       />
                     </div>
                     <span className="w-20 text-right" style={{ color: ASH }}>
@@ -277,7 +391,10 @@ const _AboutMe = () => {
             </motion.div>
 
             {/* stats + CTA */}
-            <motion.div variants={fade} className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10 pt-2">
+            <motion.div
+              variants={fade}
+              className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10 pt-2"
+            >
               <div className="flex gap-6 sm:gap-8">
                 {statistics.map((stat, index) => (
                   <div
@@ -292,7 +409,10 @@ const _AboutMe = () => {
                     >
                       <Counter value={stat.value} />
                     </span>
-                    <span className="font-mono text-[10px] uppercase tracking-wide" style={{ color: ASH }}>
+                    <span
+                      className="font-mono text-[10px] uppercase tracking-wide"
+                      style={{ color: ASH }}
+                    >
                       {t(`stats.${stat.label.toLowerCase().replace(" ", "_")}`)}
                     </span>
                   </div>
@@ -302,10 +422,14 @@ const _AboutMe = () => {
               <a
                 href="#projects"
                 className="group inline-flex items-center gap-2 font-mono text-sm px-4 py-2.5 self-start transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                style={{ border: `1px solid ${AMBER}`, color: AMBER, outlineColor: AMBER }}
+                style={{
+                  border: `1px solid ${AMBER}`,
+                  color: AMBER,
+                  outlineColor: AMBER,
+                }}
               >
                 <span style={{ color: ASH }}>./</span>
-                {t("projects")}
+                {t("about.see_projects")}
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
             </motion.div>

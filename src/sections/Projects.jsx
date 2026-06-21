@@ -94,12 +94,12 @@ const Projects = () => {
 
         {/* IDE-style workspace: file explorer + live preview */}
         <div className="flex flex-col lg:flex-row" style={{ border: `1px solid ${BORDER}` }}>
-          {/* Sidebar — file explorer */}
-          <div className="lg:w-64 shrink-0 flex flex-col" style={{ borderBottom: `1px solid ${BORDER}` }}>
-            <div className="px-4 py-2.5 font-mono text-[11px]" style={{ color: ASH, borderBottom: `1px solid ${BORDER}`, borderRight: `1px solid ${BORDER}` }}>
+          {/* Desktop sidebar — vertical file explorer, fixed width, never grows */}
+          <div className="hidden lg:flex lg:w-64 shrink-0 flex-col" style={{ borderRight: `1px solid ${BORDER}` }}>
+            <div className="px-4 py-2.5 font-mono text-[11px]" style={{ color: ASH, borderBottom: `1px solid ${BORDER}` }}>
               projects/
             </div>
-            <div className="flex flex-col" style={{ borderRight: `1px solid ${BORDER}` }}>
+            <div className="flex flex-col">
               {displayedProjects.map((project, index) => (
                 <ProjectCard
                   key={project.nameKey}
@@ -110,7 +110,7 @@ const Projects = () => {
                 />
               ))}
             </div>
-            <div className="hidden lg:block mt-auto px-4 py-3 font-mono text-[11px]" style={{ borderTop: `1px solid ${BORDER}`, borderRight: `1px solid ${BORDER}` }}>
+            <div className="mt-auto px-4 py-3 font-mono text-[11px]" style={{ borderTop: `1px solid ${BORDER}` }}>
               <Link
                 to="/show/projects"
                 className="inline-flex items-center gap-1 transition-colors duration-200 hover:text-current focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
@@ -119,6 +119,20 @@ const Projects = () => {
                 {t(PROJECT_KEYS.SEE_MORE)} <ExternalLink className="w-3 h-3" />
               </Link>
             </div>
+          </div>
+
+          {/* Mobile — horizontal scrollable tab strip, takes one compact row */}
+          <div className="flex lg:hidden overflow-x-auto" style={{ borderBottom: `1px solid ${BORDER}` }}>
+            {displayedProjects.map((project, index) => (
+              <ProjectCard
+                key={project.nameKey}
+                orientation="horizontal"
+                index={index}
+                project={{ ...project, name: t(`projects.${project.nameKey}`) }}
+                isActive={selectedProject.nameKey === project.nameKey}
+                onClick={() => handleProjectChange(project, index)}
+              />
+            ))}
           </div>
 
           {/* Main — editor / live preview */}
@@ -137,6 +151,10 @@ const Projects = () => {
                 >
                   {selectedProject.demo || selectedProject.link || selectedProject.github || "—"}
                 </div>
+                {/* index counter — handy on mobile now that the file list scrolls offscreen */}
+                <span className="font-mono text-[11px] shrink-0" style={{ color: ASH }}>
+                  {String(currentIndex + 1).padStart(2, "0")}/{String(displayedProjects.length).padStart(2, "0")}
+                </span>
               </div>
 
               <div className="relative aspect-video overflow-hidden" style={{ backgroundColor: SURFACE }}>

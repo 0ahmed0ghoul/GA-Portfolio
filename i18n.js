@@ -21,6 +21,8 @@ const resources = {
         english_level: "60%",
         german: "German",
         german_level: "20% (still learning)",
+        french: "French",
+        french_level: "30% (still learning)",
         portuguese: "Portuguese",
         portuguese_level: "10% (started recently)",
         beginner: "Beginner",
@@ -195,7 +197,8 @@ const resources = {
         // Review 2
         rayane_name: "Mr. Merchichi Rayane",
         rayane_profession: "Software research and development engineer at Sonatrach",
-        rayane_feedback: "During his internship at SONATRACH, Ahmed Ghoul built an impressive LAN monitoring system using React and Python. His frontend work stood out for its clarity, responsiveness, and user-friendly design. Ahmed's technical skills and professionalism were evident throughout, and he quickly became a valuable part of the team."
+        rayane_feedback: "During his internship at SONATRACH, Ahmed Ghoul built an impressive LAN monitoring system using React and Python. His frontend work stood out for its clarity, responsiveness, and user-friendly design. Ahmed's technical skills and professionalism were evident throughout, and he quickly became a valuable part of the team.",
+        scroll_hint: "Scroll to see more testimonials"
       },
       skills: {
         self_motivation: "Self-Motivation",

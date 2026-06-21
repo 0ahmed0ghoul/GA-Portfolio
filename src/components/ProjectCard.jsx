@@ -1,84 +1,61 @@
 import { motion } from "framer-motion";
-import { useTranslation } from 'react-i18next';
 
-const ProjectCard = ({
-  project,
-  isActive,
-  onClick,
-  index,
-}) => {
-  const { t } = useTranslation();
+const SURFACE = "#161410";
+const PAPER = "#ece6d6";
+const ASH = "#948e7c";
+const AMBER = "#e0a045";
+
+const EXT_BY_CATEGORY = {
+  category_web: "tsx",
+  category_desktop: "cpp",
+  category_ui: "fig",
+  category_internship: "md",
+};
+
+/**
+ * A single "file" row in the projects explorer.
+ *
+ * orientation="vertical"   → desktop sidebar: full width, left accent border
+ * orientation="horizontal" → mobile tab strip: fixed width, bottom accent border
+ *
+ * Deliberately has no whileHover scale/translate — fixed height/width at all
+ * times so it can't outgrow its container or jump on hover.
+ */
+const ProjectCard = ({ project, isActive, onClick, index, orientation = "vertical" }) => {
+  const isInProgress = project.status === "status_in_progress";
+  const ext = EXT_BY_CATEGORY[project.category] || "ts";
+  const isHorizontal = orientation === "horizontal";
 
   return (
-    <motion.div
-      className={`relative rounded-xl overflow-hidden ${
-        isActive ? "ring-4 ring-coral-red" : "ring-2 ring-transparent"
-      } cursor-pointer shadow-lg`}
+    <motion.button
+      type="button"
       onClick={onClick}
-      whileHover={{ 
-        y: -8,
-        scale: 1.03,
-        transition: { duration: 0.2 }
-      }}
-      whileTap={{ scale: 0.95 }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ 
-        opacity: 1, 
-        y: 0,
-        transition: { delay: index * 0.1 }
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: index * 0.04, duration: 0.25 } }}
+      whileTap={{ opacity: 0.7 }}
+      className={`flex items-center gap-2.5 font-mono text-[11px] sm:text-xs text-left transition-colors duration-200 hover:bg-white/5 ${
+        isHorizontal ? "shrink-0 px-3.5 py-2.5" : "w-full px-4 py-3"
+      }`}
+      style={{
+        color: isActive ? PAPER : ASH,
+        backgroundColor: isActive ? SURFACE : undefined,
+        borderLeft: !isHorizontal ? `2px solid ${isActive ? AMBER : "transparent"}` : undefined,
+        borderBottom: isHorizontal ? `2px solid ${isActive ? AMBER : "transparent"}` : undefined,
       }}
     >
-      <div className="relative w-full h-full aspect-square">
-        <motion.img
-          src={project.imgURL}
-          alt={t('projects.project_thumbnail_alt', { name: project.name })}          
-          className="w-full h-full object-cover"
-          initial={{ opacity: 0.9 }}
-          animate={{ 
-            opacity: isActive ? 1 : 0.7,
-            transition: { duration: 0.3 }
-          }}
-        />
-
-        <motion.div 
-          className="absolute inset-0 flex items-center justify-center"
-          initial={{ backgroundColor: "rgba(0,0,0,0.7)" }}
-          animate={{
-            backgroundColor: isActive ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.7)",
-            transition: { duration: 0.3 }
-          }}
-        >
-          <motion.span 
-            className="text-white text-3xl font-bold"
-            animate={{
-              scale: isActive ? 1.2 : 1,
-              color: isActive ? "#FF6452" : "white",
-              transition: { 
-                type: "spring", 
-                stiffness: 500,
-                damping: 15
-              }
-            }}
-          >
-            {index + 1}
-          </motion.span>
-
-          <motion.div
-            className="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-80"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{
-              opacity: isActive ? 1 : 0,
-              y: isActive ? 0 : 20,
-              transition: { duration: 0.3 }
-            }}
-          >
-            <p className="text-white text-sm font-medium truncate text-center">
-              {project.name}
-            </p>
-          </motion.div>
-        </motion.div>
-      </div>
-    </motion.div>
+      <span style={{ color: ASH }}>{String(index + 1).padStart(2, "0")}</span>
+      <span className={isHorizontal ? "whitespace-nowrap" : "flex-1 truncate"}>
+        {project.name}
+        <span style={{ color: ASH }}>.{ext}</span>
+      </span>
+      <span
+        className="w-1.5 h-1.5 rounded-full shrink-0"
+        style={{
+          backgroundColor: isInProgress ? AMBER : "transparent",
+          border: `1px solid ${isInProgress ? AMBER : ASH}`,
+        }}
+      />
+    </motion.button>
   );
 };
 
