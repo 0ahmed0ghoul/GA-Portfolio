@@ -15,6 +15,7 @@ import {
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../i18n'; 
 import { useEffect } from "react";
+import Preloader from "./components/Preloader";
 
 // Color palette matching _AboutMe
 const INK = "#0d0c0a";
@@ -41,6 +42,7 @@ const App = () => {
               className="relative min-h-screen" 
               style={{ backgroundColor: INK, color: PAPER }}
             >
+                <Preloader />
               <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
                 <section className="wide:padding-r padding-b">
                   <_AboutMe />
