@@ -1,52 +1,99 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronUp } from "lucide-react";
+
+// Same tokens as everywhere else in the portfolio
+const SURFACE = "#161410";
+const BORDER  = "#2c2820";
+const ASH     = "#948e7c";
+const AMBER   = "#e0a045";
+
+// SVG ring geometry — sits exactly inside the 48×48 button face
+const RADIUS       = 21;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS; // ≈ 131.95
 
 const UpButton = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [progress, setProgress]   = useState(0);
+  const [hovered, setHovered]     = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 300);
+      const scrollY   = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      setIsVisible(scrollY > 300);
+      setProgress(maxScroll > 0 ? scrollY / maxScroll : 0);
     };
-
     handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
   return (
-    <div className="relative w-full max-w-[1280px] mx-auto">
-    <div 
-          className={`w-14 h-14 rounded-full bg-coral-red fixed bottom-6 right-4 sm:bottom-10 sm:right-8 lg:right-[max(calc(50%-640px),2rem)] flex justify-center items-center cursor-pointer transition-all duration-300 hover:scale-110 hover:bg-dark-coral-red shadow-lg z-50 ${
-            isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          }`}
-          onClick={scrollToTop}
-          title="Scroll to top"
+    <AnimatePresence>
+      {isVisible && (
+        <motion.button
+          type="button"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
           aria-label="Scroll to top"
+          title="Scroll to top"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y:  0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.22, ease: "easeOut" }}
+          className="fixed bottom-6 right-4 sm:bottom-10 sm:right-8 z-50
+                     w-12 h-12 flex items-center justify-center
+                     focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          style={{
+            backgroundColor: `${SURFACE}e6`,
+            backdropFilter: "blur(8px)",
+            border: `1px solid ${hovered ? AMBER : BORDER}`,
+            outlineColor: AMBER,
+            transition: "border-color 0.2s ease",
+          }}
         >
+          {/*
+           * Scroll-progress ring — drawn in SVG directly over the button face.
+           * Rotated -90° so the arc starts at 12 o'clock (top).
+           */}
+          <svg
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 48 48"
+            style={{ transform: "rotate(-90deg)" }}
+          >
+            {/* track — always visible, very faint */}
+            <circle
+              cx="24" cy="24" r={RADIUS}
+              fill="none"
+              stroke={BORDER}
+              strokeWidth="1.5"
+            />
+            {/* progress arc — fills clockwise as the user scrolls */}
+            <circle
+              cx="24" cy="24" r={RADIUS}
+              fill="none"
+              stroke={AMBER}
+              strokeWidth="1.5"
+              strokeLinecap="butt"
+              strokeDasharray={CIRCUMFERENCE}
+              strokeDashoffset={CIRCUMFERENCE * (1 - progress)}
+              style={{ transition: "stroke-dashoffset 0.12s linear" }}
+            />
+          </svg>
 
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5 10l7-7m0 0l7 7m-7-7v18"
+          {/* Icon — transitions from ASH to AMBER on hover */}
+          <ChevronUp
+            aria-hidden="true"
+            className="relative z-10 transition-colors duration-200"
+            size={16}
+            style={{ color: hovered ? AMBER : ASH }}
           />
-        </svg>
-      </div>
-    </div>
+        </motion.button>
+      )}
+    </AnimatePresence>
   );
 };
 
