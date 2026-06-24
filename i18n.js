@@ -58,6 +58,8 @@ const resources = {
         light_mode:          "Light Mode",
         logo_alt:            "GA Portfolio",
         footer:              "GA | Portfolio",
+        certifications: "Certifications",
+
       },
 
       // -----------------------------------------------------------------------

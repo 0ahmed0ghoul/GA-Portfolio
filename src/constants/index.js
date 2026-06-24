@@ -119,6 +119,7 @@ export const navLinks = [
   { href: "#projects",            label: "Projects",               key: "projects" },
   { href: "#services",            label: "Services",               key: "services" },
   { href: "#education_experience",label: "Education & Experience", key: "education_experience" },
+  { href: "#certifications", label: "Certifications", key: "certifications" },
   { href: "#testimonials",        label: "Testimonials",           key: "testimonials" },
   { href: "#cv",                  label: "CV",                     key: "cv" },
   { href: "#contact_me",          label: "Contact Me",             key: "contact_me" },
