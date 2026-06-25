@@ -17,6 +17,7 @@ import i18n from "../i18n";
 import { useEffect } from "react";
 import Preloader from "./components/Preloader";
 import Certifications from "./sections/Certifications";
+import ContactMe from "./sections/ContactMe";
 
 // Color palette matching _AboutMe
 const INK = "#0d0c0a";
@@ -77,6 +78,9 @@ const App = () => {
                   </section>
                   <section>
                     <CV />
+                  </section>
+                  <section id="contact_me">
+                    <ContactMe />
                   </section>
                 </div>
                 <section
