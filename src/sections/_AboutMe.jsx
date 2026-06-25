@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useRef } from "react";
 import { socialMedia, statistics } from "../constants";
-import { me } from "../assets/images";
+import me from "../assets/images/me.jpg";
 import {
   motion,
   useInView,
@@ -10,63 +10,66 @@ import {
 } from "framer-motion";
 import { ArrowRight, MapPin } from "lucide-react";
 
-/**
- * Type system
- * — Headline (name) → "Space Grotesk"
- * — Everything else (labels, code, data) → "JetBrains Mono"
- * Make sure both are registered globally, e.g. in tailwind.config.js:
- *   fontFamily: {
- *     display: ["Space Grotesk", "sans-serif"],
- *     mono: ["JetBrains Mono", "monospace"],
- *   }
- *
- * Translation keys this file needs that may not exist yet:
- *   about.french        →  "French" / "Français"
- *   about.french_level  →  e.g. "A2"
- * (Swapped out "portuguese" for "french" to match the real language set —
- * English / German / French. Drop the old portuguese keys if unused elsewhere.)
- *
- * No longer imported: the `down` and `experience` icon assets, and `Button`
- * from ../components — the CTA and badges now reuse the same icon family
- * (lucide) for visual consistency. The asset files themselves are untouched.
- */
+const INK     = "#0d0c0a";
+const SURFACE = "#161410";
+const BORDER  = "#2c2820";
+const PAPER   = "#ece6d6";
+const BODY    = "#c8c2b1";
+const ASH     = "#948e7c";
+const AMBER   = "#e0a045";
 
-const INK = "#0d0c0a"; // background
-const SURFACE = "#161410"; // panel fill
-const BORDER = "#2c2820"; // hairline
-const PAPER = "#ece6d6"; // primary text
-const BODY = "#c8c2b1"; // paragraph text
-const ASH = "#948e7c"; // secondary / labels
-const AMBER = "#e0a045"; // single accent
-
-// Only this literal command string is typed character-by-character — it's
-// terminal syntax, not translated copy, so it's safe to animate regardless
-// of the active locale or text direction.
 const TypedPrompt = ({ text, active, speed = 40, onDone }) => {
   const [shown, setShown] = useState("");
-
   useEffect(() => {
     if (!active) return undefined;
     let i = 0;
     const id = setInterval(() => {
       i += 1;
       setShown(text.slice(0, i));
-      if (i >= text.length) {
-        clearInterval(id);
-        onDone?.();
-      }
+      if (i >= text.length) { clearInterval(id); onDone?.(); }
     }, speed);
     return () => clearInterval(id);
   }, [active, text, speed]);
-
   return <>{shown}</>;
 };
+
+// ── Reusable star row ────────────────────────────────────────────────────────
+const Stars = ({ n = 5 }) => (
+  <div className="flex items-center gap-[3px]">
+    {Array.from({ length: n }).map((_, i) => (
+      <svg key={i} width="9" height="9" viewBox="0 0 24 24" aria-hidden="true">
+        <polygon
+          points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"
+          fill={AMBER}
+          stroke={AMBER}
+          strokeWidth="1"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ))}
+  </div>
+);
+
+// ── Floating credential badge ────────────────────────────────────────────────
+const Badge = ({ children, style, motionProps }) => (
+  <motion.div
+    className="absolute z-20 px-2.5 py-1.5"
+    style={{
+      backgroundColor: SURFACE,
+      boxShadow: "0 8px 24px rgba(0,0,0,0.55)",
+      ...style,
+    }}
+    {...motionProps}
+  >
+    {children}
+  </motion.div>
+);
 
 const _AboutMe = () => {
   const { t } = useTranslation();
   const [hoveredStat, setHoveredStat] = useState(null);
-  const [promptDone, setPromptDone] = useState(false);
-  const ref = useRef(null);
+  const [promptDone, setPromptDone]   = useState(false);
+  const ref      = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const controls = useAnimation();
   const reduceMotion = useReducedMotion();
@@ -76,23 +79,18 @@ const _AboutMe = () => {
   }, [isInView, controls]);
 
   const container = {
-    hidden: {},
+    hidden:  {},
     visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
   };
-
   const fade = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.45, ease: "easeOut" },
-    },
+    hidden:  { opacity: 0, y: reduceMotion ? 0 : 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
   };
 
   const languages = [
     { key: "english", level: 88 },
-    { key: "german", level: 18 },
-    { key: "french", level: 35 },
+    { key: "german",  level: 18 },
+    { key: "french",  level: 35 },
   ];
 
   const Counter = ({ value }) => {
@@ -100,24 +98,23 @@ const _AboutMe = () => {
     useEffect(() => {
       if (!isInView) return undefined;
       const end = parseInt(value, 10) || 0;
-      if (reduceMotion) {
-        setCount(end);
-        return undefined;
-      }
+      if (reduceMotion) { setCount(end); return undefined; }
       let start = 0;
       const step = Math.max(end / (700 / 16), 1);
       const id = setInterval(() => {
         start += step;
-        if (start >= end) {
-          setCount(end);
-          clearInterval(id);
-        } else {
-          setCount(Math.floor(start));
-        }
+        if (start >= end) { setCount(end); clearInterval(id); }
+        else setCount(Math.floor(start));
       }, 16);
       return () => clearInterval(id);
     }, [isInView, value]);
     return <>{count}+</>;
+  };
+
+  // Shared badge entrance transition
+  const badgeBase = {
+    initial: { opacity: 0, scale: 0.78 },
+    animate: isInView ? { opacity: 1, scale: 1 } : {},
   };
 
   return (
@@ -127,18 +124,13 @@ const _AboutMe = () => {
       className="relative z-0 min-h-screen lg:h-screen overflow-hidden"
       style={{ backgroundColor: INK }}
     >
-      {/* faint paper grain — texture, not gloss */}
       <svg
         className="absolute inset-0 w-full h-full opacity-[0.05] pointer-events-none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <filter id="grain">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.85"
-            numOctaves="2"
-            stitchTiles="stitch"
-          />
+          <feTurbulence type="fractalNoise" baseFrequency="0.85"
+                        numOctaves="2" stitchTiles="stitch" />
         </filter>
         <rect width="100%" height="100%" filter="url(#grain)" />
       </svg>
@@ -150,46 +142,106 @@ const _AboutMe = () => {
           initial="hidden"
           animate={controls}
         >
-          {/* ---------- Photo column ---------- */}
+          {/* ── Photo column ──────────────────────────────────────────────── */}
           <motion.div
             variants={fade}
-            className="lg:col-span-4 flex flex-col items-center lg:items-start"
+            className="lg:col-span-4 flex flex-col items-center lg:items-center justify-center"
           >
-            <div
-              className="relative w-full max-w-[280px] overflow-hidden"
-              style={{ border: `1px solid ${BORDER}` }}
-            >
-              <img
-                src={me}
-                alt={t("about.my_picture_alt")}
-                className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
-              />
+            {/*
+             * Outer wrapper: relative + extra padding so badges that
+             * overflow the image boundary are never clipped.
+             */}
+            <div className="relative w-full max-w-[280px] pt-4 pr-4">
+
+              {/* ── Badge: 5-Star Student  (top-right, outside image) ── */}
+              <Badge
+                style={{
+                  top: 0, right: 0,
+                  border: `1px solid ${AMBER}`,
+                }}
+                motionProps={{
+                  ...badgeBase,
+                  transition: { delay: 0.55, duration: 0.4, ease: "backOut" },
+                }}
+              >
+                <Stars n={5} />
+                <p className="font-mono text-[9px] font-semibold mt-1"
+                   style={{ color: PAPER }}>
+                  5-Star Student
+                </p>
+                <p className="font-mono text-[8px]" style={{ color: ASH }}>
+                  Univ. Guelma · 2024
+                </p>
+              </Badge>
+
+              {/* ── Photo ─────────────────────────────────────────────── */}
+              <div
+                className="relative w-full"
+                style={{ border: `1px solid ${BORDER}` }}
+              >
+                <img
+                  src={me}
+                  alt={t("about.my_picture_alt")}
+                  className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
+                />
+
+                {/* ── Badge: IELTS  (bottom-left, overlapping image edge) */}
+                <Badge
+                  style={{
+                    bottom: -1, left: -1,
+                    border: `1px solid ${BORDER}`,
+                    borderTop: `1px solid ${AMBER}40`,
+                  }}
+                  motionProps={{
+                    ...badgeBase,
+                    transition: { delay: 0.75, duration: 0.4, ease: "backOut" },
+                  }}
+                >
+                  <div className="flex items-baseline gap-1.5">
+                    <span
+                      className="font-mono text-xs font-bold tracking-wide"
+                      style={{ color: AMBER }}
+                    >
+                      IELTS
+                    </span>
+                    <span
+                      className="font-mono text-[10px] font-semibold"
+                      style={{ color: PAPER }}
+                    >
+                      6.5
+                    </span>
+                  </div>
+                  <p className="font-mono text-[8px] leading-tight"
+                     style={{ color: ASH }}>
+                    B2 · Academic
+                  </p>
+                </Badge>
+              </div>
             </div>
 
-            <div
-              className="mt-3 flex items-center gap-1.5 font-mono text-[11px]"
-              style={{ color: ASH }}
-            >
+            {/* Location + availability */}
+            <div className="mt-7 flex items-center gap-1.5 font-mono text-[11px]"
+                 style={{ color: ASH }}>
               <MapPin className="w-3 h-3" style={{ color: AMBER }} />
               {t("about.from")}{" "}
               <span style={{ color: PAPER }}>{t("about.location")}</span>
             </div>
 
-            <div
-              className="mt-1.5 flex items-center gap-2 font-mono text-[11px]"
-              style={{ color: ASH }}
-            >
+            <div className="mt-1.5 flex items-center gap-2 font-mono text-[11px]"
+                 style={{ color: ASH }}>
               <span
                 className="inline-block w-1.5 h-1.5 rounded-full animate-pulse"
                 style={{ backgroundColor: AMBER }}
               />
               {t("about.available")}
             </div>
+
+            {/* Social icons */}
             <div className="flex items-center gap-5 mt-8">
               {socialMedia.map((icon) => (
                 <div
-                  className="flex justify-center items-center w-12 h-12 bg-white rounded-full"
                   key={icon.altKey}
+                  className="flex justify-center items-center w-12 h-12 bg-white rounded-full cursor-pointer"
                   onClick={() => window.open(icon.link, "_blank")}
                 >
                   <img
@@ -203,14 +255,11 @@ const _AboutMe = () => {
             </div>
           </motion.div>
 
-          {/* ---------- Content column ---------- */}
+          {/* ── Content column ────────────────────────────────────────────── */}
           <div className="lg:col-span-8 flex flex-col gap-7">
             {/* command-prompt eyebrow */}
-            <motion.div
-              variants={fade}
-              className="font-mono text-xs sm:text-sm"
-              style={{ color: ASH }}
-            >
+            <motion.div variants={fade} className="font-mono text-xs sm:text-sm"
+                        style={{ color: ASH }}>
               <span style={{ color: AMBER }}>~/about</span> ${" "}
               <TypedPrompt
                 text="whoami"
@@ -226,15 +275,10 @@ const _AboutMe = () => {
             </motion.div>
 
             {/* name */}
-            <motion.h1
-              variants={fade}
-              className="leading-[1.05]"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              <span
-                className="block text-2xl sm:text-3xl font-normal"
-                style={{ color: ASH }}
-              >
+            <motion.h1 variants={fade} className="leading-[1.05]"
+                       style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+              <span className="block text-2xl sm:text-3xl font-normal"
+                    style={{ color: ASH }}>
                 {t("about.greeting")}
               </span>
               <span
@@ -248,99 +292,57 @@ const _AboutMe = () => {
                   preserveAspectRatio="none"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
-                  transition={{
-                    duration: reduceMotion ? 0 : 0.9,
-                    delay: 0.5,
-                    ease: "easeInOut",
-                  }}
+                  transition={{ duration: reduceMotion ? 0 : 0.9, delay: 0.5, ease: "easeInOut" }}
                 >
                   <path
                     d="M2,7 Q20,2 35,6 T65,5 T98,7"
-                    fill="none"
-                    stroke={AMBER}
-                    strokeWidth="6"
-                    strokeLinecap="round"
-                    opacity="0.45"
+                    fill="none" stroke={AMBER} strokeWidth="6"
+                    strokeLinecap="round" opacity="0.45"
                   />
                 </motion.svg>
               </span>
             </motion.h1>
 
             {/* role tags */}
-            <motion.div
-              variants={fade}
-              className="flex flex-wrap gap-2 font-mono text-xs sm:text-sm"
-            >
+            <motion.div variants={fade}
+                        className="flex flex-wrap gap-2 font-mono text-xs sm:text-sm">
               {["profession1", "profession2"].map((prof) => (
-                <span
-                  key={prof}
-                  className="px-3 py-1.5"
-                  style={{ color: PAPER, border: `1px solid ${BORDER}` }}
-                >
+                <span key={prof} className="px-3 py-1.5"
+                      style={{ color: PAPER, border: `1px solid ${BORDER}` }}>
                   {t(`about.${prof}`)}
                 </span>
               ))}
             </motion.div>
 
             {/* description */}
-            <motion.p
-              variants={fade}
-              className="max-w-xl text-sm sm:text-base leading-relaxed"
-              style={{ color: BODY }}
-            >
+            <motion.p variants={fade}
+                      className="max-w-xl text-sm sm:text-base leading-relaxed"
+                      style={{ color: BODY }}>
               {t("about.description")}
             </motion.p>
 
-            {/* code panel — structured summary */}
-            <motion.div
-              variants={fade}
-              className="w-full max-w-xl"
-              style={{
-                border: `1px solid ${BORDER}`,
-                backgroundColor: SURFACE,
-              }}
-            >
-              <div
-                className="flex items-center gap-2 px-4 py-2.5"
-                style={{ borderBottom: `1px solid ${BORDER}` }}
-              >
-                <span
-                  className="w-2 h-2 rounded-full"
-                  style={{ border: `1px solid ${ASH}` }}
-                />
-                <span
-                  className="w-2 h-2 rounded-full"
-                  style={{ border: `1px solid ${ASH}` }}
-                />
-                <span
-                  className="w-2 h-2 rounded-full"
-                  style={{ border: `1px solid ${ASH}` }}
-                />
-                <span
-                  className="ml-2 font-mono text-[11px]"
-                  style={{ color: ASH }}
-                >
-                  whoami.ts
-                </span>
+            {/* whoami.ts panel */}
+            <motion.div variants={fade} className="w-full max-w-xl"
+                        style={{ border: `1px solid ${BORDER}`, backgroundColor: SURFACE }}>
+              <div className="flex items-center gap-2 px-4 py-2.5"
+                   style={{ borderBottom: `1px solid ${BORDER}` }}>
+                <span className="w-2 h-2 rounded-full" style={{ border: `1px solid ${ASH}` }} />
+                <span className="w-2 h-2 rounded-full" style={{ border: `1px solid ${ASH}` }} />
+                <span className="w-2 h-2 rounded-full" style={{ border: `1px solid ${ASH}` }} />
+                <span className="ml-2 font-mono text-[11px]" style={{ color: ASH }}>whoami.ts</span>
               </div>
               <div className="px-4 py-4 font-mono text-xs sm:text-[13px] leading-7">
                 <div style={{ color: ASH }}>
                   const <span style={{ color: PAPER }}>developer</span> = {"{"}
                 </div>
                 <div className="pl-4" style={{ color: ASH }}>
-                  name:{" "}
-                  <span style={{ color: AMBER }}>"{t("about.my_name")}"</span>,
+                  name: <span style={{ color: AMBER }}>"{t("about.my_name")}"</span>,
                 </div>
                 <div className="pl-4" style={{ color: ASH }}>
-                  role:{" "}
-                  <span style={{ color: AMBER }}>
-                    "{t("about.profession1")} & {t("about.profession2")}"
-                  </span>
-                  ,
+                  role: <span style={{ color: AMBER }}>"{t("about.profession1")} & {t("about.profession2")}"</span>,
                 </div>
                 <div className="pl-4" style={{ color: ASH }}>
-                  base:{" "}
-                  <span style={{ color: AMBER }}>"{t("about.location")}"</span>,
+                  base: <span style={{ color: AMBER }}>"{t("about.location")}"</span>,
                 </div>
                 <div className="pl-4" style={{ color: ASH }}>
                   experience: <span style={{ color: AMBER }}>"2+ years"</span>,
@@ -359,27 +361,17 @@ const _AboutMe = () => {
               </p>
               <div className="flex flex-col gap-3">
                 {languages.map((lang) => (
-                  <div
-                    key={lang.key}
-                    className="flex items-center gap-3 font-mono text-xs"
-                  >
+                  <div key={lang.key} className="flex items-center gap-3 font-mono text-xs">
                     <span className="w-16 sm:w-20" style={{ color: PAPER }}>
                       {t(`about.${lang.key}`)}
                     </span>
-                    <div
-                      className="flex-1 h-[3px]"
-                      style={{ backgroundColor: BORDER }}
-                    >
+                    <div className="flex-1 h-[3px]" style={{ backgroundColor: BORDER }}>
                       <motion.div
                         className="h-full"
                         style={{ backgroundColor: AMBER }}
                         initial={{ width: 0 }}
                         animate={isInView ? { width: `${lang.level}%` } : {}}
-                        transition={{
-                          duration: reduceMotion ? 0 : 0.8,
-                          delay: 0.3,
-                          ease: "easeOut",
-                        }}
+                        transition={{ duration: reduceMotion ? 0 : 0.8, delay: 0.3, ease: "easeOut" }}
                       />
                     </div>
                     <span className="w-20 text-right" style={{ color: ASH }}>
@@ -391,28 +383,21 @@ const _AboutMe = () => {
             </motion.div>
 
             {/* stats + CTA */}
-            <motion.div
-              variants={fade}
-              className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10 pt-2"
-            >
+            <motion.div variants={fade}
+                        className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10 pt-2">
               <div className="flex gap-6 sm:gap-8">
                 {statistics.map((stat, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col gap-1"
-                    onMouseEnter={() => setHoveredStat(index)}
-                    onMouseLeave={() => setHoveredStat(null)}
-                  >
+                  <div key={index} className="flex flex-col gap-1"
+                       onMouseEnter={() => setHoveredStat(index)}
+                       onMouseLeave={() => setHoveredStat(null)}>
                     <span
                       className="font-mono text-xl sm:text-2xl font-semibold transition-colors duration-300"
                       style={{ color: hoveredStat === index ? AMBER : PAPER }}
                     >
                       <Counter value={stat.value} />
                     </span>
-                    <span
-                      className="font-mono text-[10px] uppercase tracking-wide"
-                      style={{ color: ASH }}
-                    >
+                    <span className="font-mono text-[10px] uppercase tracking-wide"
+                          style={{ color: ASH }}>
                       {t(`stats.${stat.label.toLowerCase().replace(" ", "_")}`)}
                     </span>
                   </div>
@@ -422,11 +407,7 @@ const _AboutMe = () => {
               <a
                 href="#projects"
                 className="group inline-flex items-center gap-2 font-mono text-sm px-4 py-2.5 self-start transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                style={{
-                  border: `1px solid ${AMBER}`,
-                  color: AMBER,
-                  outlineColor: AMBER,
-                }}
+                style={{ border: `1px solid ${AMBER}`, color: AMBER, outlineColor: AMBER }}
               >
                 <span style={{ color: ASH }}>./</span>
                 {t("about.see_projects")}
