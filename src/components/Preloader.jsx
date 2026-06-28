@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { me } from "../assets/images";
+import { me } from "../assets/images/pictures";
 
 // Same token system as AboutMe / Projects / Nav
 const INK = "#0d0c0a";

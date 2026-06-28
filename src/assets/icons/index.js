@@ -26,6 +26,10 @@ import projects_img from './projects_img.png';
 
 import techs from './techs.png';
 import clients from './clients.png';
+import massar from './massar.jpg';
+import apex from './apex.jpg';
+import alphax from './alphax.png';
+import client from './client.png';
 
 
 
@@ -54,5 +58,9 @@ export {
     responsive,
     api,
     compo,
-    projects_img
+    projects_img,
+    massar,
+    apex,
+    alphax,
+    client
 }

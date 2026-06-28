@@ -1,20 +1,22 @@
 import {
-  api, clients, compo, facebook, git, github,
-  instagram, linkedin, responsive, techs, ui, projects_img,
+  api, clients, compo, facebook, git, github,massar,apex,alphax,
+  instagram, linkedin, responsive, techs, ui, projects_img,client
 } from "../assets/icons";
 import {
-  samir, rayane, guelma, sonatrach,
-  conference, LANmonitoring, algc, classroom,
-  nike, launch, face, xora, ai, techx,
-  anon, portfolio,
-} from "../assets/images";
+  samir, rayane} from "../assets/images/pictures";
+import {
+  LANmonitoring, face, classroom, algc, nike, conference, anon, portfolio, launch, xora, techx, ai
+} from "../assets/images/projects";
+
+import {guelma, sonatrach } from "../assets/images/logos";
+
 
 // ---------------------------------------------------------------------------
 // All Projects  (shown on /show/projects — title/desc written inline, no i18n)
 // ---------------------------------------------------------------------------
 export const all_projects = [
   {
-    imgURL: ai,
+    imgURL: guelma,
     title: "RAG Document Analytics Platform",
     desc: "Enterprise document-search web app built during thesis internship at Algérie Télécom. Integrated semantic search via FAISS vector embeddings (~50 ms latency reduction) and automated unstructured-document chunking. RESTful APIs connect React frontend, Node.js backend, and Python retrieval service.",
     techs: "React, Node.js, Python, PostgreSQL, FAISS",
@@ -22,7 +24,7 @@ export const all_projects = [
     githubURL: "",
   },
   {
-    imgURL: launch,
+    imgURL: guelma,
     title: "Massar — Recruitment MVP",
     desc: "Production PWA for job-posting management, candidate tracking, and admin dashboards. Implements JWT auth, Role-Based Access Control (RBAC), and REST APIs. Deployed via GitHub Actions CI/CD on Vercel.",
     techs: "React, Node.js, Supabase, PostgreSQL",
@@ -30,7 +32,7 @@ export const all_projects = [
     githubURL: "",
   },
   {
-    imgURL: xora,
+    imgURL: guelma,
     title: "AlphaX — Education PWA",
     desc: "Course-management platform with automated assessments and student-progress tracking. Delivered as a production PWA for an Algerian education client.",
     techs: "React, Node.js, Firebase",
@@ -38,7 +40,7 @@ export const all_projects = [
     githubURL: "",
   },
   {
-    imgURL: techx,
+    imgURL: guelma,
     title: "Apex News",
     desc: "Real-time news PWA with dynamic content management and mobile-first delivery. Full project-lifecycle ownership from design to CI/CD deployment.",
     techs: "React, Node.js, MongoDB",
@@ -131,7 +133,7 @@ export const navLinks = [
 // ---------------------------------------------------------------------------
 export const projects = [
   {
-    imgURL: ai,
+    imgURL: guelma,
     link: "https://github.com/0ahmed0ghoul",
     nameKey: "rag_document_analysis",
     descKey: "rag_document_analysis_desc",
@@ -141,7 +143,46 @@ export const projects = [
     status: "status_completed",
     role: "Full-Stack Developer",
     github: "https://github.com/0ahmed0ghoul",
+    demo: "https://askurpdf.vercel.app/"
   },
+  {
+    imgURL: guelma,
+    link: "https://massar-dz.vercel.app",
+    nameKey: "massar",
+    descKey: "massar_desc",
+    techs: "React Node.js Supabase PostgreSQL",
+    Date: "Jan 2025",
+    category: "category_web",
+    status: "status_in_progress",
+    role: "Full-Stack Developer",
+    demo: "https://massar-dz.vercel.app",
+  },
+  
+  {
+    imgURL: guelma,
+    link: "https://alphax-lms.vercel.app",
+    nameKey: "alphax",
+    descKey: "alphax_desc",
+    techs: "React Node.js Firebase",
+    Date: "Mar 2025",
+    category: "category_web",
+    status: "status_completed",
+    role: "Full-Stack Developer",
+    demo: "https://alphax-lms.vercel.app",
+  },
+  {
+    imgURL: guelma,
+    link: "https://apex-news-dz.vercel.app",
+    nameKey: "apex_news",
+    descKey: "apex_news_desc",
+    techs: "React Node.js MongoDB",
+    Date: "Jun 2025",
+    category: "category_web",
+    status: "status_completed",
+    role: "Full-Stack Developer",
+    demo: "https://apex-news-dz.vercel.app",
+  },
+
   {
     imgURL: LANmonitoring,
     link: "https://github.com/0ahmed0ghoul/LAN-Monitoring-System",
@@ -154,18 +195,7 @@ export const projects = [
     role: "Full-Stack Developer",
     github: "https://github.com/0ahmed0ghoul/LAN-Monitoring-System",
   },
-  {
-    imgURL: launch,
-    link: "https://massar-dz.vercel.app",
-    nameKey: "massar",
-    descKey: "massar_desc",
-    techs: "React Node.js Supabase PostgreSQL",
-    Date: "Jan 2025",
-    category: "category_web",
-    status: "status_in_progress",
-    role: "Full-Stack Developer",
-    demo: "https://massar-dz.vercel.app",
-  },
+
   {
     imgURL: face,
     link: "https://github.com/0ahmed0ghoul/face-recognation",
@@ -177,30 +207,6 @@ export const projects = [
     status: "status_completed",
     role: "Desktop Developer",
     github: "https://github.com/0ahmed0ghoul/face-recognation",
-  },
-  {
-    imgURL: xora,
-    link: "https://alphax-lms.vercel.app",
-    nameKey: "alphax",
-    descKey: "alphax_desc",
-    techs: "React Node.js Firebase",
-    Date: "Mar 2025",
-    category: "category_web",
-    status: "status_completed",
-    role: "Full-Stack Developer",
-    demo: "https://alphax-lms.vercel.app",
-  },
-  {
-    imgURL: techx,
-    link: "https://apex-news-dz.vercel.app",
-    nameKey: "apex_news",
-    descKey: "apex_news_desc",
-    techs: "React Node.js MongoDB",
-    Date: "Jun 2025",
-    category: "category_web",
-    status: "status_completed",
-    role: "Full-Stack Developer",
-    demo: "https://apex-news-dz.vercel.app",
   },
   {
     imgURL: classroom,
@@ -331,6 +337,7 @@ export const reviews = [
   {
     imgURL: samir,
     nameKey: "samir_name",
+    status : "Internship Supervisor",
     professionKey: "samir_profession",
     feedbackKey: "samir_feedback",
     linkedin: "https://www.linkedin.com/in/hallacisamir/",
@@ -338,11 +345,51 @@ export const reviews = [
   },
   {
     imgURL: rayane,
+    status : "Internship Supervisor",
     nameKey: "rayane_name",
     professionKey: "rayane_profession",
     feedbackKey: "rayane_feedback",
     linkedin: "https://www.linkedin.com/in/rayan-mohamed-merchichi-724426168/",
     logo: sonatrach,
+  },
+  {
+    imgURL: client,
+    nameKey: "youssef_name",
+    status : "Client",
+    professionKey: "youssef_profession",
+    feedbackKey: "youssef_feedback",
+    linkedin: "",
+    logo: massar,
+    website : "https://massar-dz.vercel.app/",
+  },
+  {
+    imgURL: client,
+    status : "Client",
+    nameKey: "amani_name",
+    professionKey: "amani_profession",
+    feedbackKey: "amani_feedback",
+    linkedin: "https://www.linkedin.com/in/tarfa-amani-asya-/",
+    logo: alphax,
+    website : "https://aplhax-academy.vercel.app/",
+  },
+  {
+    imgURL: client,
+    nameKey: "abderahmane_name",
+    status : "Client",
+    professionKey: "abderahmane_profession",
+    feedbackKey: "abderahmane_feedback",
+    linkedin: "",
+    logo: apex,
+    website : "https://apex-news-sigma.vercel.app/",
+  },
+  {
+    imgURL: client,
+    status : "My Teacher",
+    nameKey: "mourad_name",
+    professionKey: "mourad_profession",
+    feedbackKey: "mourad_feedback",
+    linkedin: "https://www.linkedin.com/in/mourad-hadjeris-b6a98133/",
+    logo: guelma,
   },
 ];
 

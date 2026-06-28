@@ -102,50 +102,36 @@ const resources = {
 
         // ── Featured & all_projects entries ──────────────────────────────────
 
-        rag_document_analysis:
-          "RAG Document Analytics Platform",
-        rag_document_analysis_desc:
-          "Enterprise document-search web app built during my thesis internship at Algérie Télécom. Integrated semantic search with FAISS vector embeddings, reducing query latency by ~50 ms. Automated unstructured-document chunking and vector embedding generation, eliminating manual indexing. RESTful APIs connect the React frontend, Node.js backend, and Python retrieval service for context-aware search across internal knowledge bases.",
+        rag_document_analysis:"RAG Document Analytics Platform",
+        rag_document_analysis_desc:"Enterprise document-search web app built during my thesis internship at Algérie Télécom. Integrated semantic search with FAISS vector embeddings, reducing query latency by ~50 ms. Automated unstructured-document chunking and vector embedding generation, eliminating manual indexing. RESTful APIs connect the React frontend, Node.js backend, and Python retrieval service for context-aware search across internal knowledge bases.",
 
         lan_monitoring: "LAN Monitoring System",
-        lan_monitoring_desc:
-          "Real-time network-tracking platform built during my internship at SONATRACH – DCRD. Monitors 100+ network devices, reducing manual asset-discovery time by 40%. Live dashboards visualise packet activity, bandwidth utilisation, and device health metrics, enabling proactive anomaly detection before outages. Delivered through structured QA testing and staged corporate deployment.",
+        lan_monitoring_desc:"Real-time network-tracking platform built during my internship at SONATRACH – DCRD. Monitors 100+ network devices, reducing manual asset-discovery time by 40%. Live dashboards visualise packet activity, bandwidth utilisation, and device health metrics, enabling proactive anomaly detection before outages. Delivered through structured QA testing and staged corporate deployment.",
 
-        massar: "Massar — Recruitment Platform",
-        massar_desc:
-          "Production PWA for the Algerian job market — job-posting management, candidate tracking pipelines, and admin dashboards. Implemented JWT authentication, Role-Based Access Control (RBAC), and REST APIs. Full project-lifecycle ownership: from requirements to CI/CD deployment via GitHub Actions and Vercel.",
+        massar:"Massar — Recruitment Platform",
+        massar_desc:"Production PWA for the Algerian job market — job-posting management, candidate tracking pipelines, and admin dashboards. Implemented JWT authentication, Role-Based Access Control (RBAC), and REST APIs. Full project-lifecycle ownership: from requirements to CI/CD deployment via GitHub Actions and Vercel.",
 
-        face_recognition: "Face Detection System",
-        face_recognition_desc:
-          "Desktop application with live-stream face detection achieving >90% accuracy. Designed as an offline, lightweight workforce-management tool for small businesses — no cloud dependency, no complex setup. Built with PyQt5 for a clean native experience.",
+
+        face_recognition:"Face Detection System",
+        face_recognition_desc:"Desktop application with live-stream face detection achieving >90% accuracy. Designed as an offline, lightweight workforce-management tool for small businesses — no cloud dependency, no complex setup. Built with PyQt5 for a clean native experience.",
 
         alphax: "AlphaX — Education Platform",
-        alphax_desc:
-          "Course-management PWA with automated assessment and student-progress tracking. Built for an Algerian education client, covering the full stack from data modelling to responsive UI. Firebase handles real-time sync and authentication.",
+        alphax_desc:"Course-management PWA with automated assessment and student-progress tracking. Built for an Algerian education client, covering the full stack from data modelling to responsive UI. Firebase handles real-time sync and authentication.",
 
         apex_news: "Apex News",
-        apex_news_desc:
-          "Real-time news PWA with dynamic content management and mobile-first delivery. Owned the entire project lifecycle — architecture, development, CI/CD, and production deployment. MongoDB Atlas powers the content backend.",
+        apex_news_desc:"Real-time news PWA with dynamic content management and mobile-first delivery. Owned the entire project lifecycle — architecture, development, CI/CD, and production deployment. MongoDB Atlas powers the content backend.",
 
         classroom_management: "Classroom Management System",
-        classroom_management_desc:
-          "Web application for administrative control, student and teacher attendance tracking, and attendance-rate calculation. Gives educational institutions a responsive interface to monitor and update classroom-related information efficiently.",
+        classroom_management_desc:"Web application for administrative control, student and teacher attendance tracking, and attendance-rate calculation. Gives educational institutions a responsive interface to monitor and update classroom-related information efficiently.",
 
         alg_courses: "ALG Courses — Learning Platform",
-        alg_courses_desc:
-          "Academic platform connecting teachers and students. Instructors create and publish courses; learners discover, enrol, and complete interactive lessons and coding challenges.",
-
-        nike_landing: "Nike Landing Page",
-        nike_landing_desc:
-          "Fully responsive Nike product landing page showcasing advanced Tailwind CSS techniques. Built with reusable components and optimised for performance — a practical demonstration of utility-first, scalable frontend development.",
+        alg_courses_desc:"Academic platform connecting teachers and students. Instructors create and publish courses; learners discover, enrol, and complete interactive lessons and coding challenges.",
 
         conference_system: "Conference Paper Management System",
-        conference_system_desc:
-          "Laravel web app automating the full lifecycle of academic conference paper management — submission, peer review, and editorial decision. Secure role-based dashboards for authors, reviewers, and programme chairs ensure a seamless workflow.",
+        conference_system_desc:"Laravel web app automating the full lifecycle of academic conference paper management — submission, peer review, and editorial decision. Secure role-based dashboards for authors, reviewers, and programme chairs ensure a seamless workflow.",
 
         eco_dz: "EcoDZ — Eco-Friendly Travel",
-        eco_dz_desc:
-          "Web platform promoting sustainable travel in Algeria — eco-friendly accommodations, green activity listings, and responsible-tourism guides to help travellers make environmentally conscious choices.",
+        eco_dz_desc:"Web platform promoting sustainable travel in Algeria — eco-friendly accommodations, green activity listings, and responsible-tourism guides to help travellers make environmentally conscious choices.",
       },
 
       // -----------------------------------------------------------------------
@@ -256,16 +242,34 @@ const resources = {
           "Genuine feedback from professors and engineers who mentored me or supervised my work.",
         scroll_hint: "Scroll to read more",
 
-        samir_name:       "Dr. Hallaci Samir",
+        samir_name:"Dr. Hallaci Samir",
         samir_profession: "Director, AI House — University of Guelma | Deputy Head of IT Dept.",
         samir_feedback:
           "I had the pleasure of teaching Ahmed in Data Structures and Algorithms, and later supervising him during his internship. From the classroom to the professional setting, Ahmed has consistently shown remarkable dedication, a strong grasp of core computer science principles, and a genuine passion for learning. He approaches challenges with persistence and maturity, and his growth throughout the internship was impressive. I'm proud of his progress and confident he has a promising future ahead.",
 
-        rayane_name:       "Mr. Merchichi Rayane",
-        rayane_profession: "Software Research & Development Engineer — Sonatrach",
-        rayane_feedback:
-          "During his internship at SONATRACH, Ahmed built an impressive LAN monitoring system using React and Python. His frontend work stood out for its clarity, responsiveness, and user-friendly design. Ahmed's technical skills and professionalism were evident throughout — he quickly became a valuable part of the team.",
-      },
+        youssef_name:"Mr. Frahtia Youssef",
+        youssef_profession:"Computer Science Student & CEO - Massar Dz",
+        youssef_feedback:"During his internship at SONATRACH, Ahmed built an impressive LAN monitoring system using React and Python. His frontend work stood out for its clarity, responsiveness, and user-friendly design. Ahmed's technical skills and professionalism were evident throughout — he quickly became a valuable part of the team.",
+      
+        amani_name:"Ms.Tarfa Amani Assia",
+        amani_profession:"English Teacher & CEO — AlphaX",
+        amani_feedback:"During his internship at SONATRACH, Ahmed built an impressive LAN monitoring system using React and Python. His frontend work stood out for its clarity, responsiveness, and user-friendly design. Ahmed's technical skills and professionalism were evident throughout — he quickly became a valuable part of the team.",
+
+        abderahmane_name:"Mr. Zerguine Abderahmane",
+        abderahmane_profession:"Journalist & CEO — Apex News Dz",
+        abderahmane_feedback:"During his internship at SONATRACH, Ahmed built an impressive LAN monitoring system using React and Python. His frontend work stood out for its clarity, responsiveness, and user-friendly design. Ahmed's technical skills and professionalism were evident throughout — he quickly became a valuable part of the team.",
+
+        rayane_name:"Mr. Merchichi Rayane",
+        rayane_profession:"Software Research & Development Engineer — Sonatrach",
+        rayane_feedback:"During his internship at SONATRACH, Ahmed built an impressive LAN monitoring system using React and Python. His frontend work stood out for its clarity, responsiveness, and user-friendly design. Ahmed's technical skills and professionalism were evident throughout — he quickly became a valuable part of the team.",
+
+        mourad_name:"Dr. Hadjeris Mourad",
+        mourad_profession:"Computer science Teacher  — Univ of Guelma",
+        mourad_feedback:"During his internship at SONATRACH, Ahmed built an impressive LAN monitoring system using React and Python. His frontend work stood out for its clarity, responsiveness, and user-friendly design. Ahmed's technical skills and professionalism were evident throughout — he quickly became a valuable part of the team.",
+
+
+      
+        },
 
       // -----------------------------------------------------------------------
       // Skills (soft skills)

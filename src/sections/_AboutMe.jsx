@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useRef } from "react";
 import { socialMedia, statistics } from "../constants";
-import me from "../assets/images/me.jpg";
 import {
   motion,
   useInView,
@@ -9,6 +8,7 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { ArrowRight, MapPin } from "lucide-react";
+import { me } from "../assets/images/pictures";
 
 const INK     = "#0d0c0a";
 const SURFACE = "#161410";

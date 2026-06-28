@@ -4,9 +4,8 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import certFiveStar from "../assets/images/cert_five_star.jpg";
-import certMajor from "../assets/images/cert_major.jpg";
-import certIelts from "../assets/images/cert_ielts.jpg";
+import { certFiveStar, certIelts, certMajor } from "../assets/images/certifications";
+
 gsap.registerPlugin(ScrollTrigger);
 
 // ── Shared design tokens ──────────────────────────────────────────────────────
@@ -422,6 +421,7 @@ const Certifications = () => {
         if (!el) return;
         gsap.set(el, { opacity: 0, yPercent: 22 });
       });
+      const isMobile = window.innerWidth < 768;
 
       // ── Master scrubbed timeline ───────────────────────────────────────────
       const tl = gsap.timeline({
@@ -429,8 +429,8 @@ const Certifications = () => {
           trigger: sectionRef.current,
           pin: true,
           start: "top top",
-          end: "+=390%",
-          scrub: 1.4,
+          end:  isMobile ? "+=620%" : "+=390%",
+          scrub:  isMobile ? 3.2 : 1.4,
           anticipatePin: 1,
           onUpdate: (self) => {
             const p = self.progress;

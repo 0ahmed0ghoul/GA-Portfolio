@@ -1,5 +1,5 @@
 import { copyrightSign } from "../assets/icons";
-import { headerLogo } from "../assets/images";
+import { headerLogo } from "../assets/images/logos";
 import { footerLinks, socialMedia } from "../constants";
 import { useTranslation } from 'react-i18next';
 

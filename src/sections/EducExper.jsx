@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
-import { leetcode, hc, flex } from "../assets/images";
+import { flex, hc ,leetcode} from "../assets/images/achievements";
 
 const INK     = "#0d0c0a";
 const SURFACE = "#161410";

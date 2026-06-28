@@ -16,7 +16,5 @@ export { default as LANmonitoring } from "./LANmonitoring.JPG";
 export { default as algc } from "./algc.JPG";
 export { default as nike } from "./nike.JPG";
 export { default as face } from "./face.JPG";
-export { default as leetcode } from "./leetcode.JPG";
-
 
 
