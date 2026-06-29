@@ -48,29 +48,30 @@ const App = () => {
               >
                 <Preloader />
                 <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
-                  <section className="wide:padding-r padding-b">
+                  <section className="">
                     <_AboutMe />
                     <Nav />
                   </section>
-                  <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-24 flex justify-center items-center">
+                  <section className="mt-12" id="projects">
                     <Projects />
                   </section>
                   <section
                     id="services"
-                    className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-24"
+                    className="mt-12"
+                  
                   >
                     <Services />
                   </section>
                   <section
                     id="education_experience"
-                    className="max-w-screen-xl min-h-screen mx-auto px-4 sm:px-6 lg:px-8 lg:pt-24"
+                    className="mt-12"
                   >
                     <EducExper />
                   </section>
-                  <section id="certifications">
+                  <section id="certifications" className="mt-12">
                     <Certifications />
                   </section>
-                  <section className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-24">
+                  <section className="mt-12 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-24">
                     <Testimonials />
                   </section>
                   <section>
@@ -79,12 +80,12 @@ const App = () => {
                   <section>
                     <CV />
                   </section>
-                  <section id="contact_me">
+                  <section id="contact_me" className="mt-12">
                     <ContactMe />
                   </section>
                 </div>
                 <section
-                  className="padding-x padding-t pb-8"
+                  className="padding-x padding-t pb-8 mt-12" 
                   style={{ backgroundColor: SURFACE }}
                 >
                   <Footer />

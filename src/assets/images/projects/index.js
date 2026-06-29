@@ -16,5 +16,9 @@ export { default as LANmonitoring } from "./LANmonitoring.JPG";
 export { default as algc } from "./algc.JPG";
 export { default as nike } from "./nike.JPG";
 export { default as face } from "./face.JPG";
+export {default as massarweb} from "./massar.png";
+export {default as alphaxweb} from "./alphax.PNG";
+export {default as apexweb} from "./apex.png";
+export {default as askyourpdfweb} from "./askyourpdf.png";
 
 

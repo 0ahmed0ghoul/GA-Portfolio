@@ -1,175 +1,308 @@
 import { services } from "../constants";
 import { useTranslation } from "react-i18next";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { RotateCw } from "lucide-react";
 
-// Color palette from _AboutMe
-const INK = "#0d0c0a";
+// ── Design tokens ─────────────────────────────────────────────────────────────
+const INK     = "#0d0c0a";
 const SURFACE = "#161410";
-const BORDER = "#2c2820";
-const PAPER = "#ece6d6";
-const BODY = "#c8c2b1";
-const ASH = "#948e7c";
-const AMBER = "#e0a045";
+const BORDER  = "#2c2820";
+const PAPER   = "#ece6d6";
+const BODY    = "#c8c2b1";
+const ASH     = "#948e7c";
+const AMBER   = "#e0a045";
 
-const Services = () => {
+// Each card flies in from a unique 3D angle — cycles through 5 patterns
+const ENTRY = [
+  { x: -90,  y: 0,   rotateY: -40, rotateX:  0  },
+  { x: 0,    y: -90, rotateY:  0,  rotateX:  40 },
+  { x: 90,   y: 0,   rotateY:  40, rotateX:  0  },
+  { x: -90,  y: 0,   rotateY: -40, rotateX:  0  },
+  { x: 0,    y: 90,  rotateY:  0,  rotateX: -40 },
+];
+
+const CARD_H = 350; // px — both faces must match
+
+// ── Single flip card ──────────────────────────────────────────────────────────
+const ServiceCard = ({ service, index, isInView }) => {
   const { t } = useTranslation();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  // Timeline animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-    },
-  };
+  const [flipped, setFlipped] = useState(false);
+  const [tilt, setTilt]       = useState({ x: 0, y: 0 });
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
+  const entry  = ENTRY[index % ENTRY.length];
+  const techs  = t(`services.${service.techsKey}`, { returnObjects: true });
+  const techArr = Array.isArray(techs) ? techs : [];
 
-  const lineVariants = {
-    hidden: { scaleY: 0 },
-    visible: {
-      scaleY: 1,
-      transition: { duration: 0.8, ease: "easeInOut", delay: 0.3 },
-    },
+  // Mouse-position tilt — disabled while the flip is active
+  const onMouseMove = (e) => {
+    if (flipped) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    setTilt({
+      x:  ((e.clientX - r.left)  / r.width  - 0.5) *  22,
+      y: -((e.clientY - r.top)   / r.height - 0.5) *  16,
+    });
   };
+  const onMouseLeave = () => setTilt({ x: 0, y: 0 });
+
+  return (
+    <div style={{ perspective: "1000px" }}>
+
+      <motion.div
+        style={{ transformStyle: "preserve-3d" }}
+        initial={{
+          opacity:  0,
+          x:        entry.x,
+          y:        entry.y,
+          rotateY:  entry.rotateY,
+          rotateX:  entry.rotateX,
+        }}
+        animate={
+          isInView
+            ? { opacity: 1, x: 0, y: 0, rotateY: 0, rotateX: 0 }
+            : {}
+        }
+        transition={{
+          delay:    index * 0.11,
+          duration: 0.72,
+          ease:     [0.34, 1.56, 0.64, 1], // backOut overshoot
+        }}
+      >
+        <motion.div
+          style={{ transformStyle: "preserve-3d" }}
+          animate={{
+            rotateX: flipped ? 0 : tilt.y,
+            rotateY: flipped ? 0 : tilt.x,
+          }}
+          transition={{ duration: 0.13, ease: "easeOut" }}
+          onMouseMove={onMouseMove}
+          onMouseLeave={onMouseLeave}
+        >
+          <motion.div
+            style={{
+              transformStyle: "preserve-3d",
+              position:       "relative",
+              height:         CARD_H,
+              cursor:         "pointer",
+            }}
+            animate={{ rotateY: flipped ? 180 : 0 }}
+            transition={{ type: "spring", stiffness: 175, damping: 22 }}
+            onClick={() => setFlipped((f) => !f)}
+          >
+
+            <div
+              style={{
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+                position:        "absolute",
+                inset:           0,
+                height:          CARD_H,
+                backgroundColor: SURFACE,
+                border:          `1px solid ${BORDER}`,
+                display:         "flex",
+                flexDirection:   "column",
+                padding:         "20px",
+                overflow:        "hidden",
+              }}
+            >
+              {/* Number + icon */}
+              <div className="flex items-center justify-between mb-5">
+                <span
+                  className="font-mono text-xs font-bold"
+                  style={{ color: AMBER }}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div
+                  className="w-9 h-9 flex items-center justify-center"
+                  style={{
+                    border:          `1px solid ${BORDER}`,
+                    backgroundColor: `${AMBER}10`,
+                  }}
+                >
+                  <img
+                    src={service.imgURL}
+                    alt=""
+                    aria-hidden="true"
+                    className="w-5 h-5 object-contain"
+                    style={{ filter: "brightness(0) invert(1)" }}
+                  />
+                </div>
+              </div>
+
+              {/* Title */}
+              <h3
+                className="font-semibold text-base leading-tight mb-3"
+                style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  color: PAPER,
+                }}
+              >
+                {t(`services.${service.labelKey}`)}
+              </h3>
+
+              {/* Description */}
+              <p
+                className="text-xs leading-relaxed flex-1"
+                style={{ color: BODY }}
+              >
+                {t(`services.${service.subtextKey}`)}
+              </p>
+
+              {/* Flip hint */}
+              <div
+                className="flex items-center gap-1.5 mt-4 pt-3 font-mono text-[10px]"
+                style={{ borderTop: `1px solid ${BORDER}`, color: ASH }}
+              >
+                <RotateCw className="w-3 h-3" aria-hidden="true" />
+                click to see stack
+              </div>
+            </div>
+
+            {/* ════ BACK FACE ══════════════════════════════════════════════ */}
+            <div
+              style={{
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+                transform:       "rotateY(180deg)",
+                position:        "absolute",
+                inset:           0,
+                height:          CARD_H,
+                backgroundColor: SURFACE,
+                border:          `1px solid ${BORDER}`,
+                borderTop:       `2px solid ${AMBER}`,
+                display:         "flex",
+                flexDirection:   "column",
+                padding:         "20px",
+                overflow:        "hidden",
+              }}
+            >
+              {/* Comment header */}
+              <p
+                className="font-mono text-[11px] mb-3"
+                style={{ color: ASH }}
+              >
+                <span style={{ color: AMBER }}>// </span>
+                {t(`services.${service.labelKey}`)}
+              </p>
+
+              {/* Tech stack as code array */}
+              <div className="font-mono text-[11px] leading-[1.75] flex-1 overflow-hidden">
+                <p style={{ color: ASH }}>stack: [</p>
+                <div className="pl-4">
+                  {techArr.map((tech, i) => (
+                    <p key={i} style={{ color: AMBER }}>
+                      &ldquo;{tech}&rdquo;
+                      {i < techArr.length - 1 ? "," : ""}
+                    </p>
+                  ))}
+                </div>
+                <p style={{ color: ASH }}>]</p>
+              </div>
+
+              {/* Flip-back hint */}
+              <div
+                className="flex items-center gap-1.5 mt-4 pt-3 font-mono text-[10px]"
+                style={{ borderTop: `1px solid ${BORDER}`, color: ASH }}
+              >
+                <RotateCw
+                  className="w-3 h-3"
+                  aria-hidden="true"
+                  style={{ transform: "scaleX(-1)" }}
+                />
+                click to flip back
+              </div>
+            </div>
+
+          </motion.div>
+          {/* end layer 3 */}
+        </motion.div>
+        {/* end layer 2 */}
+      </motion.div>
+      {/* end layer 1 */}
+
+    </div>
+  );
+};
+
+// ── Main section ──────────────────────────────────────────────────────────────
+const Services = () => {
+  const { t }    = useTranslation();
+  const ref      = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <section
+      id="services"
       ref={ref}
-      className="relative py-20 px-6 lg:px-8 overflow-hidden"
+      className="relative py-16 lg:py-24 overflow-hidden"
       style={{ backgroundColor: INK }}
     >
-      {/* Grain texture */}
+      {/* Paper grain */}
       <svg
-        className="absolute inset-0 w-full h-full opacity-[0.05] pointer-events-none"
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        style={{ opacity: 0.05 }}
         xmlns="http://www.w3.org/2000/svg"
       >
         <filter id="grain-services">
-          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
+          <feTurbulence type="fractalNoise" baseFrequency="0.85"
+                        numOctaves="2" stitchTiles="stitch" />
         </filter>
         <rect width="100%" height="100%" filter="url(#grain-services)" />
       </svg>
 
-      <div className="max-w-5xl mx-auto relative z-10">
-        {/* Section title */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
+
+        {/* Section header */}
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 10 }}
+          className="mb-12"
+          initial={{ opacity: 0, y: 12 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.45 }}
         >
-          <span className="font-mono text-xs sm:text-sm tracking-wider block mb-2" style={{ color: ASH }}>
-            {t("services.subtitle") || "What I Offer"}
-          </span>
-          <h2 className="font-display text-3xl md:text-4xl font-semibold" style={{ color: PAPER }}>
+          <p className="font-mono text-xs sm:text-sm" style={{ color: ASH }}>
+            // services
+          </p>
+          <h2
+            className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-semibold"
+            style={{ fontFamily: "'Space Grotesk', sans-serif", color: PAPER }}
+          >
             {t("services.title_part1")}{" "}
-            <span style={{ color: AMBER }}>{t("services.title_part2")}</span>{" "}
-            <span style={{ color: AMBER }}>{t("services.title_part3")}</span>
+            <span style={{ color: AMBER }}>{t("services.title_part2")}</span>
           </h2>
+          <p
+            className="mt-3 max-w-xl text-sm sm:text-base leading-relaxed"
+            style={{ color: BODY }}
+          >
+            {t("services.description")}
+          </p>
         </motion.div>
 
-        {/* Timeline container */}
-        <div className="relative">
-          {/* Vertical line */}
-          <motion.div
-            className="absolute left-1/2 transform -translate-x-1/2 w-[2px] top-0 bottom-0 origin-top"
-            style={{ backgroundColor: BORDER }}
-            initial={{ scaleY: 0 }}
-            animate={isInView ? { scaleY: 1 } : {}}
-            transition={{ duration: 0.8, ease: "easeInOut", delay: 0.3 }}
-          />
-
-          {/* Services as timeline items */}
-          <motion.div
-            className="space-y-16"
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-          >
-            {services.map((service, index) => {
-              const isEven = index % 2 === 0;
-              return (
-                <motion.div
-                  key={service.labelKey}
-                  variants={itemVariants}
-                  className={`flex flex-col ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"} items-start lg:items-center gap-6 lg:gap-12 relative`}
-                >
-                  {/* Timeline dot */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full border-2 z-10" style={{ borderColor: AMBER, backgroundColor: INK }}>
-                    <div className="w-2 h-2 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ backgroundColor: AMBER }} />
-                  </div>
-
-                  {/* Content side */}
-                  <div className={`w-full lg:w-5/12 ${isEven ? "lg:text-right lg:pr-4" : "lg:text-left lg:pl-4"}`}>
-                    <div
-                      className="p-6 rounded-xl border transition-colors duration-300"
-                      style={{ backgroundColor: SURFACE, borderColor: BORDER }}
-                      onMouseEnter={(e) => (e.currentTarget.style.borderColor = AMBER)}
-                      onMouseLeave={(e) => (e.currentTarget.style.borderColor = BORDER)}
-                    >
-                      {/* Icon */}
-                      <div
-                        className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-                        style={{ backgroundColor: `${AMBER}15` }}
-                      >
-                        <img
-                          src={service.imgURL}
-                          alt={t(`services.${service.labelKey}`)}
-                          className="w-7 h-7 object-contain filter brightness-0 invert"
-                        />
-                      </div>
-
-                      {/* Number */}
-                      <div className="font-mono text-xs font-bold tracking-wider mb-1" style={{ color: AMBER }}>
-                        {String(index + 1).padStart(2, "0")}
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="font-display font-semibold text-lg mb-2" style={{ color: PAPER }}>
-                        {t(`services.${service.labelKey}`)}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-sm leading-relaxed mb-4" style={{ color: BODY }}>
-                        {t(`services.${service.subtextKey}`)}
-                      </p>
-
-                      {/* Tech tags */}
-                      <div className="flex flex-wrap gap-2">
-                        {t(`services.${service.techsKey}`, { returnObjects: true }).map((tech, idx) => (
-                          <span
-                            key={idx}
-                            className="font-mono text-[10px] px-2 py-1 rounded"
-                            style={{
-                              color: ASH,
-                              backgroundColor: `${BORDER}60`,
-                              border: `1px solid ${BORDER}`,
-                            }}
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Empty spacer for the other side */}
-                  <div className="hidden lg:block w-5/12" />
-                </motion.div>
-              );
-            })}
-          </motion.div>
+        {/* 3D flip card grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {services.map((service, index) => (
+            <ServiceCard
+              key={service.labelKey}
+              service={service}
+              index={index}
+              isInView={isInView}
+            />
+          ))}
         </div>
+
+        {/* Interaction hint */}
+        <motion.p
+          className="text-center font-mono text-[11px] mt-8"
+          style={{ color: ASH }}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.9, duration: 0.4 }}
+        >
+          // hover to tilt &nbsp;·&nbsp; click to reveal stack
+        </motion.p>
+
       </div>
     </section>
   );

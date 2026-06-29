@@ -3,9 +3,16 @@ import {
   instagram, linkedin, responsive, techs, ui, projects_img,client
 } from "../assets/icons";
 import {
-  samir, rayane} from "../assets/images/pictures";
+  samir, rayane,
+  tarfa,
+  mourad,
+  dahma} from "../assets/images/pictures";
 import {
-  LANmonitoring, face, classroom, algc, nike, conference, anon, portfolio, launch, xora, techx, ai
+  LANmonitoring, face, classroom, algc, nike, conference, anon, portfolio,
+  massarweb,
+  askyourpdfweb,
+  alphaxweb,
+  apexweb
 } from "../assets/images/projects";
 
 import {guelma, sonatrach } from "../assets/images/logos";
@@ -16,7 +23,7 @@ import {guelma, sonatrach } from "../assets/images/logos";
 // ---------------------------------------------------------------------------
 export const all_projects = [
   {
-    imgURL: guelma,
+    imgURL: askyourpdfweb,
     title: "RAG Document Analytics Platform",
     desc: "Enterprise document-search web app built during thesis internship at Algérie Télécom. Integrated semantic search via FAISS vector embeddings (~50 ms latency reduction) and automated unstructured-document chunking. RESTful APIs connect React frontend, Node.js backend, and Python retrieval service.",
     techs: "React, Node.js, Python, PostgreSQL, FAISS",
@@ -24,7 +31,7 @@ export const all_projects = [
     githubURL: "",
   },
   {
-    imgURL: guelma,
+    imgURL: massarweb,
     title: "Massar — Recruitment MVP",
     desc: "Production PWA for job-posting management, candidate tracking, and admin dashboards. Implements JWT auth, Role-Based Access Control (RBAC), and REST APIs. Deployed via GitHub Actions CI/CD on Vercel.",
     techs: "React, Node.js, Supabase, PostgreSQL",
@@ -32,7 +39,7 @@ export const all_projects = [
     githubURL: "",
   },
   {
-    imgURL: guelma,
+    imgURL: alphaxweb,
     title: "AlphaX — Education PWA",
     desc: "Course-management platform with automated assessments and student-progress tracking. Delivered as a production PWA for an Algerian education client.",
     techs: "React, Node.js, Firebase",
@@ -40,7 +47,7 @@ export const all_projects = [
     githubURL: "",
   },
   {
-    imgURL: guelma,
+    imgURL: apexweb,
     title: "Apex News",
     desc: "Real-time news PWA with dynamic content management and mobile-first delivery. Full project-lifecycle ownership from design to CI/CD deployment.",
     techs: "React, Node.js, MongoDB",
@@ -113,9 +120,7 @@ export const all_projects = [
   },
 ];
 
-// ---------------------------------------------------------------------------
-// Nav links  (# prefix required for proper anchor semantics)
-// ---------------------------------------------------------------------------
+
 export const navLinks = [
   { href: "#aboutme",             label: "About Me",               key: "about_me" },
   { href: "#projects",            label: "Projects",               key: "projects" },
@@ -127,13 +132,9 @@ export const navLinks = [
   { href: "#contact_me",          label: "Contact Me",             key: "contact_me" },
 ];
 
-// ---------------------------------------------------------------------------
-// Featured projects  (IDE display — first 5 shown in the Projects section)
-// nameKey / descKey must match i18n keys under projects.*
-// ---------------------------------------------------------------------------
 export const projects = [
   {
-    imgURL: guelma,
+    imgURL: askyourpdfweb,
     link: "https://github.com/0ahmed0ghoul",
     nameKey: "rag_document_analysis",
     descKey: "rag_document_analysis_desc",
@@ -146,7 +147,7 @@ export const projects = [
     demo: "https://askurpdf.vercel.app/"
   },
   {
-    imgURL: guelma,
+    imgURL: massarweb,
     link: "https://massar-dz.vercel.app",
     nameKey: "massar",
     descKey: "massar_desc",
@@ -159,7 +160,7 @@ export const projects = [
   },
   
   {
-    imgURL: guelma,
+    imgURL: alphaxweb,
     link: "https://alphax-lms.vercel.app",
     nameKey: "alphax",
     descKey: "alphax_desc",
@@ -171,7 +172,7 @@ export const projects = [
     demo: "https://alphax-lms.vercel.app",
   },
   {
-    imgURL: guelma,
+    imgURL: apexweb,
     link: "https://apex-news-dz.vercel.app",
     nameKey: "apex_news",
     descKey: "apex_news_desc",
@@ -363,7 +364,7 @@ export const reviews = [
     website : "https://massar-dz.vercel.app/",
   },
   {
-    imgURL: client,
+    imgURL: tarfa,
     status : "Client",
     nameKey: "amani_name",
     professionKey: "amani_profession",
@@ -373,7 +374,7 @@ export const reviews = [
     website : "https://aplhax-academy.vercel.app/",
   },
   {
-    imgURL: client,
+    imgURL: dahma,
     nameKey: "abderahmane_name",
     status : "Client",
     professionKey: "abderahmane_profession",
@@ -383,7 +384,7 @@ export const reviews = [
     website : "https://apex-news-sigma.vercel.app/",
   },
   {
-    imgURL: client,
+    imgURL: mourad,
     status : "My Teacher",
     nameKey: "mourad_name",
     professionKey: "mourad_profession",
