@@ -353,16 +353,16 @@ export const reviews = [
     linkedin: "https://www.linkedin.com/in/rayan-mohamed-merchichi-724426168/",
     logo: sonatrach,
   },
-  {
-    imgURL: client,
-    nameKey: "youssef_name",
-    status : "Client",
-    professionKey: "youssef_profession",
-    feedbackKey: "youssef_feedback",
-    linkedin: "",
-    logo: massar,
-    website : "https://massar-dz.vercel.app/",
-  },
+  // {
+  //   imgURL: client,
+  //   nameKey: "youssef_name",
+  //   status : "Client",
+  //   professionKey: "youssef_profession",
+  //   feedbackKey: "youssef_feedback",
+  //   linkedin: "",
+  //   logo: massar,
+  //   website : "https://massar-dz.vercel.app/",
+  // },
   {
     imgURL: tarfa,
     status : "Client",
@@ -383,15 +383,15 @@ export const reviews = [
     logo: apex,
     website : "https://apex-news-sigma.vercel.app/",
   },
-  {
-    imgURL: mourad,
-    status : "My Teacher",
-    nameKey: "mourad_name",
-    professionKey: "mourad_profession",
-    feedbackKey: "mourad_feedback",
-    linkedin: "https://www.linkedin.com/in/mourad-hadjeris-b6a98133/",
-    logo: guelma,
-  },
+  // {
+  //   imgURL: mourad,
+  //   status : "My Teacher",
+  //   nameKey: "mourad_name",
+  //   professionKey: "mourad_profession",
+  //   feedbackKey: "mourad_feedback",
+  //   linkedin: "https://www.linkedin.com/in/mourad-hadjeris-b6a98133/",
+  //   logo: guelma,
+  // },
 ];
 
 // ---------------------------------------------------------------------------

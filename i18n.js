@@ -236,8 +236,10 @@ const resources = {
 
         // Experience entries
         sonatrach: "Software Engineering Intern — Sonatrach",
-        sonatrach_description:
-          "Built a real-time LAN monitoring system tracking 100+ network devices across Sonatrach's Technology & Development division (DCRD). Reduced manual asset-discovery time by 40%. Engineered live dashboards visualising packet activity, bandwidth utilisation, and device health — enabling proactive anomaly detection. Delivered through structured QA testing and staged corporate deployment following Sonatrach engineering and security standards.",
+        sonatrach_description:"Built a real-time LAN monitoring system tracking 100+ network devices across Sonatrach's Technology & Development division (DCRD). Reduced manual asset-discovery time by 40%. Engineered live dashboards visualising packet activity, bandwidth utilisation, and device health — enabling proactive anomaly detection. Delivered through structured QA testing and staged corporate deployment following Sonatrach engineering and security standards.",
+
+        algerie_telecom: "Software Engineering Intern — Algerie Télécom",
+        algerie_telecom_description:"Developed a RAG-powered document analytics platform for internal knowledge bases. Integrated FAISS vector embeddings for semantic search, reducing query latency by ~50 ms. Automated unstructured-document chunking and vector embedding generation, eliminating manual indexing. Designed RESTful APIs connecting the React frontend, Node.js backend, and Python retrieval service for context-aware search.",
 
         // Used for the 2024 "work" git-log entry — freelance / independent projects phase
         agriculture_institution: "Independent Projects & Early Freelance",
@@ -276,25 +278,17 @@ const resources = {
         samir_profession:"Director, AI House — University of Guelma | Deputy Head of IT Dept.",
         samir_feedback:"I had the pleasure of teaching Ahmed in Data Structures and Algorithms, and later supervising him during his internship. From the classroom to the professional setting, Ahmed has consistently shown remarkable dedication, a strong grasp of core computer science principles, and a genuine passion for learning. He approaches challenges with persistence and maturity, and his growth throughout the internship was impressive. I'm proud of his progress and confident he has a promising future ahead.",
 
-        youssef_name: "Mr. Frahtia Youssef",
-        youssef_profession: "Computer Science Student & CEO - Massar Dz",
-        youssef_feedback:"",
-
         amani_name: "Ms.Tarfa Amani Assia",
         amani_profession: "English Teacher & CEO — AlphaX",
         amani_feedback:"I had the pleasure of teaching Ahmed and later working with him as a client. He is dedicated, professional, and always delivers high-quality work. His commitment helped him achieve an IELTS band score of 6.5, and he did an excellent job developing my AlphaX English learning platform. I highly recommend him for any project or role that requires technical expertise, creativity, and a strong work ethic.",
 
         abderahmane_name: "Mr. Zerguine Abderahmane",
         abderahmane_profession: "Journalist & CEO — Apex News Dz",
-        abderahmane_feedback:"",
+        abderahmane_feedback:"From our very first conversation, I knew Ahmed was a skilled and professional developer. He was honest, transparent, and delivered a website that exceeded my expectations while offering excellent value for the quality of his work. His dedication, attention to detail, and genuine commitment to my project's success make him someone I highly recommend.",
 
         rayane_name: "Mr. Merchichi Rayane",
         rayane_profession:"Software Research & Development Engineer — Sonatrach",
         rayane_feedback:"During his internship at SONATRACH, Ahmed built an impressive LAN monitoring system using React and Python. His frontend work stood out for its clarity, responsiveness, and user-friendly design. Ahmed's technical skills and professionalism were evident throughout — he quickly became a valuable part of the team.",
-
-        mourad_name: "Dr. Hadjeris Mourad",
-        mourad_profession: "Computer science Teacher  — Univ of Guelma",
-        mourad_feedback:"",
       },
 
       // -----------------------------------------------------------------------
