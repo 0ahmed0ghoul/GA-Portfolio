@@ -173,15 +173,15 @@ export const projects = [
   },
   {
     imgURL: apexweb,
-    link: "https://apex-news-dz.vercel.app",
-    nameKey: "apex_news",
-    descKey: "apex_news_desc",
-    techs: "React Node.js MongoDB",
+    link: "https://max-news-dz.vercel.app/",
+    nameKey: "max_news",
+    descKey: "max_news_desc",
+    techs: "React Node.js PostgreSql",
     Date: "Jun 2025",
     category: "category_web",
     status: "status_completed",
     role: "Full-Stack Developer",
-    demo: "https://apex-news-dz.vercel.app",
+    demo: "https://max-news-dz.vercel.app/",
   },
 
   {

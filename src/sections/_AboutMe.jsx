@@ -345,7 +345,7 @@ const _AboutMe = () => {
                   base: <span style={{ color: AMBER }}>"{t("about.location")}"</span>,
                 </div>
                 <div className="pl-4" style={{ color: ASH }}>
-                  experience: <span style={{ color: AMBER }}>"2+ years"</span>,
+                  experience: <span style={{ color: AMBER }}>"4+ years"</span>,
                 </div>
                 <div className="pl-4" style={{ color: ASH }}>
                   available: <span style={{ color: AMBER }}>true</span>

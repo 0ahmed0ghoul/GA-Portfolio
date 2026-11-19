@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { certFiveStar, certIelts, certMajor } from "../assets/images/certifications";
+import { certFiveStar, certIelts, certMajor,licence } from "../assets/images/certifications";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,8 +20,24 @@ const AMBER = "#e0a045";
 // ── Certificate data ──────────────────────────────────────────────────────────
 const CERTS = [
   {
-    id: "five_star",
+    id: "licence",
     num: "01",
+    label: "Licence Certificate",
+    grade: "Excellence Award",
+    imgURL: licence, // ← add this
+    issuer: "University of 8 May 1945, Guelma",
+    year: "2026",
+    accent: AMBER,
+    meta: [
+      { key: "type", val: "Excellence Certificate" },
+      { key: "field", val: "Computer Science · B.Sc." },
+      { key: "awarded", val: "Outstanding Academic Performance" },
+    ],
+    desc: "Awarded for exceptional academic performance throughout the Computer Science programme — one of the highest honours conferred by the Faculty of Exact Sciences.",
+  },
+  {
+    id: "five_star",
+    num: "02",
     label: "5-Star Student",
     grade: "Excellence Award",
     imgURL: certFiveStar, // ← add this
@@ -37,7 +53,7 @@ const CERTS = [
   },
   {
     id: "major",
-    num: "02",
+    num: "03",
     label: "Major",
     grade: "First in Cohort",
     imgURL: certMajor, // ← add this
@@ -53,7 +69,7 @@ const CERTS = [
   },
   {
     id: "ielts",
-    num: "03",
+    num: "04",
     label: "IELTS Academic",
     grade: "Band 6.5 · B2",
     issuer: "British Council · IDP Education",
@@ -69,8 +85,7 @@ const CERTS = [
   },
 ];
 
-// Alternating entrance directions: 0 → from right, 1 → from left, 2 → from right
-const DIR = [1, -1, 1];
+
 
 // ── Corner bracket ────────────────────────────────────────────────────────────
 const Bracket = ({ color, top, left }) => {
@@ -403,146 +418,126 @@ const Certifications = () => {
   const descRefs = useRef([]);
   const [active, setActive] = useState(0);
 
+
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    let tl;
+  
     const ctx = gsap.context(() => {
-      // ── Initial off-screen states ──────────────────────────────────────────
+      // Set initial positions for every certificate
       certRefs.current.forEach((el, i) => {
         if (!el) return;
+  
+        const direction = i % 2 === 0 ? 1 : -1;
+  
         gsap.set(el, {
-          xPercent: DIR[i] * 82,
-          rotateY: DIR[i] * 55,
+          xPercent: direction * 82,
+          rotateY: direction * 55,
           transformPerspective: 1100,
           scale: 0.52,
           opacity: 0,
           z: -260,
         });
       });
+  
       descRefs.current.forEach((el) => {
         if (!el) return;
         gsap.set(el, { opacity: 0, yPercent: 22 });
       });
-      const isMobile = window.innerWidth < 768;
-
-      // ── Master scrubbed timeline ───────────────────────────────────────────
-      const tl = gsap.timeline({
+  
+      // Build timeline dynamically from CERTS
+      tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           pin: true,
           start: "top top",
-          end:  isMobile ? "+=620%" : "+=390%",
-          scrub:  isMobile ? 3.2 : 1.4,
+          end: isMobile
+            ? `+=${CERTS.length * 205}%`
+            : `+=${CERTS.length * 130}%`,
+          scrub: isMobile ? 3.2 : 1.4,
           anticipatePin: 1,
+  
           onUpdate: (self) => {
-            const p = self.progress;
-            if (p < 0.44) setActive(0);
-            else if (p < 0.77) setActive(1);
-            else setActive(2);
+            const currentTime = self.animation.time();
+            let currentIndex = 0;
+  
+            CERTS.forEach((_, i) => {
+              const labelTime = tl.labels[`cert-${i}`];
+  
+              if (
+                labelTime !== undefined &&
+                currentTime >= labelTime
+              ) {
+                currentIndex = i;
+              }
+            });
+  
+            setActive(currentIndex);
           },
         },
       });
-
-      // ─ Cert 0: flies in from right ─────────────────────────────────────────
-      tl.to(certRefs.current[0], {
-        xPercent: 0,
-        rotateY: 0,
-        scale: 1,
-        opacity: 1,
-        z: 0,
-        duration: 1.2,
-        ease: "power3.out",
-      })
-        .to(
-          descRefs.current[0],
+  
+      CERTS.forEach((cert, i) => {
+        const direction = i % 2 === 0 ? 1 : -1;
+  
+        // Label used to track the active certificate
+        tl.addLabel(`cert-${i}`);
+  
+        // Certificate enters
+        tl.to(certRefs.current[i], {
+          xPercent: 0,
+          rotateY: 0,
+          scale: 1,
+          opacity: 1,
+          z: 0,
+          duration: 1.2,
+          ease: "power3.out",
+        });
+  
+        // Description appears
+        tl.to(
+          descRefs.current[i],
           {
             opacity: 1,
             yPercent: 0,
             duration: 0.55,
           },
           "-=0.35"
-        )
-        .to({}, { duration: 0.75 }) // ← rest / viewing pause
-
-        // ─ Cert 0 exits left | Cert 1 enters from left ───────────────────────
-        .to(certRefs.current[0], {
-          xPercent: -80,
-          rotateY: -55,
-          scale: 0.52,
-          opacity: 0,
-          z: -260,
-          duration: 1.05,
-          ease: "power2.in",
-        })
-        .to(
-          descRefs.current[0],
-          { opacity: 0, yPercent: -18, duration: 0.35 },
-          "<"
-        )
-        .to(
-          certRefs.current[1],
-          {
-            xPercent: 0,
-            rotateY: 0,
-            scale: 1,
-            opacity: 1,
-            z: 0,
-            duration: 1.2,
-            ease: "power3.out",
-          },
-          "<0.28"
-        )
-        .to(
-          descRefs.current[1],
-          {
-            opacity: 1,
-            yPercent: 0,
-            duration: 0.55,
-          },
-          "-=0.35"
-        )
-        .to({}, { duration: 0.75 })
-
-        // ─ Cert 1 exits right | Cert 2 enters from right ─────────────────────
-        .to(certRefs.current[1], {
-          xPercent: 80,
-          rotateY: 55,
-          scale: 0.52,
-          opacity: 0,
-          z: -260,
-          duration: 1.05,
-          ease: "power2.in",
-        })
-        .to(
-          descRefs.current[1],
-          { opacity: 0, yPercent: -18, duration: 0.35 },
-          "<"
-        )
-        .to(
-          certRefs.current[2],
-          {
-            xPercent: 0,
-            rotateY: 0,
-            scale: 1,
-            opacity: 1,
-            z: 0,
-            duration: 1.2,
-            ease: "power3.out",
-          },
-          "<0.28"
-        )
-        .to(
-          descRefs.current[2],
-          {
-            opacity: 1,
-            yPercent: 0,
-            duration: 0.55,
-          },
-          "-=0.35"
-        )
-        .to({}, { duration: 0.75 });
+        );
+  
+        // Pause to let visitors read
+        tl.to({}, { duration: 0.75 });
+  
+        // Exit current certificate if another one follows
+        if (i < CERTS.length - 1) {
+          tl.to(certRefs.current[i], {
+            xPercent: -direction * 80,
+            rotateY: -direction * 55,
+            scale: 0.52,
+            opacity: 0,
+            z: -260,
+            duration: 1.05,
+            ease: "power2.in",
+          });
+  
+          tl.to(
+            descRefs.current[i],
+            {
+              opacity: 0,
+              yPercent: -18,
+              duration: 0.35,
+            },
+            "<"
+          );
+        }
+      });
     }, sectionRef);
-
-    return () => ctx.revert();
+  
+    return () => {
+      ctx.revert();
+    };
   }, []);
+  
 
   return (
     <section
@@ -591,7 +586,7 @@ const Certifications = () => {
             </h2>
           </div>
 
-          {/* 01 / 03 counter */}
+          {/* Certificate counter */}
           <p className="font-mono text-sm pb-1 shrink-0" style={{ color: ASH }}>
             <span style={{ color: CERTS[active].accent }}>
               {CERTS[active].num}

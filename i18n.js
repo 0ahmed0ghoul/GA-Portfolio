@@ -8,6 +8,7 @@ const resources = {
       // -----------------------------------------------------------------------
       // About Me section
       // -----------------------------------------------------------------------
+
       about: {
         my_picture_alt: "Ahmed Ghoul",
         greeting: "Hi, I'm",
@@ -16,9 +17,9 @@ const resources = {
         profession1: "Full-Stack",
         profession2: "Developer",
         from: "Based in",
-        location: "Guelma, Algeria",
+        location: "Setif, Algeria",
         description:
-          "Full-Stack & AI/ML Developer with 2+ years delivering production web apps and enterprise systems. Graduated 1st in Computer Science cohort (GPA 15.63/20). Built a RAG document platform for Algérie Télécom and a real-time LAN monitoring system for Sonatrach.",
+          "Full-Stack Developer specializing in modern web applications, backend systems, and AI-powered solutions. Built 4+ production PWAs and developed an AI-powered RAG document analysis platform at Algérie Télécom, alongside a real-time network monitoring system at Sonatrach. Graduated 1st in my Computer Science cohort with a GPA of 15.63/20. Currently pursuing a Master's degree in Distributed Systems and Networks.",
         language_proficiency: "Language Proficiency",
         english: "English",
         english_level: "B2 · IELTS 6.5",
@@ -26,10 +27,10 @@ const resources = {
         french_level: "A2",
         german: "German",
         german_level: "A1 · learning",
-        welcome_note: "Open to opportunities",
-        available: "Available for work",
-        years_experience: "Years of Experience",
-        see_projects: "See My Projects",
+        welcome_note: "Open to international opportunities",
+        available: "Available for freelance & full-time work",
+        years_experience: "2+",
+        see_projects: "Explore My Projects",
       },
 
       // -----------------------------------------------------------------------
@@ -105,6 +106,11 @@ const resources = {
         rag_document_analysis_desc:
           "Enterprise document-search web app built during my thesis internship at Algérie Télécom. Integrated semantic search with FAISS vector embeddings, reducing query latency by ~50 ms. Automated unstructured-document chunking and vector embedding generation, eliminating manual indexing. RESTful APIs connect the React frontend, Node.js backend, and Python retrieval service for context-aware search across internal knowledge bases.",
 
+
+          apex_news: "Max News DZ",
+          apex_news_desc:
+            "A modern, mobile-first news platform delivering up-to-date news and articles through a dynamic content management system. Built and managed the entire project lifecycle, from architecture and full-stack development to CI/CD and production deployment. Uses MongoDB Atlas to power content storage and management.",
+          
         lan_monitoring: "LAN Monitoring System",
         lan_monitoring_desc:
           "Real-time network-tracking platform built during my internship at SONATRACH – DCRD. Monitors 100+ network devices, reducing manual asset-discovery time by 40%. Live dashboards visualise packet activity, bandwidth utilisation, and device health metrics, enabling proactive anomaly detection before outages. Delivered through structured QA testing and staged corporate deployment.",
@@ -121,10 +127,11 @@ const resources = {
         alphax_desc:
           "Course-management PWA with automated assessment and student-progress tracking. Built for an Algerian education client, covering the full stack from data modelling to responsive UI. Firebase handles real-time sync and authentication.",
 
-        apex_news: "Apex News",
-        apex_news_desc:
-          "Real-time news PWA with dynamic content management and mobile-first delivery. Owned the entire project lifecycle — architecture, development, CI/CD, and production deployment. MongoDB Atlas powers the content backend.",
 
+          max_news: "Max News",
+          max_news_desc:
+            "A modern news platform providing readers with up-to-date news and articles through a responsive, mobile-first experience. Developed a dynamic content management system and handled the complete project lifecycle, including architecture, full-stack development, CI/CD, and production deployment. Supabase powers the platform's database and content management.",
+          
         classroom_management: "Classroom Management System",
         classroom_management_desc:
           "Web application for administrative control, student and teacher attendance tracking, and attendance-rate calculation. Gives educational institutions a responsive interface to monitor and update classroom-related information efficiently.",
@@ -146,119 +153,130 @@ const resources = {
       // Services section
       // -----------------------------------------------------------------------
 
+
       services: {
         subtitle: "What I Offer",
-        title_part1: "Full-Stack",
-        title_part2: "Web Development",
-        title_part3: "Services",
+        title_part1: "Digital",
+        title_part2: "Solutions",
+        title_part3: "That Deliver",
         description:
-          "End‑to‑end solutions — from pixel‑perfect PWAs to enterprise backends and AI‑powered retrieval systems.",
-
-        responsive_design: "Responsive & Mobile‑First PWA Development",
+          "I help startups, businesses, and agencies turn ideas into reliable digital products — from full-stack web applications and AI-powered solutions to secure backend systems and production deployment.",
+      
+        responsive_design: "Business Websites & Web Applications",
         responsive_design_desc:
-          "Build progressive web apps that deliver a native‑like experience on every device, with real‑time dashboards and optimized performance.",
+          "Build modern, responsive websites and progressive web applications that help businesses establish their online presence, engage users, and streamline their operations.",
         responsive_design_techs: [
           "React.js",
           "Next.js",
+          "TypeScript",
           "Tailwind CSS",
-          "HTML5",
-          "CSS3",
-          "Media Queries",
+          "Supabase",
+          "PWA",
         ],
-
-        fullstack_development: "Full‑Stack Application Development",
+      
+        fullstack_development: "Custom Full-Stack Development",
         fullstack_development_desc:
-          "Develop production‑ready web applications and enterprise systems — from authentication and RBAC to live monitoring platforms (like Sonatrach’s LAN tracker) and recruitment MVPs.",
+          "Turn your business requirements into production-ready applications. From user authentication and role-based access control to admin dashboards, recruitment platforms, and custom business systems.",
         fullstack_development_techs: [
           "React.js",
+          "Next.js",
           "Node.js",
-          "Python (FastAPI)",
+          "Express.js",
           "Supabase",
           "PostgreSQL",
-          "MongoDB",
         ],
-
-        ui_ux_implementation: "UI/UX Implementation & Dashboard Design",
+      
+        ui_ux_implementation: "Admin Dashboards & UI Development",
         ui_ux_implementation_desc:
-          "Transform Figma or XD designs into responsive, interactive admin dashboards with data visualisation (packet activity, bandwidth, device health) and smooth animations.",
+          "Transform your ideas or design files into polished, interactive interfaces. Build intuitive admin panels, analytics dashboards, management systems, and data-driven user experiences.",
         ui_ux_implementation_techs: [
           "React.js",
           "Tailwind CSS",
+          "TypeScript",
           "Framer Motion",
           "Charting Libraries",
-          "Figma‑to‑code",
+          "Figma-to-Code",
         ],
-
-        api_backend: "Backend API & RAG‑Powered Services",
+      
+        api_backend: "AI Integration & Backend Development",
         api_backend_desc:
-          "Design secure RESTful APIs (JWT, RBAC) and integrate retrieval‑augmented generation (RAG) pipelines – including FAISS vector indexing and semantic search – for context‑aware document platforms (e.g., Algérie Télécom).",
+          "Build secure APIs and intelligent AI-powered features. Integrate LLMs, document processing, semantic search, and RAG pipelines to turn business data into useful, searchable knowledge.",
         api_backend_techs: [
-          "Node.js (Express)",
-          "Python (FastAPI)",
-          "JWT",
-          "REST",
+          "Node.js",
+          "Python",
+          "FastAPI",
+          "REST APIs",
+          "RAG",
           "FAISS",
+          "LLM Integration",
           "Vector Databases",
-          "Supabase",
         ],
-
-        devops_deployment: "CI/CD, Deployment & Version Control",
+      
+        devops_deployment: "Deployment & Technical Maintenance",
         devops_deployment_desc:
-          "Automate builds, tests, and deployments using GitHub Actions; maintain reliable releases and zero‑downtime updates on Vercel, with Docker containerisation and Git best practices.",
+          "Take applications from development to production. Configure hosting, automate deployment workflows, containerize services, and maintain reliable application releases.",
         devops_deployment_techs: [
           "Git",
           "GitHub",
           "GitHub Actions",
           "Vercel",
           "Docker",
+          "CI/CD",
         ],
       },
-
+      
       // -----------------------------------------------------------------------
       // Education & Experience section
       // -----------------------------------------------------------------------
+
       education_experience: {
-        subtitle: "Career Timeline",
+        subtitle: "My Journey",
         title: "Education & Experience",
         education: "Education",
-        experience: "Experience",
+        experience: "Professional Experience",
         achievements: "Achievements",
-
+      
         // Education entries
+        masters_degree: "M.Sc. Distributed Systems & Networks",
+        masters_details:
+          "Currently pursuing a Master's degree focused on distributed computing, computer networks, and advanced software systems. Expanding expertise in scalable architectures, network technologies, and modern computing infrastructure.",
+      
         bachelors_degree: "B.Sc. Computer Science — University of Guelma",
         bachelors_details:
-          "Graduated 1st in cohort with GPA 15.63/20 (Très Bien). Degree recognised in Germany (H+ in the Anabin database). Awarded Major & 5-Stars Student Excellence Certificates. Thesis: RAG-powered document analytics platform deployed at Algérie Télécom.",
-
+          "Graduated 1st in my cohort with a GPA of 15.63/20 (Très Bien). Awarded academic excellence certificates for outstanding performance. Built a strong foundation in algorithms, software engineering, databases, networking, and computer systems.",
+      
         undergraduate_studies:
           "Computer Science Programme — University of 8 May 1945, Guelma",
         undergraduate_details:
-          "Three-year LMD (Bologna-compatible) Computer Science Licence. Coursework spanned algorithms, networking, databases, software engineering, and HCI. Consistently ranked top of class throughout the programme.",
-
+          "Three-year undergraduate programme in Computer Science. Developed strong foundations in programming, data structures, algorithms, databases, networking, and software development through academic coursework and practical projects.",
+      
         // Experience entries
         sonatrach: "Software Engineering Intern — Sonatrach",
-        sonatrach_description:"Built a real-time LAN monitoring system tracking 100+ network devices across Sonatrach's Technology & Development division (DCRD). Reduced manual asset-discovery time by 40%. Engineered live dashboards visualising packet activity, bandwidth utilisation, and device health — enabling proactive anomaly detection. Delivered through structured QA testing and staged corporate deployment following Sonatrach engineering and security standards.",
-
-        algerie_telecom: "Software Engineering Intern — Algerie Télécom",
-        algerie_telecom_description:"Developed a RAG-powered document analytics platform for internal knowledge bases. Integrated FAISS vector embeddings for semantic search, reducing query latency by ~50 ms. Automated unstructured-document chunking and vector embedding generation, eliminating manual indexing. Designed RESTful APIs connecting the React frontend, Node.js backend, and Python retrieval service for context-aware search.",
-
-        // Used for the 2024 "work" git-log entry — freelance / independent projects phase
-        agriculture_institution: "Independent Projects & Early Freelance",
+        sonatrach_description:
+          "Developed a real-time LAN monitoring system for Sonatrach's Technology & Development division (DCRD). Built interactive dashboards to monitor network devices, packet activity, bandwidth utilisation, and device health. Contributed to improving network visibility and simplifying infrastructure monitoring through a centralised solution.",
+      
+        algerie_telecom: "Software Engineering Intern — Algérie Télécom",
+        algerie_telecom_description:
+          "Developed an AI-powered document analysis platform using Retrieval-Augmented Generation (RAG). Implemented document processing, text chunking, embeddings, and FAISS vector indexing to enable semantic search across internal knowledge bases. Integrated a React frontend, Node.js backend, and Python retrieval service through REST APIs.",
+      
+        agriculture_institution: "Independent Development & Freelance",
         agriculture_description:
-          "Developed a suite of academic and personal full-stack projects — classroom management, course platforms, face-recognition desktop app, and a conference-paper system — building production-ready skills across React, Node.js, Python, and MySQL before transitioning to paid freelance work in 2025.",
-
+          "Started building real-world software projects through independent development and early freelance work. Created web applications, educational platforms, management systems, and desktop applications using React, Node.js, Python, and SQL. Progressively expanded into delivering production-ready solutions for clients.",
+      
         // Achievement entries
         hakathon: "University Hackathon — Computer Science Club",
         hakathon_desc:
-          "Participated in a large-scale hackathon organised by the CS Club at the University of Guelma. Collaborated with peers to prototype and pitch a real-world solution under time pressure, placing among the top finalists.",
-
-        leetcode: "LeetCode — Algorithm Practice",
+          "Collaborated with fellow developers in a university hackathon, working under time constraints to develop and present a practical solution. Strengthened problem-solving, teamwork, and rapid prototyping skills.",
+      
+        leetcode: "LeetCode — Algorithmic Problem Solving",
         leetcode_desc:
-          "Solved 150+ algorithmic problems on LeetCode using Python, strengthening foundations in data structures, dynamic programming, and complexity analysis.",
-
-        flex_box_grid: "CSS Flexbox & Grid Mastery",
+          "Practiced algorithmic problem solving through coding challenges, strengthening knowledge of data structures, algorithms, dynamic programming, and time and space complexity.",
+      
+        flex_box_grid: "Responsive Design & CSS Layouts",
         flex_box_grid_desc:
-          "Completed Flexbox Froggy, Grid Garden, and a set of real-world layout challenges — cementing responsive-design intuition applied directly in production projects.",
+          "Developed practical expertise in modern CSS layouts using Flexbox and Grid. Applied responsive design principles to build consistent, accessible interfaces across desktop and mobile devices.",
       },
+      
 
       // -----------------------------------------------------------------------
       // Testimonials
@@ -271,24 +289,31 @@ const resources = {
         title_part5: "from and",
         title_part6: "Worked",
         title_part7: "under their supervision",
-        subtitle:"Genuine feedback from professors and engineers who mentored me or supervised my work.",
+        subtitle:
+          "Genuine feedback from professors and engineers who mentored me or supervised my work.",
         scroll_hint: "Scroll to read more",
 
         samir_name: "Dr. Hallaci Samir",
-        samir_profession:"Director, AI House — University of Guelma | Deputy Head of IT Dept.",
-        samir_feedback:"I had the pleasure of teaching Ahmed in Data Structures and Algorithms, and later supervising him during his internship. From the classroom to the professional setting, Ahmed has consistently shown remarkable dedication, a strong grasp of core computer science principles, and a genuine passion for learning. He approaches challenges with persistence and maturity, and his growth throughout the internship was impressive. I'm proud of his progress and confident he has a promising future ahead.",
+        samir_profession:
+          "Director, AI House — University of Guelma | Deputy Head of IT Dept.",
+        samir_feedback:
+          "I had the pleasure of teaching Ahmed in Data Structures and Algorithms, and later supervising him during his internship. From the classroom to the professional setting, Ahmed has consistently shown remarkable dedication, a strong grasp of core computer science principles, and a genuine passion for learning. He approaches challenges with persistence and maturity, and his growth throughout the internship was impressive. I'm proud of his progress and confident he has a promising future ahead.",
 
         amani_name: "Ms.Tarfa Amani Assia",
         amani_profession: "English Teacher & CEO — AlphaX",
-        amani_feedback:"I had the pleasure of teaching Ahmed and later working with him as a client. He is dedicated, professional, and always delivers high-quality work. His commitment helped him achieve an IELTS band score of 6.5, and he did an excellent job developing my AlphaX English learning platform. I highly recommend him for any project or role that requires technical expertise, creativity, and a strong work ethic.",
+        amani_feedback:
+          "I had the pleasure of teaching Ahmed and later working with him as a client. He is dedicated, professional, and always delivers high-quality work. His commitment helped him achieve an IELTS band score of 6.5, and he did an excellent job developing my AlphaX English learning platform. I highly recommend him for any project or role that requires technical expertise, creativity, and a strong work ethic.",
 
         abderahmane_name: "Mr. Zerguine Abderahmane",
         abderahmane_profession: "Journalist & CEO — Apex News Dz",
-        abderahmane_feedback:"From our very first conversation, I knew Ahmed was a skilled and professional developer. He was honest, transparent, and delivered a website that exceeded my expectations while offering excellent value for the quality of his work. His dedication, attention to detail, and genuine commitment to my project's success make him someone I highly recommend.",
+        abderahmane_feedback:
+          "From our very first conversation, I knew Ahmed was a skilled and professional developer. He was honest, transparent, and delivered a website that exceeded my expectations while offering excellent value for the quality of his work. His dedication, attention to detail, and genuine commitment to my project's success make him someone I highly recommend.",
 
         rayane_name: "Mr. Merchichi Rayane",
-        rayane_profession:"Software Research & Development Engineer — Sonatrach",
-        rayane_feedback:"During his internship at SONATRACH, Ahmed built an impressive LAN monitoring system using React and Python. His frontend work stood out for its clarity, responsiveness, and user-friendly design. Ahmed's technical skills and professionalism were evident throughout — he quickly became a valuable part of the team.",
+        rayane_profession:
+          "Software Research & Development Engineer — Sonatrach",
+        rayane_feedback:
+          "During his internship at SONATRACH, Ahmed built an impressive LAN monitoring system using React and Python. His frontend work stood out for its clarity, responsiveness, and user-friendly design. Ahmed's technical skills and professionalism were evident throughout — he quickly became a valuable part of the team.",
       },
 
       // -----------------------------------------------------------------------
@@ -343,7 +368,7 @@ const resources = {
         // About Me column
         about_me: "About Me",
         birth_date: "03/08/2005 · 20 yo",
-        location: "Guelma, Algeria",
+        location: "Setif, Algeria",
         profession: "Full-Stack & AI Developer",
         freelancer: "Freelancer — May 2025 – Present",
         student_at: "B.Sc. CS — University of",
