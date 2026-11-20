@@ -19,6 +19,6 @@ export { default as face } from "./face.JPG";
 export {default as massarweb} from "./massar.PNG";
 export {default as alphaxweb} from "./alphax.PNG";
 export {default as apexweb} from "./max-news.png";
-export {default as askyourpdfweb} from "./askyourpdf.png";
+export {default as askyourpdfweb} from "./askyourpdf.PNG";
 
 
