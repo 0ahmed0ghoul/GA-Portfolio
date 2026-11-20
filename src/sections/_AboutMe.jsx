@@ -8,7 +8,7 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { ArrowRight, MapPin } from "lucide-react";
-import { me } from "../assets/images/pictures";
+import { me, meNew } from "../assets/images/pictures";
 
 const INK     = "#0d0c0a";
 const SURFACE = "#161410";
@@ -180,7 +180,7 @@ const _AboutMe = () => {
                 style={{ border: `1px solid ${BORDER}` }}
               >
                 <img
-                  src={me}
+                  src={meNew}
                   alt={t("about.my_picture_alt")}
                   className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
                 />
