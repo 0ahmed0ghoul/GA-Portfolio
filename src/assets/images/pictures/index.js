@@ -3,7 +3,7 @@ import halfme from './me2-half.png'
 import samir from './samirHallaci.jfif'
 import rayane from './rayaneMerchichi.jfif'
 import me from './me.jpg'
-import meNew from './meNew.jpg'
+import meNew from './meNew.png'
 
 import mourad from './mourad.jfif'
 import tarfa from './tarfa.jfif'
