@@ -11,7 +11,7 @@ export { default as techx } from "./techx.JPG";
 export { default as virtaulIr } from "./virtualIr.JPG";
 export { default as xora } from "./xora.JPG";
 export { default as conference } from "./conference.JPG";
-export { default as classroom } from "./classroom.JPG";
+export { default as classroom } from "./classroom.jpg";
 export { default as LANmonitoring } from "./LANmonitoring.JPG";
 export { default as algc } from "./algc.JPG";
 export { default as nike } from "./nike.JPG";
